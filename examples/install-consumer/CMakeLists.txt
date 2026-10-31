@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 4.4)
+project(HibikiPhysicsConsumer LANGUAGES CXX)
+find_package(HibikiPhysics CONFIG REQUIRED)
+add_executable(hibiki_consumer main.cpp)
+target_link_libraries(hibiki_consumer PRIVATE hibiki::physics)
+enable_testing()
+add_test(NAME consumer.version COMMAND hibiki_consumer)

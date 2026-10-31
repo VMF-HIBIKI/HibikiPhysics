@@ -1,0 +1,41 @@
+minimum_prek_version: '0.5.9'
+exclude: '^(\.local/|artifacts/|build/|install/|third_party/|\.venv/)'
+repos:
+  - repo: builtin
+    hooks:
+      - id: check-json
+      - id: check-yaml
+      - id: check-toml
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+  - repo: local
+    hooks:
+      - id: hibiki-hook-environment
+        name: Locked hook environment
+        entry: pwsh -NoProfile -File scripts/environment/Hook.ps1 -Mode environment
+        language: system
+        always_run: true
+        pass_filenames: false
+      - id: hibiki-ruff-check
+        name: Python safe lint fixes
+        entry: pwsh -NoProfile -File scripts/environment/Hook.ps1 -Mode ruff-fix
+        language: system
+        types: [python]
+      - id: hibiki-ruff-format
+        name: Python formatting
+        entry: pwsh -NoProfile -File scripts/environment/Hook.ps1 -Mode ruff-format
+        language: system
+        types: [python]
+      - id: hibiki-clang-format
+        name: C++ formatting
+        entry: pwsh -NoProfile -File scripts/environment/Hook.ps1 -Mode clang-format
+        language: system
+        files: '\.(cpp|h|hpp)$'
+      - id: hibiki-bilingual-docs
+        name: Bilingual document pairs
+        entry: pwsh -NoProfile -File scripts/environment/Hook.ps1 -Mode docs
+        language: system
+        files: '\.md$'

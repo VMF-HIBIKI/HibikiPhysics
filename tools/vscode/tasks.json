@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Windows Debug",
+      "type": "process",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/dev.ps1", "build", "-Preset", "windows-debug"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": "$msCompile",
+      "group": {"kind": "build", "isDefault": true}
+    },
+    {
+      "label": "Test Windows Debug",
+      "type": "process",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/dev.ps1", "test", "-Preset", "windows-debug"],
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": [],
+      "group": "test"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+[
+  {
+    "artifact": "googletest",
+    "archive_sha256": "05ea6c33b0b9668553224144497e017ea8f3f6d52f4fb5386667aff85a422389",
+    "member": "google-googletest-063de7e/LICENSE",
+    "path": "third_party/licenses/googletest/LICENSE.txt",
+    "sha256": "9702de7e4117a8e2b20dafab11ffda58c198aede066406496bef670d40a22138"
+  },
+  {
+    "artifact": "spdlog",
+    "archive_sha256": "2d6e0db3730a2cd847bf3f08f4b8c16d8bf8c95ab65fb34576b96d767dce5fdc",
+    "member": "gabime-spdlog-79524dd/LICENSE",
+    "path": "third_party/licenses/spdlog/LICENSE.txt",
+    "sha256": "d678c20826e1392578508e1c78649a1e3c31bda05ef4388d967dbd654461b140"
+  },
+  {
+    "artifact": "spdlog",
+    "archive_sha256": "2d6e0db3730a2cd847bf3f08f4b8c16d8bf8c95ab65fb34576b96d767dce5fdc",
+    "member": "gabime-spdlog-79524dd/include/spdlog/fmt/bundled/fmt.license.rst",
+    "path": "third_party/licenses/spdlog/fmt.license.rst.txt",
+    "sha256": "07580f2a3b35709ce703d523f447b242f6dfec7582a8c0df102c7fa2849375f8"
+  },
+  {
+    "artifact": "benchmark",
+    "archive_sha256": "052510127fa610b9295759c0d4aaa75bc332725ce9b57485d2ef9f6ef71e45d0",
+    "member": "google-benchmark-a6b4a9f/LICENSE",
+    "path": "third_party/licenses/benchmark/LICENSE.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/COPYING.APACHE",
+    "path": "third_party/licenses/eigen/COPYING.APACHE.txt",
+    "sha256": "03379001a7b12a2ec997a25554247d985270b353c10d5bafee9ac8d6519820b7"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/COPYING.BSD",
+    "path": "third_party/licenses/eigen/COPYING.BSD.txt",
+    "sha256": "51928dce36213c5333ba3172e847d735d4c6e9b7ff2722a326c49067155b82eb"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/COPYING.MINPACK",
+    "path": "third_party/licenses/eigen/COPYING.MINPACK.txt",
+    "sha256": "c87b7f8ee88f6195e91743820c00354833583aef091b72e2d4a49c8e28e798a0"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/COPYING.MPL2",
+    "path": "third_party/licenses/eigen/COPYING.MPL2.txt",
+    "sha256": "66a3107d5ad6a058aab753eaac2047ccb2ed0e39465dd0fe5844da3e300d5172"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/COPYING.README",
+    "path": "third_party/licenses/eigen/COPYING.README.txt",
+    "sha256": "db640ff2bd90c6abd6a4d3fbb351e0ee4d555417cf840492054d1cbb2ea85644"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/LICENSE",
+    "path": "third_party/licenses/eigen/LICENSE.txt",
+    "sha256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/bench/btl/COPYING",
+    "path": "third_party/licenses/eigen/COPYING.txt",
+    "sha256": "b8d0e2bcbf36f6af3cdbf94055ad2ea675d5a19fc623eb0ec82febb2b08e719b"
+  },
+  {
+    "artifact": "eigen",
+    "archive_sha256": "5f6557d1aca6e959a4b955c55f2935261fd30de59c0c79e35bc6d5cbe1de22d1",
+    "member": "eigen-bc3b39870ecb690a623a3f49149a358b95c5781d/unsupported/Eigen/src/LevenbergMarquardt/CopyrightMINPACK.txt",
+    "path": "third_party/licenses/eigen/CopyrightMINPACK.txt.txt",
+    "sha256": "8887036b1039e299ebcc8b95a73ea1538df548393fb8462361c80bea605a4fbe"
+  },
+  {
+    "artifact": "warp-lang-wheel",
+    "archive_sha256": "1769e55746739f2e244a2b412123003c462ec3d977dfb5f420f924a8553d30aa",
+    "member": "warp_lang-1.18.0.dist-info/licenses/LICENSE.md",
+    "path": "third_party/licenses/warp-lang-wheel/LICENSE.md.txt",
+    "sha256": "47107323a174bfffeaffdc5b778152c3f9bdf66b2ecec4229542480d5937bcf9"
+  },
+  {
+    "artifact": "pytest-wheel",
+    "archive_sha256": "07acdcf88ec174f907dc01af70bf52d49b014bbab03faeeade31c96b18c2e588",
+    "member": "pytest-9.2.0.dist-info/licenses/LICENSE",
+    "path": "third_party/licenses/pytest-wheel/LICENSE.txt",
+    "sha256": "ca836a5f9ecca3b2f350230faa20a48fb8b145653b5568d784862df864706b9b"
+  },
+  {
+    "artifact": "ruff-wheel",
+    "archive_sha256": "56b8ffb3f3b3cbccb8b76b71b38261b7ed982ef5d20f5b447b1b61a7f4949b24",
+    "member": "ruff-0.17.3.dist-info/licenses/LICENSE",
+    "path": "third_party/licenses/ruff-wheel/LICENSE.txt",
+    "sha256": "2597d854122b77ddc71971564ca2350a37608575ce324adc5650a2b2051c8f18"
+  },
+  {
+    "artifact": "basedpyright-wheel",
+    "archive_sha256": "3a53aeb93a86675ded0e12bc27bd8476c1742356de07ad8cab67bff18110c690",
+    "member": "basedpyright-1.40.2.dist-info/licenses/LICENSE.txt",
+    "path": "third_party/licenses/basedpyright-wheel/LICENSE.txt.txt",
+    "sha256": "f7c936bc43f132b08497ac952e9376cbc102e5eedb4bf6ec902ea8442bd9c68d"
+  },
+  {
+    "artifact": "basedpyright-wheel",
+    "archive_sha256": "3a53aeb93a86675ded0e12bc27bd8476c1742356de07ad8cab67bff18110c690",
+    "member": "basedpyright/dist/typeshed-fallback/LICENSE",
+    "path": "third_party/licenses/basedpyright-wheel/LICENSE.txt",
+    "sha256": "295f8538c94ae5c3043301cf7cff1c852dab6a786a8ddee471e061b40d5ecabe"
+  },
+  {
+    "artifact": "debugpy-wheel",
+    "archive_sha256": "371a4ba4a5975eb958393903f3254cf983da7b1c7c178b3f987ee427f42515e3",
+    "member": "debugpy-1.8.22.dist-info/licenses/LICENSE",
+    "path": "third_party/licenses/debugpy-wheel/LICENSE.txt",
+    "sha256": "649844f60da138e54b9bcc13338c62c5f97be8612cb6249ac10f84bbb97ffc88"
+  },
+  {
+    "artifact": "prek-wheel",
+    "archive_sha256": "b8fe1a01273203932b46318ebf304304838b6b73ff99b89531f42c86b63b86d5",
+    "member": "prek-0.5.9.dist-info/licenses/LICENSE",
+    "path": "third_party/licenses/prek-wheel/LICENSE.txt",
+    "sha256": "08215c44c901c7edf78c3a2b1e02558b0646a3ffa8161be0c112acfd3fb0c100"
+  },
+  {
+    "artifact": "prek-wheel",
+    "archive_sha256": "b8fe1a01273203932b46318ebf304304838b6b73ff99b89531f42c86b63b86d5",
+    "member": "prek-0.5.9.dist-info/licenses/licenses/LICENSE.identify.txt",
+    "path": "third_party/licenses/prek-wheel/LICENSE.identify.txt.txt",
+    "sha256": "edbc2ad3b7084fac873e1b1b450fd370d914eb97f7f31263b4ff65f47dc10c43"
+  },
+  {
+    "artifact": "prek-wheel",
+    "archive_sha256": "b8fe1a01273203932b46318ebf304304838b6b73ff99b89531f42c86b63b86d5",
+    "member": "prek-0.5.9.dist-info/licenses/licenses/LICENSE.pre-commit.txt",
+    "path": "third_party/licenses/prek-wheel/LICENSE.pre-commit.txt.txt",
+    "sha256": "ea2ca27cba7cc35822d95a46d59bcd3cc88e196592e6390d1949a359ffc990e8"
+  }
+]

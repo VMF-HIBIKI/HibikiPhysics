@@ -1,0 +1,41 @@
+name: "功能或工程任务（简体中文）"
+description: 范围明确的能力、基础设施变更或文档任务。
+title: "feat: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Issue 与对应实现 PR 使用完全相同的标题，格式为 `type: 具体内容`。类别包括 feat、fix、refactor、perf、test、docs、build、ci 和 chore，类别与最终范围一致。
+  - type: textarea
+    id: objective
+    attributes:
+      label: 问题与目标
+      description: 当前情况与预期结果构成任务背景。
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 范围与后续工作
+      description: 范围说明交付物、边界和相关后续工作。
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 验收标准
+      description: 可观察的标准定义完成状态。
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: 验证方法
+      description: 测试、场景、测量或文档检查提供完成证据。
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: 依赖与风险
+      description: 相关工作、决策和待确认事项为实施规划提供依据。

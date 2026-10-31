@@ -1,0 +1,43 @@
+# Local build trees and generated packages
+/build/
+/out/
+/install/
+/dist/
+/CMakeUserPresets.json
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+
+# Local editor and operating-system state
+/.vs/
+/.idea/
+/.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+*.user
+*.suo
+
+# Python and experiment environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+/.cache/
+
+# Generated verification outputs
+/artifacts/
+/benchmark-results/
+/coverage/
+*.profraw
+*.profdata
+
+# Local credentials and environment configuration
+.env
+.env.*
+!.env.example
+
+# Local project notes
+/.local/

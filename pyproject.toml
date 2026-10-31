@@ -1,0 +1,39 @@
+[project]
+name = "hibiki-physics-dev"
+version = "0.0.0"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest==9.2.0",
+    "ruff==0.17.3",
+    "basedpyright==1.40.2",
+    "debugpy==1.8.22",
+    "prek==0.5.9",
+]
+warp = ["warp-lang==1.18.0"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+extend-exclude = [".local", "artifacts", "build", "install", "third_party", ".venv"]
+
+[tool.ruff.lint]
+select = ["I", "E", "F", "W"]
+ignore = ["E111", "E114", "E117", "E741"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.basedpyright]
+pythonVersion = "3.12"
+pythonPlatform = "Windows"
+typeCheckingMode = "standard"
+include = ["scripts/environment", "tests/toolchain", "tests/environment"]
+exclude = [".local", "artifacts", "build", "install", "third_party", ".venv"]
+venvPath = "."
+venv = ".venv"

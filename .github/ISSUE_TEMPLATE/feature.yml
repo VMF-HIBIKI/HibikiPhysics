@@ -1,0 +1,41 @@
+name: "Feature or engineering task (English)"
+description: A scoped capability, infrastructure change, or documentation task.
+title: "feat: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The issue and its implementation PR share the exact title `type: description`. Categories are feat, fix, refactor, perf, test, docs, build, ci and chore. The category reflects the final scope.
+  - type: textarea
+    id: objective
+    attributes:
+      label: Problem and objective
+      description: The current situation and intended outcome establish the task context.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and follow-up work
+      description: The scope identifies deliverables, boundaries, and related future work.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Observable criteria define completion.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification approach
+      description: Tests, scenes, measurements, or document checks provide completion evidence.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and risks
+      description: Related work, decisions, and uncertainties inform implementation planning.

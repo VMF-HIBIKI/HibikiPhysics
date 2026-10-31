@@ -1,0 +1,1607 @@
+{
+  "lock_sha256": "4477888a01dd734de1426b8635c47213cea0603b58a1e1ef03ae6f387e0613ad",
+  "notices": [
+    {
+      "package": "colorama",
+      "version": "0.4.6",
+      "wheel_url": "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl",
+      "wheel_sha256": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+      "member": "colorama-0.4.6.dist-info/licenses/LICENSE.txt",
+      "path": "third_party/licenses/python-transitive/colorama/cac35c02686e5d04a5a7140bfb3b36e73aed496656e891102e428886d7930318.txt",
+      "sha256": "cac35c02686e5d04a5a7140bfb3b36e73aed496656e891102e428886d7930318"
+    },
+    {
+      "package": "iniconfig",
+      "version": "2.3.1",
+      "wheel_url": "https://files.pythonhosted.org/packages/56/43/4ca9e49d27a1fcf6bece6f6aec0ea46bb9112489b93d4b688fb415457bdb/iniconfig-2.3.1-py3-none-any.whl",
+      "wheel_sha256": "9121e2c1fdb355232495be3194c8dfe87ccc2d5dee45947b78e68f499790d7a7",
+      "member": "iniconfig-2.3.1.dist-info/licenses/LICENSE",
+      "path": "third_party/licenses/python-transitive/iniconfig/3409fa91f7ace557894632676656e32264fe5ef7581535725dc9a23774551bd4.txt",
+      "sha256": "3409fa91f7ace557894632676656e32264fe5ef7581535725dc9a23774551bd4"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/corepack/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/30a7b8ba5c4483d97d6123f5634da2362d578fb81f42ed6e1dfbb84fb1cd8fe4.txt",
+      "sha256": "30a7b8ba5c4483d97d6123f5634da2362d578fb81f42ed6e1dfbb84fb1cd8fe4"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/7610d223851f421d315df5e77974f1c68a04b97e02060e5bbbcf13d95e3ca257.txt",
+      "sha256": "7610d223851f421d315df5e77974f1c68a04b97e02060e5bbbcf13d95e3ca257"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@gar/promise-retry/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/1c66b5311fc6328ab70616d2cf8e20a8e0a787f534831cf8a311b20098b617a5.txt",
+      "sha256": "1c66b5311fc6328ab70616d2cf8e20a8e0a787f534831cf8a311b20098b617a5"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@isaacs/fs-minipass/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@isaacs/string-locale-compare/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8.txt",
+      "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/arborist/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21.txt",
+      "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/arborist/bin/license.js",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/3c7c2b07a2591835cb6c60687a23e425540565d9ccb65fef17478c6073bf6841.txt",
+      "sha256": "3c7c2b07a2591835cb6c60687a23e425540565d9ccb65fef17478c6073bf6841"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/config/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3.txt",
+      "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/fs/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21.txt",
+      "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/fs/lib/cp/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/1e76029602ae9b21cc4e612db2496d92febed882ba13ba745f8b3309e85f9d39.txt",
+      "sha256": "1e76029602ae9b21cc4e612db2496d92febed882ba13ba745f8b3309e85f9d39"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/git/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/565acf764f4583abe4cf4b02128f01b5d4d1b4c62c253e92df7ed6a8a8ad406b.txt",
+      "sha256": "565acf764f4583abe4cf4b02128f01b5d4d1b4c62c253e92df7ed6a8a8ad406b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/installed-package-contents/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3.txt",
+      "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/map-workspaces/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21.txt",
+      "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/metavuln-calculator/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3.txt",
+      "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/name-from-folder/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/802fae69bfe8fcb201f15b6a12505580028158679c3ed3254df5ea8f0912aed4.txt",
+      "sha256": "802fae69bfe8fcb201f15b6a12505580028158679c3ed3254df5ea8f0912aed4"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/node-gyp/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8da13c785af46eb3d0bf2ce4c34bdf191b8c57bf43e410e9359d5b5eab5f4b0f.txt",
+      "sha256": "8da13c785af46eb3d0bf2ce4c34bdf191b8c57bf43e410e9359d5b5eab5f4b0f"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/package-json/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/65675229fc81818c9490a1942f361f7ef31cd525bef9111e62a6c84e9bd4769d.txt",
+      "sha256": "65675229fc81818c9490a1942f361f7ef31cd525bef9111e62a6c84e9bd4769d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/package-json/lib/license.js",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/bc4c06b48b593b8b63f3e1557f52bdd37ebf40295033cfdb03d420d181809c11.txt",
+      "sha256": "bc4c06b48b593b8b63f3e1557f52bdd37ebf40295033cfdb03d420d181809c11"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/promise-spawn/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/565acf764f4583abe4cf4b02128f01b5d4d1b4c62c253e92df7ed6a8a8ad406b.txt",
+      "sha256": "565acf764f4583abe4cf4b02128f01b5d4d1b4c62c253e92df7ed6a8a8ad406b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/query/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21.txt",
+      "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/redact/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/d0b7cddf14a2005e05b397a950b9f69e1de412b8c6749e5b5d70610fb119e9ee.txt",
+      "sha256": "d0b7cddf14a2005e05b397a950b9f69e1de412b8c6749e5b5d70610fb119e9ee"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@npmcli/run-script/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3.txt",
+      "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@sigstore/bundle/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0.txt",
+      "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@sigstore/core/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0.txt",
+      "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@sigstore/protobuf-specs/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0.txt",
+      "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@sigstore/sign/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0.txt",
+      "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@sigstore/tuf/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0.txt",
+      "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@tufjs/canonical-json/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10.txt",
+      "sha256": "564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/@tufjs/models/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10.txt",
+      "sha256": "564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/abbrev/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/9e0d5c7989f7e9f07d7c4b158aceff270f235eb7464ace41c5e7b200834a43e0.txt",
+      "sha256": "9e0d5c7989f7e9f07d7c4b158aceff270f235eb7464ace41c5e7b200834a43e0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/agent-base/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a.txt",
+      "sha256": "8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/aproba/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/0cef05dfff8b6aa7f35596984f5709f0d17c2582924a751efa471a76de7cdc11.txt",
+      "sha256": "0cef05dfff8b6aa7f35596984f5709f0d17c2582924a751efa471a76de7cdc11"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/archy/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b.txt",
+      "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/balanced-match/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/d408f38ffa3355c5faec517153295338892eb0f1ea43f57874bb23c6075979b5.txt",
+      "sha256": "d408f38ffa3355c5faec517153295338892eb0f1ea43f57874bb23c6075979b5"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/bin-links/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3.txt",
+      "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/binary-extensions/license",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/96f0820026bd6dadc4af99c6dba7111d2e0190c092c376a746c13863e151d072.txt",
+      "sha256": "96f0820026bd6dadc4af99c6dba7111d2e0190c092c376a746c13863e151d072"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/brace-expansion/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/9c63a23124d68cd30cd316a94a1a0bca34f032786df6df69fc4b5f136bac8d2e.txt",
+      "sha256": "9c63a23124d68cd30cd316a94a1a0bca34f032786df6df69fc4b5f136bac8d2e"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/cacache/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d.txt",
+      "sha256": "720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/chalk/license",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/chownr/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09.txt",
+      "sha256": "a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/ci-info/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/f58943cb354fb2707fea2f7b26b04e6014ddb56835cdfd414c9d2c6c59165b64.txt",
+      "sha256": "f58943cb354fb2707fea2f7b26b04e6014ddb56835cdfd414c9d2c6c59165b64"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/cidr-regex/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/23e60503dc06abf04b9e535e17797b4e0f9224e6c5abf9207317d5a67c88c743.txt",
+      "sha256": "23e60503dc06abf04b9e535e17797b4e0f9224e6c5abf9207317d5a67c88c743"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/cmd-shim/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475.txt",
+      "sha256": "ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/common-ancestor-path/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004.txt",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/cssesc/LICENSE-MIT.txt",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/483acb265f182907d1caf6cff9c16c96f31325ed23792832cc5d8b12d5f88c8a.txt",
+      "sha256": "483acb265f182907d1caf6cff9c16c96f31325ed23792832cc5d8b12d5f88c8a"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/debug/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/3a61c6c96caf5c1d9b623fb9b04c822b783dfcb78aa7e49c76a3f643e6ed7f95.txt",
+      "sha256": "3a61c6c96caf5c1d9b623fb9b04c822b783dfcb78aa7e49c76a3f643e6ed7f95"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/diff/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/eda81a415869e67809f6a9f3fd6056062cb83a462118e07eec5e92b2e0c40ce9.txt",
+      "sha256": "eda81a415869e67809f6a9f3fd6056062cb83a462118e07eec5e92b2e0c40ce9"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/env-paths/license",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0.txt",
+      "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/exponential-backoff/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/f5afc95c69e116ea6b1755f91a8763f53eadb78b4f1582a08d2d18586a03a117.txt",
+      "sha256": "f5afc95c69e116ea6b1755f91a8763f53eadb78b4f1582a08d2d18586a03a117"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/fastest-levenshtein/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/b8baf91be313643f3e87a01da77704b68e12795184a62e51e537a5a43c2932f3.txt",
+      "sha256": "b8baf91be313643f3e87a01da77704b68e12795184a62e51e537a5a43c2932f3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/fs-minipass/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/glob/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09.txt",
+      "sha256": "a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/graceful-fs/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/f65c5d9f22a317b2a10803bd1868461ce6499c2ed7217bc80c0cc772a748789c.txt",
+      "sha256": "f65c5d9f22a317b2a10803bd1868461ce6499c2ed7217bc80c0cc772a748789c"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/hosted-git-info/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/c1476ec53119cd4c8370f91f5152ac76312a29b4fae2d49b5e0e0970fe0fa5ee.txt",
+      "sha256": "c1476ec53119cd4c8370f91f5152ac76312a29b4fae2d49b5e0e0970fe0fa5ee"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/http-cache-semantics/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ab868ad5a2ef5068560d9cd3b2180ec63c140bb4c5cae1ba779d300a0ac74fa3.txt",
+      "sha256": "ab868ad5a2ef5068560d9cd3b2180ec63c140bb4c5cae1ba779d300a0ac74fa3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/http-proxy-agent/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/71368fd0f5b4129191e9afcd1e1ef2dc89a9090d3e4d80bbab92dafd032b3bef.txt",
+      "sha256": "71368fd0f5b4129191e9afcd1e1ef2dc89a9090d3e4d80bbab92dafd032b3bef"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/https-proxy-agent/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a.txt",
+      "sha256": "8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/iconv-lite/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ac779f7314c74f232ef847ea86e714abe25cf6eeb5cc97b69451b74e2af6492d.txt",
+      "sha256": "ac779f7314c74f232ef847ea86e714abe25cf6eeb5cc97b69451b74e2af6492d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/ignore-walk/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/ini/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/init-package-json/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/7f75bb21103e77b7acfcf88a6ad0286741a18b5d13c4326160346e8cf7e356ad.txt",
+      "sha256": "7f75bb21103e77b7acfcf88a6ad0286741a18b5d13c4326160346e8cf7e356ad"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/ip-address/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/f8d791359a50cbcac82c29cb7b0b1b889b28be76fdd35b8ee33f0f7c8704702a.txt",
+      "sha256": "f8d791359a50cbcac82c29cb7b0b1b889b28be76fdd35b8ee33f0f7c8704702a"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/is-cidr/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/23e60503dc06abf04b9e535e17797b4e0f9224e6c5abf9207317d5a67c88c743.txt",
+      "sha256": "23e60503dc06abf04b9e535e17797b4e0f9224e6c5abf9207317d5a67c88c743"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/isexe/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004.txt",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/json-parse-even-better-errors/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/50627796eb4236cd05674e71d090e594447995225b7d94cd59e57c25fa3a0217.txt",
+      "sha256": "50627796eb4236cd05674e71d090e594447995225b7d94cd59e57c25fa3a0217"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/json-stringify-nice/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/jsonparse/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ed251dc3a48522399fffe95fe04d94fbcadcd9edd0e7689f3b71cf73403a6138.txt",
+      "sha256": "ed251dc3a48522399fffe95fe04d94fbcadcd9edd0e7689f3b71cf73403a6138"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/just-diff-apply/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ebb30d70f7ebd918f223ce6ed7621fa4cef3ec2d59d6707c23868b01def28ce2.txt",
+      "sha256": "ebb30d70f7ebd918f223ce6ed7621fa4cef3ec2d59d6707c23868b01def28ce2"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/just-diff/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ebb30d70f7ebd918f223ce6ed7621fa4cef3ec2d59d6707c23868b01def28ce2.txt",
+      "sha256": "ebb30d70f7ebd918f223ce6ed7621fa4cef3ec2d59d6707c23868b01def28ce2"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmaccess/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d.txt",
+      "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmdiff/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/7967f87257c7d5f0ef29012d472a8b99a0fb1c5202b6d861a2c81671329a2ee4.txt",
+      "sha256": "7967f87257c7d5f0ef29012d472a8b99a0fb1c5202b6d861a2c81671329a2ee4"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmexec/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/7967f87257c7d5f0ef29012d472a8b99a0fb1c5202b6d861a2c81671329a2ee4.txt",
+      "sha256": "7967f87257c7d5f0ef29012d472a8b99a0fb1c5202b6d861a2c81671329a2ee4"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmfund/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/9dd1bc5666fd1e32f086518046532e993f5307749327aff37cecf98355f2b9a0.txt",
+      "sha256": "9dd1bc5666fd1e32f086518046532e993f5307749327aff37cecf98355f2b9a0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmorg/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d.txt",
+      "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmpack/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d.txt",
+      "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmpublish/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d.txt",
+      "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmsearch/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d.txt",
+      "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmteam/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d.txt",
+      "sha256": "77d72758faff2d3a086b1c77f66f4dcfa63a1ee1a9bab5df4ab3c2e8f3eb646d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/libnpmversion/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8.txt",
+      "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/lru-cache/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004.txt",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/make-fetch-happen/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/a806e21000ee60cfd64a6f1416f29c7552b4834701974e86c0156f99c0cdd806.txt",
+      "sha256": "a806e21000ee60cfd64a6f1416f29c7552b4834701974e86c0156f99c0cdd806"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minimatch/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901.txt",
+      "sha256": "2c7c5d22ed5a8ee968c64757710979afcd77438c48b4a265b94e615babd8a901"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass-collect/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/b630651f34d0e0284ea940601bbe0a58f306ad7e9819e351d9dfab812f8d0f38.txt",
+      "sha256": "b630651f34d0e0284ea940601bbe0a58f306ad7e9819e351d9dfab812f8d0f38"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass-fetch/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/1dedee6f84f5875ce4dc398d4d767274eb952a43cfd510a6ada856b2ed347472.txt",
+      "sha256": "1dedee6f84f5875ce4dc398d4d767274eb952a43cfd510a6ada856b2ed347472"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass-flush/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004.txt",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass-pipeline/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass-pipeline/node_modules/minipass/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/a5a110eb524bf3217958e405b5e3411277e915a2f5902c330348877000337e53.txt",
+      "sha256": "a5a110eb524bf3217958e405b5e3411277e915a2f5902c330348877000337e53"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass-pipeline/node_modules/yallist/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass-sized/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minipass/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004.txt",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/minizlib/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/df05697a04b8997c79d423930534e59cc18828f6e22d0c8c2d62fcbea1c4f50b.txt",
+      "sha256": "df05697a04b8997c79d423930534e59cc18828f6e22d0c8c2d62fcbea1c4f50b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/ms/license.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/1662fae9b5314d11cf51284e2dcd1f006a354f7343f08712a730fcff9a359801.txt",
+      "sha256": "1662fae9b5314d11cf51284e2dcd1f006a354f7343f08712a730fcff9a359801"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/mute-stream/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/negotiator/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b.txt",
+      "sha256": "553d4d20029a24e315b428a1a54a9e109eaa340f2e958a4f50a92362c2c4070b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/node-gyp/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/662a1b0115251cfb29c6aed0f221f8847bc49c6365d1c53a62c9f4bccc2489c3.txt",
+      "sha256": "662a1b0115251cfb29c6aed0f221f8847bc49c6365d1c53a62c9f4bccc2489c3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/node-gyp/gyp/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ca90abb6ed71de0774461ef9f928de33e748b617aeb79f9e52415cf08d69230e.txt",
+      "sha256": "ca90abb6ed71de0774461ef9f928de33e748b617aeb79f9e52415cf08d69230e"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48.txt",
+      "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.APACHE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594.txt",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.BSD",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5.txt",
+      "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/nopt/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-audit-report/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d.txt",
+      "sha256": "720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-bundled/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475.txt",
+      "sha256": "ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-install-checks/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/f674630c4d3e668dabac6d955fb5f74c75b4a63a707ac93a8833b74bdc57221e.txt",
+      "sha256": "f674630c4d3e668dabac6d955fb5f74c75b4a63a707ac93a8833b74bdc57221e"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-normalize-package-bin/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3.txt",
+      "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-package-arg/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3.txt",
+      "sha256": "898c2bcff663681498ad1ca8235d45b6e70b10cdf1f869a5b5e69f6e46efedd3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-packlist/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-pick-manifest/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d.txt",
+      "sha256": "720836c9bdad386485a492ab41fe08007ecf85ca278ddd8f9333494dcac4949d"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-profile/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21.txt",
+      "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-registry-fetch/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21.txt",
+      "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/npm-user-validate/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8b8404b77ea2a20e045fbad73de1661091a852bfe1f4997e0b646c688f3d18e4.txt",
+      "sha256": "8b8404b77ea2a20e045fbad73de1661091a852bfe1f4997e0b646c688f3d18e4"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/p-map/license",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/pacote/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/36ec394cd0f976603cfec687c19175a703c1c0d9db717a76915391e756522c8e.txt",
+      "sha256": "36ec394cd0f976603cfec687c19175a703c1c0d9db717a76915391e756522c8e"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/parse-conflict-json/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21.txt",
+      "sha256": "27d998b503b18cdb16c49e93da04069a99ba8a1d7e18d67146de8e242f9a6d21"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/path-scurry/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004.txt",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/postcss-selector-parser/LICENSE-MIT",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/2998094b38f7ace25f141fb36f334d8338f65a1812978d618b1161f4d77ae10e.txt",
+      "sha256": "2998094b38f7ace25f141fb36f334d8338f65a1812978d618b1161f4d77ae10e"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/proc-log/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/dc32a0dee275e0a9aeffbc974dbf4899a30dcdc2e5ffa8934aecb69261065864.txt",
+      "sha256": "dc32a0dee275e0a9aeffbc974dbf4899a30dcdc2e5ffa8934aecb69261065864"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/proggy/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/dc32a0dee275e0a9aeffbc974dbf4899a30dcdc2e5ffa8934aecb69261065864.txt",
+      "sha256": "dc32a0dee275e0a9aeffbc974dbf4899a30dcdc2e5ffa8934aecb69261065864"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/promise-all-reject-late/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8.txt",
+      "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/promise-call-limit/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8.txt",
+      "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/promzard/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8.txt",
+      "sha256": "05dc4d785ac3a488676d3ed10e901b75ad89dafcc63f8e66610fd4a39cc5c7e8"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/qrcode-terminal/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/b3c7a2fadb2515b8106eae58439a4b9c0581a4eaa88d6a265701f8d4dd7dadb8.txt",
+      "sha256": "b3c7a2fadb2515b8106eae58439a4b9c0581a4eaa88d6a265701f8d4dd7dadb8"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/read-cmd-shim/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/0cef05dfff8b6aa7f35596984f5709f0d17c2582924a751efa471a76de7cdc11.txt",
+      "sha256": "0cef05dfff8b6aa7f35596984f5709f0d17c2582924a751efa471a76de7cdc11"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/read/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/safer-buffer/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4bc935e71be198c67ddf3c2b5fddb195f6edc182bfc155a96a6db61b44b494b9.txt",
+      "sha256": "4bc935e71be198c67ddf3c2b5fddb195f6edc182bfc155a96a6db61b44b494b9"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/semver/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/signal-exit/LICENSE.txt",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/b173e19b9a78df305577ace0e52ef45a4bcc915ea28b47b256dc3b68dcb1f7e7.txt",
+      "sha256": "b173e19b9a78df305577ace0e52ef45a4bcc915ea28b47b256dc3b68dcb1f7e7"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/sigstore/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0.txt",
+      "sha256": "364a130d2ca340bd56eb1e6d045fc6929bb0f9d0aa018f2c1949b29517e1cdd0"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/smart-buffer/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/c46e2c333e1c9e6fcfd130cf91b8e54bf67b60fabbc04996f7e199b990353ff3.txt",
+      "sha256": "c46e2c333e1c9e6fcfd130cf91b8e54bf67b60fabbc04996f7e199b990353ff3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/socks-proxy-agent/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a.txt",
+      "sha256": "8d8c55319c7729d57be811c747452636688d54f19701ee0752b6b15ad3771d9a"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/socks/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4f4f28866154c8d758241a64296e8790d45d7d912ff7b029930778c06d8f2a72.txt",
+      "sha256": "4f4f28866154c8d758241a64296e8790d45d7d912ff7b029930778c06d8f2a72"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/spdx-expression-parse/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/7edb57f7065309027de249642341292a5b21410d5773cc55bba73ff9cf01060e.txt",
+      "sha256": "7edb57f7065309027de249642341292a5b21410d5773cc55bba73ff9cf01060e"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/ssri/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/3749709146345fa15546aaba4e3ab1b3b92a4d930077b5bc32d90815cb63afaf.txt",
+      "sha256": "3749709146345fa15546aaba4e3ab1b3b92a4d930077b5bc32d90815cb63afaf"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/supports-color/license",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3.txt",
+      "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/tar/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004.txt",
+      "sha256": "8a1af140fdfbf5afd3df27f7e662f989c5b963a300020dfafce42033cae9e004"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/text-table/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b.txt",
+      "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/tiny-relative-date/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/b219efd4921cb32913a471269807d931b4973190d48269bedcfda6205c526100.txt",
+      "sha256": "b219efd4921cb32913a471269807d931b4973190d48269bedcfda6205c526100"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/tinyglobby/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/22c68811e174cbbfb3813d4135918df4f540959c14d872e601d9abe83d3cde8f.txt",
+      "sha256": "22c68811e174cbbfb3813d4135918df4f540959c14d872e601d9abe83d3cde8f"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/tinyglobby/node_modules/fdir/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/9a39f2aadab11a3697edd668ff2d8ad885b649737b7ab4d3bf12b34e5ada0c86.txt",
+      "sha256": "9a39f2aadab11a3697edd668ff2d8ad885b649737b7ab4d3bf12b34e5ada0c86"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/tinyglobby/node_modules/picomatch/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/d0cd141b0c322fded5dfad1d4645bb2fedfc05b7321fe1009469638190d59ef9.txt",
+      "sha256": "d0cd141b0c322fded5dfad1d4645bb2fedfc05b7321fe1009469638190d59ef9"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/treeverse/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475.txt",
+      "sha256": "ec361617c0473d39347b020eaa6dceedaebab43879fa1cd8b8f0f97a8e80a475"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/tuf-js/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10.txt",
+      "sha256": "564bcb001d6e131452a8e9fba0f0ccc59e8b881f84ce3e46e319a5a33e191e10"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/undici/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27.txt",
+      "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/undici/lib/web/fetch/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88.txt",
+      "sha256": "a21d6c8d3fc631198b97e57584697f7f9c37805c71c6cf9a12e4442b40394b88"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/util-deprecate/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/0154425673db15cdfa80ecba2c9b1f1a867f7197a006764712849bfc3a93cbb7.txt",
+      "sha256": "0154425673db15cdfa80ecba2c9b1f1a867f7197a006764712849bfc3a93cbb7"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/validate-npm-package-name/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/f3e1645267f7dd77ee6545283cc1766e5883e8fb3b5088fe2cfb995defbb3dde.txt",
+      "sha256": "f3e1645267f7dd77ee6545283cc1766e5883e8fb3b5088fe2cfb995defbb3dde"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/walk-up-path/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/825dacf686e3d026be4a5b3e4efb8ddd67a8676f9e96085a53cfa045a5bd0509.txt",
+      "sha256": "825dacf686e3d026be4a5b3e4efb8ddd67a8676f9e96085a53cfa045a5bd0509"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/which/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b.txt",
+      "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/write-file-atomic/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/ff75aaa5aaf56005eeea7723b287f9df3dd45b33b310a7eb347d3ab28ea26593.txt",
+      "sha256": "ff75aaa5aaf56005eeea7723b287f9df3dd45b33b310a7eb347d3ab28ea26593"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel/lib/node_modules/npm/node_modules/yallist/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09.txt",
+      "sha256": "a49c9ba464796f65b59fca3f1e6ca40912df1e859f575383223f7ec6c5baae09"
+    },
+    {
+      "package": "nodejs-wheel-binaries",
+      "version": "24.19.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/88/d1/e3be8fa327a795bcaf7a19cd84299e338a7bce32ff0665fdce9cfa22573c/nodejs_wheel_binaries-24.19.0-py2.py3-none-win_amd64.whl",
+      "wheel_sha256": "67e3abeb9c3830cae8c8487ae8a2af7cc27dfa75af06145cee5ca7d1857c81bd",
+      "member": "nodejs_wheel_binaries-24.19.0.dist-info/licenses/LICENSE",
+      "path": "third_party/licenses/python-transitive/nodejs-wheel-binaries/9b94afa8c5f1235f08e8d61a5a07fd198dbb4e300878a65fad8621b0a80f710b.txt",
+      "sha256": "9b94afa8c5f1235f08e8d61a5a07fd198dbb4e300878a65fad8621b0a80f710b"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/LICENSE.txt",
+      "path": "third_party/licenses/python-transitive/numpy/a804dff0ead9fadc5293456410bcbfc32bf024be9c4513459663fb7b442d2341.txt",
+      "sha256": "a804dff0ead9fadc5293456410bcbfc32bf024be9c4513459663fb7b442d2341"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+      "path": "third_party/licenses/python-transitive/numpy/d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150.txt",
+      "sha256": "d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+      "path": "third_party/licenses/python-transitive/numpy/aea41976c720f91bd19725c16916a1ace40eb1ea42620d340e587a5de4bbcea0.txt",
+      "sha256": "aea41976c720f91bd19725c16916a1ace40eb1ea42620d340e587a5de4bbcea0"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+      "path": "third_party/licenses/python-transitive/numpy/d208152e2777ffd0126eacc1bd21c0320d69e4e6b622d21a2a12a47e8ef73763.txt",
+      "sha256": "d208152e2777ffd0126eacc1bd21c0320d69e4e6b622d21a2a12a47e8ef73763"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/multiarray/dragon4_LICENSE.txt",
+      "path": "third_party/licenses/python-transitive/numpy/b0fd592d4ead563148e3977e7b589169d46a5ef2ff133c755a81af880a3fc919.txt",
+      "sha256": "b0fd592d4ead563148e3977e7b589169d46a5ef2ff133c755a81af880a3fc919"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/a732977853530066790c42817087f4829b518dd98d340c916acbfd227e39d3cb.txt",
+      "sha256": "a732977853530066790c42817087f4829b518dd98d340c916acbfd227e39d3cb"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+      "path": "third_party/licenses/python-transitive/numpy/585483905b13d4b42f800c55ba99e89d6e2e33ccd5f503e201c07531d148ff41.txt",
+      "sha256": "585483905b13d4b42f800c55ba99e89d6e2e33ccd5f503e201c07531d148ff41"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/8db000e158c162e7249787852d8c69764706502ccee725c06641b31c1e95c8af.txt",
+      "sha256": "8db000e158c162e7249787852d8c69764706502ccee725c06641b31c1e95c8af"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt",
+      "path": "third_party/licenses/python-transitive/numpy/19060ef465e1797d682ee0fc3081bd25ab1395e995e43d25c9d13c95d9a3cd6b.txt",
+      "sha256": "19060ef465e1797d682ee0fc3081bd25ab1395e995e43d25c9d13c95d9a3cd6b"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/ma/LICENSE",
+      "path": "third_party/licenses/python-transitive/numpy/d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7.txt",
+      "sha256": "d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/random/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a.txt",
+      "sha256": "b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/cf5619f25b112d5ce7c896efffc8e610bcb345dfadcc19f2c1460aa48fff2c9e.txt",
+      "sha256": "cf5619f25b112d5ce7c896efffc8e610bcb345dfadcc19f2c1460aa48fff2c9e"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/92c10699884321f1c2947fe2a70ab23b0fbf1507f756d89dd08f38c61fc3d4fa.txt",
+      "sha256": "92c10699884321f1c2947fe2a70ab23b0fbf1507f756d89dd08f38c61fc3d4fa"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/41190663b77bee5302386495a07b7eabfbfa571aa0ae2f11da6764162062fc4f.txt",
+      "sha256": "41190663b77bee5302386495a07b7eabfbfa571aa0ae2f11da6764162062fc4f"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/322ac46d870c8aeead6c53adcccc839296fb3c8e456eae155081297daf7f8013.txt",
+      "sha256": "322ac46d870c8aeead6c53adcccc839296fb3c8e456eae155081297daf7f8013"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/28cad82ce1379dc529df30da78ec012d7d0d1d576b03ddcb93388aee53659f59.txt",
+      "sha256": "28cad82ce1379dc529df30da78ec012d7d0d1d576b03ddcb93388aee53659f59"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy-2.5.4.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/454ec7350e478e037061850b67395753b425b1cb0a34bbc26290b020bf89d763.txt",
+      "sha256": "454ec7350e478e037061850b67395753b425b1cb0a34bbc26290b020bf89d763"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy/_core/include/numpy/random/LICENSE.txt",
+      "path": "third_party/licenses/python-transitive/numpy/d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150.txt",
+      "sha256": "d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy/ma/LICENSE",
+      "path": "third_party/licenses/python-transitive/numpy/d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7.txt",
+      "sha256": "d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7"
+    },
+    {
+      "package": "numpy",
+      "version": "2.5.4",
+      "wheel_url": "https://files.pythonhosted.org/packages/12/33/fefe62073dc8acfd0f2b9ed7c003af2f50aa61555e113e6db02b8f79f145/numpy-2.5.4-cp312-cp312-win_amd64.whl",
+      "wheel_sha256": "a7b1b6353e36a7e50de2973a38d705c88ee93adcf120673cee7f45a4a3fa223a",
+      "member": "numpy/random/LICENSE.md",
+      "path": "third_party/licenses/python-transitive/numpy/b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a.txt",
+      "sha256": "b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a"
+    },
+    {
+      "package": "packaging",
+      "version": "26.3",
+      "wheel_url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+      "wheel_sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "member": "packaging-26.3.dist-info/licenses/LICENSE",
+      "path": "third_party/licenses/python-transitive/packaging/cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48.txt",
+      "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+    },
+    {
+      "package": "packaging",
+      "version": "26.3",
+      "wheel_url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+      "wheel_sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "member": "packaging-26.3.dist-info/licenses/LICENSE.APACHE",
+      "path": "third_party/licenses/python-transitive/packaging/0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594.txt",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "package": "packaging",
+      "version": "26.3",
+      "wheel_url": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+      "wheel_sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "member": "packaging-26.3.dist-info/licenses/LICENSE.BSD",
+      "path": "third_party/licenses/python-transitive/packaging/b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5.txt",
+      "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+    },
+    {
+      "package": "pluggy",
+      "version": "1.7.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/40/9e/2b38731e0fc536806f16490e1a12d7f0dc2a1235aa8cc07bcc75416a7daa/pluggy-1.7.0-py3-none-any.whl",
+      "wheel_sha256": "7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec",
+      "member": "pluggy-1.7.0.dist-info/licenses/LICENSE",
+      "path": "third_party/licenses/python-transitive/pluggy/d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606.txt",
+      "sha256": "d6b65e6c213a5d0b577911d34d6e5949b9f59d76c238c5071a2f3fc16cfb2606"
+    },
+    {
+      "package": "pygments",
+      "version": "2.21.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+      "wheel_sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+      "member": "pygments-2.21.0.dist-info/licenses/AUTHORS",
+      "path": "third_party/licenses/python-transitive/pygments/71a83872ad82f57be692cf827e048e2cd51d45169cfa1ea3f28706d97a872c0f.txt",
+      "sha256": "71a83872ad82f57be692cf827e048e2cd51d45169cfa1ea3f28706d97a872c0f"
+    },
+    {
+      "package": "pygments",
+      "version": "2.21.0",
+      "wheel_url": "https://files.pythonhosted.org/packages/71/46/17f022dd3e953bf20a04a028a21ec746d942f8d2af30fa0f124fa0e6a684/pygments-2.21.0-py3-none-any.whl",
+      "wheel_sha256": "2363c69b61c4a97c838da3b130dcd6468f4848992b21a82f2a63ec34377137d9",
+      "member": "pygments-2.21.0.dist-info/licenses/LICENSE",
+      "path": "third_party/licenses/python-transitive/pygments/a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17.txt",
+      "sha256": "a9d66f1d526df02e29dce73436d34e56e8632f46c275bbdffc70569e882f9f17"
+    }
+  ]
+}

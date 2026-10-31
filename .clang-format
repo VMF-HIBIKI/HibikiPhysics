@@ -1,0 +1,13 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Always
+ColumnLimit: 0
+BreakBeforeBraces: Allman
+PointerAlignment: Right
+ReferenceAlignment: Right
+DerivePointerAlignment: false
+SortIncludes: Never
+ReflowComments: Never
+AlignConsecutiveDeclarations: Consecutive
+AllowShortFunctionsOnASingleLine: InlineOnly

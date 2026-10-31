@@ -1,0 +1,10 @@
+{
+  "name": "hibiki-environment-acceptance",
+  "displayName": "Hibiki Environment Acceptance",
+  "publisher": "hibiki-local",
+  "version": "0.1.0",
+  "engines": {"vscode": "^1.143.0"},
+  "main": "./extension.js",
+  "activationEvents": ["onStartupFinished"],
+  "capabilities": {"untrustedWorkspaces": {"supported": true}}
+}

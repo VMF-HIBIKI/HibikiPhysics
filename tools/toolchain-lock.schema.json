@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HibikiPhysics toolchain identity manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "recorded_on",
+    "target",
+    "validation",
+    "python",
+    "system_components",
+    "artifacts"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "recorded_on": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "target": {
+      "const": "windows-x86_64"
+    },
+    "validation": {
+      "enum": [
+        "identity_recording",
+        "identity_complete"
+      ]
+    },
+    "python": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "implementation",
+        "gil",
+        "transitive_lock"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation": {
+          "const": "cpython"
+        },
+        "gil": {
+          "const": true
+        },
+        "transitive_lock": {
+          "enum": [
+            "pending_env004",
+            "locked"
+          ]
+        }
+      }
+    },
+    "system_components": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 22,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "version",
+          "filename",
+          "platform",
+          "source",
+          "url",
+          "sha256",
+          "size",
+          "verification"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "tool_archive",
+              "cpp_source",
+              "python_wheel",
+              "vscode_extension",
+              "editor_archive"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "filename": {
+            "type": "string",
+            "minLength": 1
+          },
+          "platform": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "release_tag": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requires_python": {
+            "type": "string",
+            "minLength": 1
+          },
+          "engine": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "publisher_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "size": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "commit": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "requires_dist": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "verification": {
+            "enum": [
+              "publisher_metadata_only",
+              "publisher_hash_matched",
+              "downloaded_and_hashed"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "verification": {
+                  "enum": [
+                    "publisher_hash_matched",
+                    "downloaded_and_hashed"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "size": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "verification": {
+                  "const": "publisher_hash_matched"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "publisher_sha256"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "cpp_source"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "commit"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "validation": {
+            "const": "identity_complete"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "artifacts": {
+            "items": {
+              "properties": {
+                "verification": {
+                  "enum": [
+                    "publisher_hash_matched",
+                    "downloaded_and_hashed"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

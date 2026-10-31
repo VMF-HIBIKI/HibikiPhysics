@@ -1,0 +1,36 @@
+name: "设计调查（简体中文）"
+description: 具有时间预算的调查为工程决策提供依据。
+title: "docs: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Issue 与对应实现 PR 使用完全相同的标题，格式为 `type: 具体内容`。类别包括 feat、fix、refactor、perf、test、docs、build、ci 和 chore，类别与最终范围一致。
+  - type: textarea
+    id: context
+    attributes:
+      label: 背景与约束
+      description: 问题、约束和受影响接口构成决策背景。
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: 候选方案
+      description: 候选方案 include their expected benefits, costs, and uncertainties.
+    validations:
+      required: true
+  - type: textarea
+    id: experiment
+    attributes:
+      label: 调查与时间预算
+      description: 实验计划和时间预算界定调查范围。
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 决策标准与交付物
+      description: 评估标准及报告或 ADR 定义完成状态。
+    validations:
+      required: true

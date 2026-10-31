@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HibikiPhysics doctor report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "repository",
+    "recorded_at",
+    "ready",
+    "required_failures",
+    "selected_paths",
+    "checks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "scope": {
+      "const": "windows-identity-diagnostics"
+    },
+    "repository": {
+      "type": "string"
+    },
+    "recorded_at": {
+      "type": "string"
+    },
+    "ready": {
+      "type": "boolean"
+    },
+    "required_failures": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "selected_paths": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "status",
+          "required",
+          "path",
+          "expected",
+          "actual",
+          "detail",
+          "next_step"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "matched",
+              "missing",
+              "mismatch",
+              "pending"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "expected": {},
+          "actual": {},
+          "detail": {
+            "type": "string"
+          },
+          "next_step": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

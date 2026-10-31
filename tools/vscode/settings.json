@@ -1,0 +1,28 @@
+{
+  "clangd.path": "@CLANGD@",
+  "clangd.arguments": ["--compile-commands-dir=${workspaceFolder}/build/windows-debug", "--background-index", "--clang-tidy"],
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "C_Cpp.formatting": "disabled",
+  "python.defaultInterpreterPath": "@PYTHON@",
+  "python.terminal.activateEnvironment": false,
+  "python.testing.pytestEnabled": true,
+  "python.testing.pytestArgs": ["tests/toolchain"],
+  "basedpyright.importStrategy": "fromEnvironment",
+  "basedpyright.disableOrganizeImports": true,
+  "ruff.path": ["@RUFF@"],
+  "ruff.nativeServer": "on",
+  "ruff.importStrategy": "fromEnvironment",
+  "editor.formatOnSave": true,
+  "[cpp]": {"editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"},
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+  "[powershell]": {"files.eol": "\r\n"},
+  "files.eol": "\n",
+  "files.exclude": {"**/.venv": true},
+  "search.exclude": {"**/build": true, "**/install": true, "**/artifacts": true, "**/.venv": true}
+}
