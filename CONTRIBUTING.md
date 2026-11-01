@@ -140,4 +140,4 @@ Weekly logs focus on a technical problem, experiments, results and the next step
 
 Each release contains a version tag, release notes, reproduction instructions, supported environments and known limitations. Milestone acceptance determines readiness.
 
-Select and add the project license before public release. Record the origin and license of incorporated code and assets. Store larger videos and benchmark outputs as release attachments or CI artifacts once hosting is available.
+Original project code, documentation and official plugins/examples use [Apache-2.0](LICENSE). Contributions intended for inclusion follow its contribution terms. Independently developed plugins may choose their own license while satisfying applicable dependency terms. Record the origin and license of incorporated code and assets, and retain required notices when distributing them. Store larger videos and benchmark outputs as release attachments or CI artifacts once hosting is available.

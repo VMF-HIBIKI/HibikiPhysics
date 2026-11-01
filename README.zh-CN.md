@@ -25,4 +25,4 @@ HibikiPhysics 是一个使用 C++20 编写的三维刚体物理引擎。
 
 ## 许可证
 
-许可证待确定。
+HibikiPhysics 原创代码、文档及官方示例采用 [Apache-2.0](LICENSE) 许可证。第三方代码与资产保留各自许可证，详见[第三方声明](third_party/licenses/README.zh-CN.md)。

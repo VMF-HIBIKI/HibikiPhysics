@@ -25,4 +25,4 @@ Development environment and build validation are complete. Development is tracke
 
 ## License
 
-License selection is pending.
+HibikiPhysics original code, documentation and official examples are licensed under [Apache-2.0](LICENSE). Third-party code and assets retain their respective licenses; see [third-party notices](third_party/licenses/README.md).

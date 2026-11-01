@@ -6,4 +6,4 @@
 
 Eigen 随附的许可证文件和 spdlog 内嵌 fmt 的许可证按源码发行内容保留。Python wheel 的许可证文件保留上游原文。[python-lock-sources.json](python-lock-sources.json) 记录已验证锁定环境中的传递依赖声明，包括 wheel URL、哈希和安装来源路径。
 
-上游法律文本保留原始语言和字节内容，中英文索引说明相同的收集范围。项目自身的许可证单独确定。
+上游法律文本保留原始语言和字节内容，中英文索引说明相同的收集范围。HibikiPhysics 原创内容采用 [Apache-2.0](../../LICENSE)，第三方内容保留此处记录的各自许可证。

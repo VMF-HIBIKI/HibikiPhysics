@@ -6,4 +6,4 @@ This directory preserves original license texts from selected C++ source archive
 
 Eigen's accompanying license files and spdlog's bundled fmt license are retained with their source distributions. Python wheel license files retain their upstream text. [python-lock-sources.json](python-lock-sources.json) records transitive package notices from the verified locked environment, including wheel URLs, hashes and installed source paths.
 
-Upstream legal texts retain their original language and bytes. The English and Chinese indexes explain the same collection. The project license is selected separately.
+Upstream legal texts retain their original language and bytes. The English and Chinese indexes explain the same collection. Original HibikiPhysics content uses [Apache-2.0](../../LICENSE); third-party content retains the licenses recorded here.
