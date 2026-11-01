@@ -22,3 +22,14 @@
 | [ADR-0006：环境初始化与复现](0006-environment-initialization-and-reproduction.zh-CN.md) | 已接受 | Windows 环境准备、诊断和离线重建通过。 |
 | [ADR-0007：跨平台与 CI 验证](0007-platform-and-ci-validation.zh-CN.md) | 已接受 | 平台准备与工作流待实施 |
 | [ADR-0008：Linux 与 macOS 工具链版本](0008-linux-and-macos-toolchains.zh-CN.md) | 已接受 | 包身份与构建验证待完成 |
+| [ADR-0009：默认刚体研究配置](0009-incremental-potential-rigid-contact.zh-CN.md) | 已接受 | 待实现与数值实验 |
+| [ADR-0010：插件化架构与生命周期](0010-plugin-architecture-and-lifecycle.zh-CN.md) | 已接受 | 待架构原型与扩展验证 |
+| [ADR-0011：多 World 批量仿真](0011-multi-world-batch-simulation.zh-CN.md) | 已接受 | 待实现、隔离与批量验证 |
+| [ADR-0012：使用方式与运行模式](0012-usage-and-runtime-modes.zh-CN.md) | 已接受 | 待实现与工作流验收 |
+| [ADR-0013：场景与资产](0013-scenes-and-assets.zh-CN.md) | 已接受 | 待实现与导入／扩展验收 |
+| [ADR-0014：可视化与诊断](0014-visualization-and-diagnostics.zh-CN.md) | 已接受 | 待渲染接入与诊断验收 |
+| [ADR-0015：官方研究实验与评价](0015-experiments-and-acceptance.zh-CN.md) | 已接受 | 待实验基础设施与证据 |
+| [ADR-0016：时间推进](0016-time-advancement.zh-CN.md) | 已接受 | 待实现与时间／状态验证 |
+| [ADR-0017：状态快照与恢复](0017-snapshots-and-restoration.zh-CN.md) | 已接受 | 待实现与恢复验证 |
+| [ADR-0018：CPU 与 Warp 后端职责](0018-cpu-and-warp-backends.zh-CN.md) | 已接受 | 待实现与后端实验 |
+| [ADR-0019：World 配置与运行输入](0019-world-configuration-and-runtime-inputs.zh-CN.md) | 已接受 | 待实现 |

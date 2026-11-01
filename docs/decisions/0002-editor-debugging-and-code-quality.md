@@ -100,13 +100,13 @@ Ruff's base rule selection is I, E, F and W, covering import ordering, code styl
 
 Docstring code formatting is enabled (docstring-code-format=true), and diagnostic output uses concise format. First-party package names will be specified explicitly when the Python package structure is established. The __init__.py files that perform re-exports receive path-specific F401 and F403 exceptions. Generated files are excluded by their generation directories; handwritten .pyi files remain within the check scope.
 
-The editor, CLI, CI and future commit hooks use the same uv-managed Ruff 0.17.3. Explicit saves in VS Code apply Ruff formatting, safe fixes and import organization. The hook runner is prek 0.5.9, managed through uv. [ADR-0003](0003-commit-hooks-and-validation.md) defines its accepted workflow; the selected hook is installed and validated.
+The editor, CLI, planned CI and installed commit hooks use the same uv-managed Ruff 0.17.3. Explicit saves in VS Code apply Ruff formatting, safe fixes and import organization. The hook runner is prek 0.5.9, managed through uv. [ADR-0003](0003-commit-hooks-and-validation.md) defines its accepted workflow; the selected hook is installed and validated.
 
 The project specifies required-version=0.17.3, target-version=py312, line-length=120 and preview=false. Automated fixes use the safe-fix policy; changes affecting behavior receive explicit review. basedpyright handles type errors. CI executes check-only commands, while local formatting produces reviewable edits.
 
 ## Configuration and validation
 
-Future implementation places formatting in .clang-format, C++ analysis in .clang-tidy, Python tool settings in pyproject.toml, common whitespace in .editorconfig, and editor templates in a tracked configuration directory. Local editor files use resolved machine paths. The existing .vscode ignore rule will be revisited explicitly when shared editor configuration is implemented.
+The current implementation places formatting in .clang-format, C++ analysis in .clang-tidy, Python tool settings in pyproject.toml, common whitespace in .editorconfig, and editor templates in a tracked configuration directory. Local editor files use resolved machine paths. Shared templates are versioned under tools/vscode; generated .vscode settings remain ignored.
 
 Expected check commands, once tools and source files are prepared, include:
 

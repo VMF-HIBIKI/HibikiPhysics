@@ -15,7 +15,7 @@ Related work: HP-003, HP-004, HP-011, HP-012.
 
 HibikiPhysics targets C++20 systems development and physics algorithm implementation. Development requires reproducible tool selection, explicit dependency versions, useful editor diagnostics, and source compatibility across Windows, Linux and macOS.
 
-The initial development environment is Windows x64. Platform-specific standard libraries are part of each platform's versioned toolchain. Windows uses MSVC STL. Linux and macOS toolchain baselines will be specified separately.
+The initial development environment is Windows x64. Platform-specific standard libraries are part of each platform's versioned toolchain. Windows uses MSVC STL. Linux and macOS toolchain selections are recorded in [ADR-0008](0008-linux-and-macos-toolchains.md), with platform verification pending.
 
 ## Alternatives considered
 
@@ -59,7 +59,7 @@ ENV-001 records SDK DisplayVersion 10.1.26100.8249, catalog package version 10.0
 
 Each build configuration has a dedicated directory. CMake emits a compilation database for the active configuration. clangd uses the selected development database; clang-tidy uses the database for its check configuration.
 
-Toolchain selection resolves explicit executable, header and library paths. Machine-specific absolute paths belong in local configuration. A future environment-check script compares resolved tools with the baseline and reports mismatches before configuration proceeds.
+Toolchain selection resolves explicit executable, header and library paths. Machine-specific absolute paths belong in local configuration. The implemented doctor compares resolved tools with the baseline and reports mismatches before configuration proceeds.
 
 [ADR-0004](0004-build-and-numerical-policy.md) defines optimization levels, floating-point behavior, instruction-set requirements and assertion policy.
 
@@ -75,7 +75,7 @@ Toolchain selection resolves explicit executable, header and library paths. Mach
 
 uv manages the project interpreter and virtual environment. The interpreter distribution identifier, URL and checksum supplement the Python version. The project uses a Python version file, dependency declarations and a committed uv lockfile. Environment synchronization and command execution use locked mode.
 
-The Warp runtime environment records the selected wheel, GPU and actual driver version. The inspected machine has an RTX 5070 Ti and driver 610.88. Warp's release metadata and versioned installation documentation provide compatibility requirements; CPU and GPU execution remain to be verified locally.
+The Warp runtime environment records the selected wheel, GPU and actual driver version. The inspected machine has an RTX 5070 Ti and driver 610.88. Warp's release metadata and versioned installation documentation provide compatibility requirements; local CPU, CUDA and Graph cases have passed, as recorded in the [Windows acceptance record](../environment/acceptance.md).
 
 Warp source builds require a separate CUDA Toolkit and host-compiler compatibility decision. The selected starting point uses the published wheel and its bundled CUDA components.
 

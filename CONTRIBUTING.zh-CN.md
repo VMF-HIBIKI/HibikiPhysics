@@ -117,7 +117,7 @@ API 变化、物理行为变化和性能变化分别描述。涉及仿真或性�
 
 ## 提交检查
 
-[ADR-0003](docs/decisions/0003-commit-hooks-and-validation.zh-CN.md)定义已接受的 prek 0.5.9 流程，钩子启用安排在环境初始化阶段。提交前快速检查覆盖暂存文件格式、Python lint 和文件有效性。本地修复经过审查和暂存后再次提交。完整检查由本地主动执行及 PR CI 运行，CI 使用只检查模式。物理回归、Sanitizer 和基准检查依据受影响变更及里程碑范围执行。编辑器、CLI 与钩子共享项目固定版本的工具。
+[ADR-0003](docs/decisions/0003-commit-hooks-and-validation.zh-CN.md)定义已接受的 prek 0.5.9 流程，本地钩子启用与检查已在 Windows 环境准备中通过。提交前快速检查覆盖暂存文件格式、Python lint 和文件有效性。本地修复经过审查和暂存后再次提交。完整检查由本地主动执行，规划中的 PR CI 使用只检查模式。物理回归、Sanitizer 和基准检查依据受影响变更及里程碑范围执行。编辑器、CLI 与钩子共享项目固定版本的工具。
 
 ## 完成标准
 

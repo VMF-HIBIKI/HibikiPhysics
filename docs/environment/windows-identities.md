@@ -49,4 +49,4 @@ The local evidence cache is `artifacts/env001/`. It holds downloaded archives an
 
 ## License records
 
-[Third-party notices](../../third_party/licenses/README.md) preserve verbatim license files from the selected C++ archives and direct Python wheels. Their source-member paths and SHA-256 values are recorded separately. Original upstream license texts retain their original language. Tool distributions and extensions retain their accompanying licenses during future preparation; redistribution packaging receives its own review.
+[Third-party notices](../../third_party/licenses/README.md) preserve verbatim license files from the selected C++ archives and direct Python wheels. Their source-member paths and SHA-256 values are recorded separately. Original upstream license texts retain their original language. Tool distributions and extensions retain their accompanying licenses during environment preparation; redistribution packaging receives its own review.

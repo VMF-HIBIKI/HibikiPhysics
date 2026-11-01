@@ -100,13 +100,13 @@ Ruff 基础规则集为 I、E、F、W，覆盖导入排序、代码风格和常�
 
 文档字符串中的代码格式化开启（docstring-code-format=true），诊断输出使用 concise。第一方包名在 Python 包结构确定后显式配置。实际承担重导出的 __init__.py 文件按路径配置 F401、F403 豁免。生成文件按生成目录精确排除，手写 .pyi 文件继续接受检查。
 
-编辑器、命令行、CI 及未来提交钩子均使用 uv 管理的 Ruff 0.17.3。VS Code 显式保存时执行 Ruff 格式化、安全修复和导入整理。提交钩子执行工具选定为 prek 0.5.9，由 uv 管理。[ADR-0003](0003-commit-hooks-and-validation.zh-CN.md)定义已接受的流程，钩子启用留待环境准备阶段。
+编辑器、命令行、规划中的 CI 及已安装提交钩子均使用 uv 管理的 Ruff 0.17.3。VS Code 显式保存时执行 Ruff 格式化、安全修复和导入整理。提交钩子执行工具选定为 prek 0.5.9，由 uv 管理。[ADR-0003](0003-commit-hooks-and-validation.zh-CN.md)定义已接受的流程，所选钩子已安装并通过验证。
 
 项目指定 required-version=0.17.3、target-version=py312、line-length=120、preview=false。自动修复采用 safe-fix 策略，影响行为的变更经过明确审查。basedpyright 负责类型错误。CI 使用只检查命令，本地格式化生成可审查的修改。
 
 ## 配置与验证
 
-当前实现使用 .clang-format 保存格式、.clang-tidy 保存 C++ 分析规则、pyproject.toml 保存 Python 工具配置、.editorconfig 保存通用空白规则。编辑器模板保存在受版本管理的配置目录，本地编辑器文件使用解析后的机器路径。共享编辑器配置落地时，明确调整现有 .vscode 忽略规则。
+当前实现使用 .clang-format 保存格式、.clang-tidy 保存 C++ 分析规则、pyproject.toml 保存 Python 工具配置、.editorconfig 保存通用空白规则。编辑器模板保存在受版本管理的配置目录，本地编辑器文件使用解析后的机器路径。共享模板在 tools/vscode 下纳入版本管理，生成的 .vscode 配置保持忽略。
 
 工具和源码准备完成后，预期检查命令如下：
 

@@ -15,7 +15,7 @@
 
 HibikiPhysics 面向 C++20 系统开发与物理算法实现。开发环境需要可复现的工具选择、明确的依赖版本、有效的编辑器诊断，以及 Windows、Linux、macOS 源码兼容性。
 
-初始开发环境是 Windows x64。各平台标准库属于对应平台的版本化工具链。Windows 使用 MSVC STL，Linux 和 macOS 的工具链基线后续单独确定。
+初始开发环境是 Windows x64。各平台标准库属于对应平台的版本化工具链。Windows 使用 MSVC STL，Linux 和 macOS 工具链选型记录在 [ADR-0008](0008-linux-and-macos-toolchains.zh-CN.md)，平台验证待完成。
 
 ## 候选方案
 
@@ -59,7 +59,7 @@ ENV-001 已记录 SDK DisplayVersion 10.1.26100.8249、目录包版本 10.0.2610
 
 每种构建配置使用独立目录。CMake 为当前配置生成编译数据库。clangd 使用选定的开发数据库，clang-tidy 使用对应检查配置的数据库。
 
-工具链选择解析明确的可执行文件、头文件与库路径。机器专属绝对路径保存在本地配置中。后续环境检查脚本比较实际工具与基线，在进入配置前报告版本偏差。
+工具链选择解析明确的可执行文件、头文件与库路径。机器专属绝对路径保存在本地配置中。已实现的 doctor 比较实际工具与基线，在进入配置前报告版本偏差。
 
 [ADR-0004](0004-build-and-numerical-policy.zh-CN.md)定义优化等级、浮点行为、指令集要求和断言策略。
 
@@ -75,7 +75,7 @@ ENV-001 已记录 SDK DisplayVersion 10.1.26100.8249、目录包版本 10.0.2610
 
 uv 管理项目解释器和虚拟环境。解释器发行标识、URL 和校验和补充 Python 版本信息。项目使用 Python 版本文件、依赖声明及提交到仓库的 uv 锁文件。环境同步和命令执行采用锁定模式。
 
-Warp 环境记录选定 wheel、GPU 和实际驱动版本。已盘点的机器使用 RTX 5070 Ti 与 610.88 驱动。发布元数据及对应版本安装文档提供兼容性要求，CPU／CUDA／Graph 本地用例已通过。
+Warp 环境记录选定 wheel、GPU 和实际驱动版本。已盘点的机器使用 RTX 5070 Ti 与 610.88 驱动。发布元数据及对应版本安装文档提供兼容性要求，CPU／CUDA／Graph 本地用例已通过，见 [Windows 验收记录](../environment/acceptance.zh-CN.md)。
 
 Warp 源码构建需要单独确定 CUDA Toolkit 与宿主编译器兼容方案。当前起点采用已发布 wheel 及其附带的 CUDA 组件。
 

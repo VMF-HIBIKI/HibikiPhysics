@@ -15,7 +15,7 @@
 
 ## 决策
 
-提交钩子执行工具选定为 prek 0.5.9，由 uv 在项目开发依赖和 uv.lock 中固定精确版本。配置使用 .pre-commit-config.yaml。钩子启用安排在后续环境初始化阶段。
+提交钩子执行工具选定为 prek 0.5.9，由 uv 在项目开发依赖和 uv.lock 中固定精确版本。配置使用 .pre-commit-config.yaml。本地钩子启用与检查已在 Windows 环境准备中通过，远程 PR CI 待实施。
 
 本地工具钩子使用 repo: local 和 language: system。Ruff 命令通过 uv 锁定模式解析到 Ruff 0.17.3。项目包装脚本通过工具链基线解析 clang-format 22.1.6。环境准备提供所需工具，钩子启动时检查可用性和版本，对偏差报告准备步骤。
 

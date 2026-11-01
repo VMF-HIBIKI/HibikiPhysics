@@ -117,7 +117,7 @@ Build and test commands will be documented alongside the corresponding working i
 
 ## Commit checks
 
-[ADR-0003](docs/decisions/0003-commit-hooks-and-validation.md) defines the accepted prek 0.5.9 workflow. Hook activation is scheduled for environment initialization. Fast pre-commit checks cover staged-file formatting, Python lint and file validity. Local fixes are reviewed and staged before retrying a commit. Full checks run explicitly and in PR CI; CI uses check-only modes. Specialized physics, sanitizer and benchmark checks follow the affected change and milestone scope. The editor, CLI and hooks share the pinned project tools.
+[ADR-0003](docs/decisions/0003-commit-hooks-and-validation.md) defines the accepted prek 0.5.9 workflow. Local hook activation and checks passed during Windows environment preparation. Fast pre-commit checks cover staged-file formatting, Python lint and file validity. Local fixes are reviewed and staged before retrying a commit. Full checks run explicitly locally. Planned PR CI uses check-only modes. Specialized physics, sanitizer and benchmark checks follow the affected change and milestone scope. The editor, CLI and hooks share the pinned project tools.
 
 ## Definition of done
 

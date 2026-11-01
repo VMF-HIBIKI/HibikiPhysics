@@ -15,7 +15,7 @@ The project needs fast feedback before commits and repeatable validation in CI. 
 
 ## Decision
 
-prek 0.5.9 is the selected hook runner. uv manages its exact version in project development dependencies and uv.lock. The configuration uses .pre-commit-config.yaml. Hook activation occurs during a later environment-initialization step.
+prek 0.5.9 is the selected hook runner. uv manages its exact version in project development dependencies and uv.lock. The configuration uses .pre-commit-config.yaml. Local hook activation and checks passed during Windows environment preparation. Remote PR CI remains pending.
 
 Local tool hooks use repo: local and language: system. Ruff commands resolve through uv locked mode to Ruff 0.17.3. A project wrapper resolves clang-format 22.1.6 through the toolchain baseline. Environment preparation provides the required tools; hook startup checks their availability and versions and reports preparation steps for mismatches.
 

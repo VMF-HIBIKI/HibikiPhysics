@@ -17,7 +17,7 @@ body:
     id: options
     attributes:
       label: 候选方案
-      description: 候选方案 include their expected benefits, costs, and uncertainties.
+      description: 候选方案说明预期收益、成本及不确定性。
     validations:
       required: true
   - type: textarea
