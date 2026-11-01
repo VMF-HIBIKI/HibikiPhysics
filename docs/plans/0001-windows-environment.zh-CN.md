@@ -14,7 +14,7 @@
 
 静态库沿用动态 CRT 策略：Release 和 RelWithDebInfo 使用 /MD，Debug 使用 /MDd，Windows ASan 诊断配置使用 /MD。共享库支持留作后续扩展。
 
-ENV-001 交付身份声明、归档核验和双语记录。工具安装、环境准备、钩子启用和物理实现按后续阶段推进。当前证据见 [Windows 身份记录](../environment/windows-identities.zh-CN.md)。
+ENV-001 交付身份声明、归档核验和双语记录。Windows 工具安装、环境准备及本地钩子验证已完成。物理实现按 [CPU 研究计划](0002-cpu-research-release.zh-CN.md) 推进。当前证据见 [Windows 身份记录](../environment/windows-identities.zh-CN.md)。
 
 验收证据见 [Windows 验收记录](../environment/acceptance.zh-CN.md)。
 

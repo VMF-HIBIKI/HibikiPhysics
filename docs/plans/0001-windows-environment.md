@@ -14,7 +14,7 @@ The initial library uses the public CMake target hibiki::physics. Its minimal ca
 
 The static library uses the accepted dynamic CRT policy: /MD for Release and RelWithDebInfo, /MDd for Debug, and /MD for the Windows ASan diagnostic configuration. Shared-library support remains a later extension.
 
-ENV-001 delivers identity declarations, archive verification and bilingual records. Tool installation, environment preparation, hook activation and physics implementation follow their planned stages. Current evidence is linked in the [Windows identity records](../environment/windows-identities.md).
+ENV-001 delivers identity declarations, archive verification and bilingual records. Tool installation, environment preparation and local hook validation are complete for Windows. Physics implementation follows the [CPU research plan](0002-cpu-research-release.md). Current evidence is linked in the [Windows identity records](../environment/windows-identities.md).
 
 Acceptance evidence is recorded in the [Windows acceptance record](../environment/acceptance.md).
 
@@ -112,7 +112,7 @@ Generated files include .local/environment.json and CMakeUserPresets.json. Sessi
 
 Planned files include .clang-format, .clang-tidy, .editorconfig, .pre-commit-config.yaml, Python settings in pyproject.toml, tracked editor templates under tools/vscode/, and scripts for check/format/verify.
 
-The root .gitignore will explicitly cover generated caches and reports. Shared VS Code templates remain versioned; generated local settings resolve machine paths. A dedicated profile uses pinned extension identities. Hook activation remains an explicit prepare option.
+The root .gitignore covers generated caches and reports. Shared VS Code templates remain versioned; generated local settings resolve machine paths. A dedicated profile uses pinned extension identities. Hook activation remains an explicit prepare option.
 
 The editor starts clangd from the selected LLVM installation and uses the matching compilation database. cppvsdbg handles C++ debugging. Python uses project basedpyright/Ruff servers and a locked debugpy server through attach. Formatting, lint and hook commands share the locked tools and accepted rules.
 
