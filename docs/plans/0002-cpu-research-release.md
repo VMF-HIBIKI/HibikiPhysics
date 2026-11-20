@@ -2,7 +2,7 @@
 
 **English** | [简体中文](0002-cpu-research-release.zh-CN.md)
 
-Status: Accepted; implementation pending kickoff.
+Status: Accepted. M1 implementation starts with the public C++ plugin base class. [Issue #1](https://github.com/VMF-HIBIKI/HibikiPhysics/issues/1).
 
 Date: 2026-11-01
 

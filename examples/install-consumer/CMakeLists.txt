@@ -5,3 +5,7 @@ add_executable(hibiki_consumer main.cpp)
 target_link_libraries(hibiki_consumer PRIVATE hibiki::physics)
 enable_testing()
 add_test(NAME consumer.version COMMAND hibiki_consumer)
+
+add_executable(hibiki_plugin_consumer PluginConsumer.cpp)
+target_link_libraries(hibiki_plugin_consumer PRIVATE hibiki::physics)
+add_test(NAME consumer.plugin COMMAND hibiki_plugin_consumer)

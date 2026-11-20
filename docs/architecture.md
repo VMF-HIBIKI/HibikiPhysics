@@ -2,11 +2,15 @@
 
 **English** | [简体中文](architecture.zh-CN.md)
 
-Status: Overall direction accepted; concrete module interfaces pending design.
+Status: Overall direction accepted. M1 implementation is in progress.
 
 ## Current implementation
 
-The repository provides the C++20 static target `hibiki::physics`, a build-information API, an installation consumer example and environment checks. Windows toolchain, editor, debugging and environment reproduction have passed validation; see the [acceptance record](environment/acceptance.md). Physics algorithms, World APIs and runtime plugins remain subsequent implementation.
+The C++20 static target `hibiki::physics` exports the build-information API and the public `HibikiPhysics::Plugin` base class. The Windows toolchain, editor, debugger and environment reproduction have passed validation. [Windows acceptance record](environment/acceptance.md).
+
+Plugin authors include `<HibikiPhysics/Plugin.h>` and override `Mount(PluginContext&)`. A plugin with dependencies also overrides `Declare(Dependencies&) const` and calls `Require<Protocol>(slot)`. The caller binds the chosen protocol objects by reference. The installed-package example declares an `int` dependency, binds it to a variable, and updates the variable through `Get<int>`. [Consumer source](../examples/install-consumer/PluginConsumer.cpp).
+
+During mounting, `Keep` takes ownership of an RAII registration. The caller keeps the plugin and its providers alive until outstanding calls finish and the scope releases its registrations in reverse order. An installed-package integration test exercises a concrete plugin, provider selection and scope cleanup. [Lifecycle test](../tests/install-consumer/PluginLifecycle.cpp).
 
 ## Accepted directions
 
@@ -26,7 +30,7 @@ These directions are documented in the [ADR index](decisions/README.md). The def
 
 ## Subsequent interface design
 
-Module and build-target boundaries, handle representation, data layout, mathematical protocols, plugin signatures, Python bindings and scheduling follow M1 and later module research. Sensors retain the plugin direction with concrete coverage pending investigation. The SDF approach and implementation require separate research.
+The scene compiler and plugin host will resolve user-selected providers and run component-defined checks before mounting plugins. Handle representation, data layout, mathematical protocols, Python bindings and scheduling follow M1 and later module research. Sensors retain the plugin direction with concrete coverage pending investigation. The SDF approach and implementation require separate research.
 
 ## Implementation path
 

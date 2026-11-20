@@ -16,7 +16,7 @@ $ctest = Join-Path (Split-Path $environment.paths.cmake) ctest.exe
 & $ctest --preset windows-debug
 ```
 
-`scripts/environment/VerifyCpp.ps1` builds the configuration matrix, executes CTest, installs the static library and builds the independent `examples/install-consumer` project against each install tree. The ASan configuration additionally requires a failing child process with a symbolized heap-buffer-overflow report. Logs and JUnit results are written under `artifacts/environment/`.
+`scripts/environment/VerifyCpp.ps1` builds the configuration matrix, executes CTest and installs the static library. For each install tree, `tests/install-consumer` builds the public examples and the plugin lifecycle test against the exported package. The ASan configuration additionally requires a failing child process with a symbolized heap-buffer-overflow report. Logs and JUnit results are written under `artifacts/environment/`.
 
 ```powershell
 & ./scripts/environment/VerifyCpp.ps1

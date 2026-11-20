@@ -2,11 +2,15 @@
 
 [English](architecture.md) | **简体中文**
 
-状态：总体方向已接受，具体模块接口待设计。
+状态：总体方向已接受，M1 正在实施。
 
 ## 当前实现
 
-仓库已提供 C++20 静态库目标 `hibiki::physics`、构建信息接口、安装消费示例及开发环境验证。Windows 工具链、编辑器、调试和环境复现已完成验证，见[验收记录](environment/acceptance.zh-CN.md)。物理算法、World API 和运行插件属于后续实现。
+C++20 静态库目标 `hibiki::physics` 已公开构建信息接口及 `HibikiPhysics::Plugin` 基类。Windows 工具链、编辑器、调试和环境复现已完成验证。[Windows 验收记录](environment/acceptance.zh-CN.md)。
+
+插件作者包含 `<HibikiPhysics/Plugin.h>` 并实现 `Mount(PluginContext&)`。有依赖的插件还实现 `Declare(Dependencies&) const`，通过 `Require<协议类型>(入口名)` 声明所需服务。调用者按引用绑定选定对象。安装包示例声明一个 `int` 依赖，将它绑定到一个变量，再通过 `Get<int>` 修改该变量。[消费程序源码](../examples/install-consumer/PluginConsumer.cpp)。
+
+挂载期间，`Keep` 接管析构时会撤销登记的 RAII 对象。调用者保证插件和服务提供者存活到进行中的调用结束、作用域按登记的逆序完成清理。安装包集成测试通过具体插件验证提供者选择和作用域清理。[生命周期测试](../tests/install-consumer/PluginLifecycle.cpp)。
 
 ## 已确定的方向
 
@@ -26,7 +30,7 @@
 
 ## 后续接口设计
 
-模块拆分、构建目标划分、句柄表示、数据布局、数学协议、插件接入签名、Python 绑定及调度机制随 M1 和后续模块研究确定。传感器保留插件化方向，具体能力待调研。SDF 技术路线及具体实现待专项研究。
+场景编译器与插件宿主将按用户的选择建立并校验绑定，再挂载插件。句柄表示、数据布局、数学协议、Python 绑定及调度机制随 M1 和后续模块研究确定。传感器保留插件化方向，具体能力待调研。SDF 技术路线及具体实现待专项研究。
 
 ## 实施路径
 
