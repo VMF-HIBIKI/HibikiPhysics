@@ -130,6 +130,8 @@ Build and test commands will be documented alongside the corresponding working i
 
 ## Documentation and development logs
 
+Examples use existing public API, built-in and standard library types. Custom test types belong in `tests/`. [Example authoring rules](AGENTS.md).
+
 Project documents, development logs and contribution templates have English and Simplified Chinese editions. English files retain their original names; Chinese files use the `.zh-CN` suffix. Reciprocal language links connect each pair. Content, status and links are updated together in the same change. Chinese pages prefer Chinese document links.
 
 GitHub issue forms provide separate language entries. The default PR template links to both editions. Descriptions use declarative statements that express behavior, purpose, evidence and consequences directly. Labels and headings remain concise.

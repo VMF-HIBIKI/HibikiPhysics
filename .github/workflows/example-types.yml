@@ -1,0 +1,44 @@
+name: Example types
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  example-types:
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - name: Cache clang-tidy and its builtin headers
+        id: llvm
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
+        with:
+          path: ${{ runner.temp }}/example-llvm
+          key: example-llvm-windows-x64-v1-${{ hashFiles('tools/toolchain-lock.json') }}
+      - name: Extract the pinned LLVM checker
+        if: steps.llvm.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          $PSNativeCommandUseErrorActionPreference = $true
+          $manifest = Get-Content tools/toolchain-lock.json -Raw | ConvertFrom-Json
+          $llvm = $manifest.artifacts | Where-Object id -eq 'llvm'
+          $archive = Join-Path $env:RUNNER_TEMP $llvm.filename
+          curl.exe --fail --silent --show-error --location --retry 3 --output $archive $llvm.url
+          if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash -ne $llvm.sha256) { throw 'LLVM archive hash mismatch' }
+          $dest = Join-Path $env:RUNNER_TEMP 'example-llvm'
+          New-Item -ItemType Directory -Force -Path $dest | Out-Null
+          $top = $llvm.filename -replace '\.tar\.xz$', ''
+          $major = ([version]$llvm.version).Major
+          tar.exe -xf $archive -C $dest --strip-components 1 "$top/bin/clang-tidy.exe" "$top/lib/clang/$major/include"
+      - name: Check tracked example files
+        shell: pwsh
+        run: |
+          Write-Host "Runner image $env:ImageOS $env:ImageVersion"
+          python scripts/environment/check_example_types.py --clang-tidy "$env:RUNNER_TEMP/example-llvm/bin/clang-tidy.exe"
