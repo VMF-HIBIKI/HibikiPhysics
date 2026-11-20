@@ -16,7 +16,7 @@ $ctest = Join-Path (Split-Path $environment.paths.cmake) ctest.exe
 & $ctest --preset windows-debug
 ```
 
-`scripts/environment/VerifyCpp.ps1` 构建配置矩阵、执行 CTest、安装静态库，并针对各安装目录构建独立的 `examples/install-consumer` 项目。ASan 配置还要求受控子进程失败，并产生带符号的堆越界报告。日志和 JUnit 结果写入 `artifacts/environment/`。
+`scripts/environment/VerifyCpp.ps1` 构建配置矩阵、执行 CTest 并安装静态库。`tests/install-consumer` 针对各安装目录的导出包构建公开示例和插件生命周期测试。ASan 配置还要求受控子进程失败，并产生带符号的堆越界报告。日志和 JUnit 结果写入 `artifacts/environment/`。
 
 ```powershell
 & ./scripts/environment/VerifyCpp.ps1

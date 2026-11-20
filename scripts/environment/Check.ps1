@@ -32,9 +32,14 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Text conventions failed.' }
     & (Join-Path $repository '.venv/Scripts/prek.exe') run check-json check-yaml check-toml check-case-conflict check-merge-conflict hibiki-bilingual-docs hibiki-example-types --files @files
     if ($LASTEXITCODE -ne 0) { throw 'File validation failed.' }
-    $sources = @($cpp | Where-Object { $_ -match '\.cpp$' -and $_ -ne 'tests/toolchain/AsanProbe.cpp' -and $_ -notmatch '^examples/install-consumer/' })
+    $sources = @($cpp | Where-Object { $_ -match '\.cpp$' -and $_ -ne 'tests/toolchain/AsanProbe.cpp' })
     foreach ($source in $sources) {
-        & $configuration.paths.'clang-tidy' -p build/windows-debug $source
+        if ($source -match '^(tests|examples)/install-consumer/') {
+            $database = 'build/installed-tests-windows-debug'
+            if (Test-Path (Join-Path $database 'compile_commands.json')) { & $configuration.paths.'clang-tidy' -p $database $source }
+            else { & $configuration.paths.'clang-tidy' $source -- -x c++ -std=c++20 "-I$repository/include" }
+        }
+        else { & $configuration.paths.'clang-tidy' -p build/windows-debug $source }
         if ($LASTEXITCODE -ne 0) { throw "C++ static checks failed: $source" }
     }
 }

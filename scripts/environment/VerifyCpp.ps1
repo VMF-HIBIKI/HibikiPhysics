@@ -42,7 +42,8 @@ try {
         $configuration = 'Debug'
         if ($preset -eq 'windows-release') { $configuration = 'Release' }
         if ($preset -eq 'windows-relwithdebinfo') { $configuration = 'RelWithDebInfo' }
-        $arguments = @('-S','examples/install-consumer','-B',"build/consumer-$preset",'-G','Ninja',
+        $consumerBuild = "build/installed-tests-$preset"
+        $arguments = @('-S','tests/install-consumer','-B',$consumerBuild,'-G','Ninja','-DCMAKE_EXPORT_COMPILE_COMMANDS=ON',
             "-DCMAKE_TOOLCHAIN_FILE=$repository/cmake/toolchains/windows.cmake", "-DCMAKE_BUILD_TYPE=$configuration",
             "-DCMAKE_PREFIX_PATH=$repository/install/$preset")
         if ($preset -eq 'windows-msvc') { $arguments += '-DHIBIKI_COMPILER=msvc' }
@@ -50,8 +51,8 @@ try {
             $arguments += @('-DHIBIKI_ASAN=ON','-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreadedDLL','-DCMAKE_CXX_FLAGS=/fsanitize=address')
         }
         Invoke-Checked $cmake $arguments (Join-Path $reportRoot "$preset-consumer-configure.log")
-        Invoke-Checked $cmake @('--build',"build/consumer-$preset") (Join-Path $reportRoot "$preset-consumer-build.log")
-        Invoke-Checked $ctest @('--test-dir',"build/consumer-$preset",'--output-on-failure') (Join-Path $reportRoot "$preset-consumer-test.log")
+        Invoke-Checked $cmake @('--build',$consumerBuild) (Join-Path $reportRoot "$preset-consumer-build.log")
+        Invoke-Checked $ctest @('--test-dir',$consumerBuild,'--output-on-failure') (Join-Path $reportRoot "$preset-consumer-test.log")
         if ($preset -eq 'windows-asan') {
             $probe = Join-Path $repository 'build/windows-asan/tests/toolchain/hibiki_asan_probe.exe'
             $output = & $probe 2>&1 | Out-String

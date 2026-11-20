@@ -2,7 +2,7 @@
 
 [English](0002-cpu-research-release.md) | **简体中文**
 
-状态：已接受，实施待启动。
+状态：已接受，M1 从公共 C++ 插件基类开始实施。[Issue #1](https://github.com/VMF-HIBIKI/HibikiPhysics/issues/1)。
 
 日期：2026-11-01
 
