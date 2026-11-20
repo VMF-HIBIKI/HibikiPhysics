@@ -16,7 +16,7 @@
 | --- | --- | --- |
 | [ADR-0001：开发工具链与依赖](0001-development-toolchain-and-dependencies.zh-CN.md) | 已接受 | Windows 工具链及 CPU／GPU 运行检查通过。 |
 | [ADR-0002：编辑器、调试与代码质量](0002-editor-debugging-and-code-quality.zh-CN.md) | 已接受 | Windows 编辑器、CLI 和调试集成通过。 |
-| [ADR-0003：提交钩子与验证流程](0003-commit-hooks-and-validation.zh-CN.md) | 已接受 | 本地钩子与检查通过，远程 PR CI 属于后续工作。 |
+| [ADR-0003：提交钩子与验证流程](0003-commit-hooks-and-validation.zh-CN.md) | 已接受 | 本地钩子已验证，PR CI 检查示例中的类型定义。 |
 | [ADR-0004：构建与数值策略](0004-build-and-numerical-policy.zh-CN.md) | 已接受 | Windows 工具链数值用例通过，引擎专项检查随实现推进。 |
 | [ADR-0005：Sanitizer、内存检查与运行时诊断](0005-sanitizers-memory-and-runtime-diagnostics.zh-CN.md) | 已接受 | Windows ASan 及 Warp CPU／CUDA／Graph 检查通过，附加平台诊断按对应里程碑推进。 |
 | [ADR-0006：环境初始化与复现](0006-environment-initialization-and-reproduction.zh-CN.md) | 已接受 | Windows 环境准备、诊断和离线重建通过。 |

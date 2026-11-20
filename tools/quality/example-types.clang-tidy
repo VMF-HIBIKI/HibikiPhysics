@@ -1,0 +1,12 @@
+Checks: '-*,custom-example-local-type'
+WarningsAsErrors: 'custom-example-local-type'
+CustomChecks:
+  - Name: example-local-type
+    Query: |
+      match cxxRecordDecl(isDefinition(), isExpansionInMainFile(),
+            anyOf(isStruct(), isClass()), unless(isImplicit()), unless(isLambda()),
+            unless(isTemplateInstantiation())).bind("definition")
+    Diagnostic:
+      - BindName: definition
+        Message: 'Use an existing public or standard type in this example. Put test-specific types in tests/.'
+        Level: Warning

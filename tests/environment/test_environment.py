@@ -25,9 +25,9 @@ def repository(tmp_path: Path) -> Path:
     run(["git", "init", "-q", "-b", "main"], tmp_path)
     run(["git", "config", "core.hooksPath", ".git/hooks"], tmp_path)
     run(["git", "config", "core.autocrlf", "false"], tmp_path)
-    hook = (REPOSITORY / "scripts/environment/Hook.ps1").as_posix()
     configuration = (REPOSITORY / ".pre-commit-config.yaml").read_text(encoding="utf-8")
-    configuration = configuration.replace("scripts/environment/Hook.ps1", f'"{hook}"')
+    for script in ("scripts/environment/Hook.ps1", "scripts/environment/check_example_types.py"):
+        configuration = configuration.replace(script, f'"{(REPOSITORY / script).as_posix()}"')
     (tmp_path / ".pre-commit-config.yaml").write_bytes(configuration.encode())
     source = "value = 1\n" + "".join(f"# Context line {index}\n" for index in range(20)) + "tail = 0\n"
     (tmp_path / "sample.py").write_bytes(source.encode())
@@ -77,6 +77,34 @@ def test_lint_error_propagates(repository: Path) -> None:
     result = run([str(PREK), "run"], repository, expected=1)
     assert "F821" in result.stdout + result.stderr
     assert path.read_bytes() == b"print(missing_name)\n"
+
+
+def test_example_types_check_staged_definitions(repository: Path) -> None:
+    examples = repository / "examples"
+    examples.mkdir()
+    header = examples / "sample.hpp"
+    script = examples / "sample.py"
+    valid = (
+        "#include <HibikiPhysics/BuildInfo.h>\n"
+        "struct Forward;\n"
+        "using Version = decltype(HibikiPhysics::GetVersion());\n"
+        'inline auto message = [] { return "class Text {};"; };\n'
+    ).encode()
+    header.write_bytes(valid)
+    script.write_bytes(b'notice = "class Text: pass"\n')
+    hook = [str(PREK), "run", "hibiki-example-types"]
+    run(["git", "add", "examples"], repository)
+    run(hook, repository)
+
+    header.write_bytes(valid + b"template<class T> struct Local { class Nested {}; };\n")
+    script.write_bytes(b"class Local:\n    pass\n")
+    run(["git", "add", "examples"], repository)
+    header.write_bytes(valid)  # The unstaged fix belongs to the working tree.
+    result = run(hook, repository, expected=1)
+    output = result.stdout + result.stderr
+    assert "custom-example-local-type" in output and "sample.hpp:5:" in output
+    assert "sample.py:1: example defines class Local" in output
+    assert header.read_bytes() == valid
 
 
 def test_wrong_formatter_version_preserves_source(tmp_path: Path) -> None:

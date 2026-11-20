@@ -6,7 +6,7 @@ Status: Accepted
 
 Date: 2026-10-31
 
-Validation status: Local hooks and checks passed; remote PR CI remains subsequent work.
+Validation status: Local hooks are validated. The Example types PR check covers example-local type definitions.
 Current Windows evidence is recorded in the [acceptance record](../environment/acceptance.md).
 
 ## Context
@@ -15,7 +15,7 @@ The project needs fast feedback before commits and repeatable validation in CI. 
 
 ## Decision
 
-prek 0.5.9 is the selected hook runner. uv manages its exact version in project development dependencies and uv.lock. The configuration uses .pre-commit-config.yaml. Local hook activation and checks passed during Windows environment preparation. Remote PR CI remains pending.
+prek 0.5.9 is the selected hook runner. uv manages its exact version in project development dependencies and uv.lock. The configuration uses .pre-commit-config.yaml. Local hook activation and checks passed during Windows environment preparation. The Example types PR check uses the same rule as the local `hibiki-example-types` hook.
 
 Local tool hooks use repo: local and language: system. Ruff commands resolve through uv locked mode to Ruff 0.17.3. A project wrapper resolves clang-format 22.1.6 through the toolchain baseline. Environment preparation provides the required tools; hook startup checks their availability and versions and reports preparation steps for mismatches.
 
@@ -54,7 +54,7 @@ Local repair and CI verification share rule files. Their hook entries or wrapper
 
 CI executes check-only operations and records diagnostics. Full validation also runs basedpyright, clang-tidy, builds and tests. The eventual wrapper exposes the same check-only entry points for local use. Checks requiring complete project context inspect that context even when a smaller changed-file set triggered execution.
 
-PR CI validates the type: description title format, the link to one implementation issue, and exact equality between the issue and PR titles. Local commit hooks cover local files; PR CI resolves remote metadata. Title checks run when relevant PR metadata changes as well as during code validation. Remote workflow configuration is future implementation work.
+The planned PR metadata check will validate the `type: description` title format, the link to one implementation issue, and exact equality between the issue and PR titles. Changes to PR metadata will trigger that check.
 
 ## Consequences and validation
 
@@ -69,7 +69,7 @@ The project owns the hook wrappers and file-selection rules. A shared tool sourc
 - [x] Full checks use the selected compilation database and Python environment.
 - [ ] PR metadata validation enforces the title and issue mapping rules.
 
-This record establishes the accepted workflow. Local installation and hook execution passed; remote CI activation follows repository hosting.
+The Example types workflow checks tracked example sources on pull requests. Full platform build checks follow their respective milestones.
 
 ## References
 

@@ -30,7 +30,7 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Python type checking failed.' }
     & $configuration.paths.python (Join-Path $PSScriptRoot 'check_text.py') @files
     if ($LASTEXITCODE -ne 0) { throw 'Text conventions failed.' }
-    & (Join-Path $repository '.venv/Scripts/prek.exe') run check-json check-yaml check-toml check-case-conflict check-merge-conflict hibiki-bilingual-docs --files @files
+    & (Join-Path $repository '.venv/Scripts/prek.exe') run check-json check-yaml check-toml check-case-conflict check-merge-conflict hibiki-bilingual-docs hibiki-example-types --files @files
     if ($LASTEXITCODE -ne 0) { throw 'File validation failed.' }
     $sources = @($cpp | Where-Object { $_ -match '\.cpp$' -and $_ -ne 'tests/toolchain/AsanProbe.cpp' -and $_ -notmatch '^examples/install-consumer/' })
     foreach ($source in $sources) {

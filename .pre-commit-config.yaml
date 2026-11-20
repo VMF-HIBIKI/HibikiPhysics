@@ -39,3 +39,8 @@ repos:
         entry: pwsh -NoProfile -File scripts/environment/Hook.ps1 -Mode docs
         language: system
         files: '\.md$'
+      - id: hibiki-example-types
+        name: Example type definitions
+        entry: python scripts/environment/check_example_types.py
+        language: system
+        files: '^examples/'
