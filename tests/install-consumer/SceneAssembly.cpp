@@ -34,10 +34,27 @@ void CheckBridge()
 	Check(fromStream.QueryContact(0.25) == -0.25 && fromCode.QueryContact(0.25) == fromStream.QueryContact(0.25), "equivalent sources");
 }
 
+class CountingService final : public CollisionService
+{
+  public:
+	std::size_t								 mRegistrations = 0;
+	mutable std::size_t						 mQueries = 0;
+	std::unique_ptr<SpherePlaneRegistration> RegisterSpherePlane(SpherePlaneDetector inDetector) override
+	{
+		++mRegistrations;
+		return CollisionService::RegisterSpherePlane(std::move(inDetector));
+	}
+	std::optional<double> Query(const SceneSphere &inSphere, const ScenePlane &inPlane, double inCenterZ) const override
+	{
+		++mQueries;
+		return CollisionService::Query(inSphere, inPlane, inCenterZ);
+	}
+};
+
 void CheckServiceLifetime(const SceneDescription &inScene)
 {
-	CollisionService service;
-	auto			 config = DefaultSceneConfig();
+	CountingService service;
+	auto			config = DefaultSceneConfig();
 	config.Replace(CollisionServiceSlot.Borrow("external.service", service));
 	int					calls = 0;
 	SpherePlaneDetector detector = [&](const SceneSphere &, const ScenePlane &, double center)
@@ -48,7 +65,7 @@ void CheckServiceLifetime(const SceneDescription &inScene)
 	config.Replace(SpherePlaneSlot.Borrow("external.detector", detector));
 	{
 		const CompiledScene scene(inScene, config);
-		Check(scene.QueryContact(2) == 2 && service.Query(*inScene.mSphere, *inScene.mPlane, 3) == 3 && calls == 2, "same selected service and borrowed detector");
+		Check(scene.QueryContact(2) == 2 && service.Query(*inScene.mSphere, *inScene.mPlane, 3) == 3 && calls == 2 && service.mRegistrations == 1 && service.mQueries == 2, "same selected service and borrowed detector");
 	}
 	Check(!service.Query(*inScene.mSphere, *inScene.mPlane, 3) && calls == 2, "detector detached from borrowed service");
 	Check(CompiledScene(inScene, config).QueryContact(4) == 4 && calls == 3, "service reusable after teardown");

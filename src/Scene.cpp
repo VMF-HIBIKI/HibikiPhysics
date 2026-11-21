@@ -14,7 +14,7 @@ namespace
 const CapabilitySlot<SpherePlaneRegistration> RegistrationSlot("collision.sphere-plane.registration");
 
 template <class Number>
-Number ReadNumber(std::istream &ioLine, const char *inExpected)
+Number ReadNumber(std::istream &ioLine, const std::string &inLocation, const char *inExpected)
 {
 	std::string token;
 	ioLine >> token;
@@ -22,21 +22,21 @@ Number ReadNumber(std::istream &ioLine, const char *inExpected)
 	const auto end = token.data() + token.size();
 	const auto result = std::from_chars(token.data(), end, value);
 	if (result.ec != std::errc{} || result.ptr != end)
-		throw std::invalid_argument(inExpected);
+		throw std::invalid_argument(inLocation + inExpected);
 	return value;
 }
 
-void Validate(const SceneDescription &inScene)
+void Validate(const SceneDescription &inScene, const std::string &inLocation)
 {
 	const auto &sphere = inScene.mSphere;
 	const auto &plane = inScene.mPlane;
 	if (sphere && (sphere->mName.empty() || !std::isfinite(sphere->mCenterZ) ||
 				   !std::isfinite(sphere->mRadius) || sphere->mRadius <= 0))
-		throw std::invalid_argument("invalid sphere '" + sphere->mName + "'");
+		throw std::invalid_argument(inLocation + "invalid sphere '" + sphere->mName + "'");
 	if (plane && (plane->mName.empty() || !std::isfinite(plane->mHeight)))
-		throw std::invalid_argument("invalid plane '" + plane->mName + "'");
+		throw std::invalid_argument(inLocation + "invalid plane '" + plane->mName + "'");
 	if (sphere && plane && sphere->mName == plane->mName)
-		throw std::invalid_argument("duplicate shape name '" + plane->mName + "'");
+		throw std::invalid_argument(inLocation + "duplicate shape name '" + plane->mName + "'");
 }
 
 bool CanCollide(const CollisionFilter &inFirst, const CollisionFilter &inSecond)
@@ -67,43 +67,37 @@ SceneDescription ReadScene(std::istream &inStream, std::string inSource)
 		std::string kind;
 		if (!(row >> kind))
 			continue;
-		try
+		const auto location = scene.mSource + ":" + std::to_string(number) + ": ";
+		if (!header)
 		{
-			if (!header)
-			{
-				std::string version;
-				if (kind != "hibiki-scene" || !(row >> version) || version != "1")
-					throw std::invalid_argument("expected hibiki-scene 1");
-				header = true;
-			}
-			else if (kind == "sphere" && !scene.mSphere)
-			{
-				SceneSphere sphere{};
-				row >> sphere.mName;
-				sphere.mCenterZ = ReadNumber<double>(row, "expected sphere centre Z");
-				sphere.mRadius = ReadNumber<double>(row, "expected sphere radius");
-				sphere.mFilter = {ReadNumber<std::uint32_t>(row, "expected unsigned decimal filter bits"), ReadNumber<std::uint32_t>(row, "expected unsigned decimal filter bits")};
-				scene.mSphere = std::move(sphere);
-			}
-			else if (kind == "plane" && !scene.mPlane)
-			{
-				ScenePlane plane{};
-				row >> plane.mName;
-				plane.mHeight = ReadNumber<double>(row, "expected plane height");
-				plane.mFilter = {ReadNumber<std::uint32_t>(row, "expected unsigned decimal filter bits"), ReadNumber<std::uint32_t>(row, "expected unsigned decimal filter bits")};
-				scene.mPlane = std::move(plane);
-			}
-			else
-				throw std::invalid_argument("unsupported or repeated shape '" + kind + "'");
-			std::string extra;
-			if (row >> extra)
-				throw std::invalid_argument("unexpected field '" + extra + "'");
-			Validate(scene);
+			std::string version;
+			if (kind != "hibiki-scene" || !(row >> version) || version != "1")
+				throw std::invalid_argument(location + "expected hibiki-scene 1");
+			header = true;
 		}
-		catch (const std::invalid_argument &error)
+		else if (kind == "sphere" && !scene.mSphere)
 		{
-			throw std::invalid_argument(scene.mSource + ":" + std::to_string(number) + ": " + error.what());
+			SceneSphere sphere{};
+			row >> sphere.mName;
+			sphere.mCenterZ = ReadNumber<double>(row, location, "expected sphere centre Z");
+			sphere.mRadius = ReadNumber<double>(row, location, "expected sphere radius");
+			sphere.mFilter = {ReadNumber<std::uint32_t>(row, location, "expected unsigned decimal filter bits"), ReadNumber<std::uint32_t>(row, location, "expected unsigned decimal filter bits")};
+			scene.mSphere = std::move(sphere);
 		}
+		else if (kind == "plane" && !scene.mPlane)
+		{
+			ScenePlane plane{};
+			row >> plane.mName;
+			plane.mHeight = ReadNumber<double>(row, location, "expected plane height");
+			plane.mFilter = {ReadNumber<std::uint32_t>(row, location, "expected unsigned decimal filter bits"), ReadNumber<std::uint32_t>(row, location, "expected unsigned decimal filter bits")};
+			scene.mPlane = std::move(plane);
+		}
+		else
+			throw std::invalid_argument(location + "unsupported or repeated shape '" + kind + "'");
+		std::string extra;
+		if (row >> extra)
+			throw std::invalid_argument(location + "unexpected field '" + extra + "'");
+		Validate(scene, location);
 	}
 	if (inStream.bad() || !inStream.eof())
 		throw std::runtime_error(scene.mSource + ": error reading scene");
@@ -159,14 +153,7 @@ CapabilityConfig DefaultSceneConfig()
 
 CompiledScene::CompiledScene(SceneDescription inScene, const CapabilityConfig &inConfig) : mScene(std::move(inScene))
 {
-	try
-	{
-		Validate(mScene);
-	}
-	catch (const std::invalid_argument &error)
-	{
-		throw std::invalid_argument(mScene.mSource + ": " + error.what());
-	}
+	Validate(mScene, mScene.mSource + ": ");
 	const auto &sphere = mScene.mSphere;
 	const auto &plane = mScene.mPlane;
 	if (!sphere || !plane || !CanCollide(sphere->mFilter, plane->mFilter))
@@ -175,8 +162,9 @@ CompiledScene::CompiledScene(SceneDescription inScene, const CapabilityConfig &i
 		mScope = inConfig.Mount(empty);
 		return;
 	}
-	auto query = MakePlugin([this](SpherePlaneRegistration &, CollisionService &ioService)
-							{ mService = &ioService; }, RegistrationSlot, CollisionServiceSlot);
+	auto		query = MakePlugin([this](SpherePlaneRegistration &, CollisionService &ioService)
+								   { mService = &ioService; }, RegistrationSlot, CollisionServiceSlot);
+	std::string failure;
 	try
 	{
 		auto config = inConfig;
@@ -186,12 +174,14 @@ CompiledScene::CompiledScene(SceneDescription inScene, const CapabilityConfig &i
 		};
 		config.Add(RegistrationSlot.Factory("hibiki.sphere-plane.registration.v1", registerPair, CollisionServiceSlot, SpherePlaneSlot));
 		mScope = config.Mount(query);
+		return;
 	}
 	catch (const std::exception &error)
 	{
-		throw std::runtime_error(mScene.mSource + ": sphere '" + sphere->mName + "' and plane '" +
-								 plane->mName + "' require collision.sphere-plane: " + error.what());
+		failure = error.what();
 	}
+	throw std::runtime_error(mScene.mSource + ": sphere '" + sphere->mName + "' and plane '" +
+							 plane->mName + "' require collision.sphere-plane: " + failure);
 }
 
 std::optional<double> CompiledScene::QueryContact(double inCenterZ) const

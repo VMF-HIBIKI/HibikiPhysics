@@ -44,7 +44,7 @@ struct SceneDescription
 // Return the signed surface separation when within the detector's contact range.
 using SpherePlaneDetector = std::function<std::optional<double>(const SceneSphere &, const ScenePlane &, double)>;
 class CollisionService;
-class SpherePlaneRegistration final
+class SpherePlaneRegistration
 {
 	friend class CollisionService;
 	explicit SpherePlaneRegistration(SpherePlaneDetector inDetector)
@@ -52,8 +52,12 @@ class SpherePlaneRegistration final
 	std::shared_ptr<const SpherePlaneDetector> mDetector;
 
   public:
+	virtual ~SpherePlaneRegistration() = default;
 	SpherePlaneRegistration(const SpherePlaneRegistration &) = delete;
 	SpherePlaneRegistration &operator=(const SpherePlaneRegistration &) = delete;
+
+  protected:
+	SpherePlaneRegistration() = default;
 };
 
 // Each registration owns its detector. Releasing the registration removes it from the service.
@@ -61,10 +65,11 @@ class CollisionService
 {
   public:
 	CollisionService() = default;
+	virtual ~CollisionService() = default;
 	CollisionService(const CollisionService &) = delete;
-	CollisionService									  &operator=(const CollisionService &) = delete;
-	[[nodiscard]] std::unique_ptr<SpherePlaneRegistration> RegisterSpherePlane(SpherePlaneDetector inDetector);
-	[[nodiscard]] std::optional<double>					   Query(const SceneSphere &inSphere, const ScenePlane &inPlane, double inCenterZ) const;
+	CollisionService											  &operator=(const CollisionService &) = delete;
+	[[nodiscard]] virtual std::unique_ptr<SpherePlaneRegistration> RegisterSpherePlane(SpherePlaneDetector inDetector);
+	[[nodiscard]] virtual std::optional<double>					   Query(const SceneSphere &inSphere, const ScenePlane &inPlane, double inCenterZ) const;
 
   private:
 	std::weak_ptr<const SpherePlaneDetector> mDetector;
