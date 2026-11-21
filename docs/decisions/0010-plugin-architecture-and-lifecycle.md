@@ -38,11 +38,34 @@ The extension contract covers three uses: replacing an existing provider, contri
 
 A plugin joins a scope through the shared lifecycle and can provide builders, model data, mathematical interfaces, task graphs or complete execution flows. A service plugin can also define how other plugins extend it.
 
-For example, a collision service can define how to register a detector for a pair of shapes. During scene compilation, a sphere–plane plugin obtains the user-selected collision service from its context and registers its detection function. During a step, the advancement plugin calls the collision service, which dispatches to the registered detector for that pair. The resulting contacts belong to the current World.
+For example, a collision service defines how to register a detector for a pair of shapes. During scene compilation, the selected sphere–plane detector registers with the same collision service instance that will handle queries during a step. Contacts produced during the step belong to the current World.
+
+### Capability declarations and automatic binding
+
+A plugin declares each capability it provides, the protocol it implements, the scene content it handles and the services it requires. The owner of the extension point defines the matching rules. For the collision service, sphere–plane detection is one capability regardless of the order in which the two shapes appear in the file. A single plugin can contribute detectors for several pairs.
+
+The engine supplies a default implementation for each supported capability. Loading a scene uses those defaults automatically. An extension registers a new capability or explicitly replaces a named capability in an experiment configuration. Replacing sphere–plane detection preserves the selection for sphere–sphere detection, even when one plugin supplies both defaults. Every scene built with the experiment configuration uses the replacement. Other configurations retain their own selections.
+
+The native scene and asset layer translates file content into the intermediate scene description defined in [ADR-0013](0013-scenes-and-assets.md). Scene compilation derives required capabilities from those facts, including shapes and collision filters. It selects the experiment replacement where specified and the default otherwise. Once the selected providers are ready, the builder binds their instances to the consumers and mounts them through the validated lifecycle entry point. The compiled scene records which provider supplies each selected capability and whether it came from the default or an experiment replacement. Actual contact detection takes place during simulation.
+
+A missing capability produces a build diagnostic identifying the scene content that requires it. Competing replacements for one capability in the same configuration produce a build diagnostic identifying the capability and the conflicting plugins. Both conditions require resolution before the scene can run.
+
+### Registration interface for plugin authors
+
+Each extension point supplies its own typed declaration interface. The author of a sphere–plane detector supplies an implementation identifier, a shape pair and a detection function through the collision service's interface. The pair is declared once and serves both to match scene content and to check the function signature. The collision service passes the sphere and plane to the function in the order specified by its protocol.
+
+An experiment author can register a declaration in the experiment configuration before loading a scene. The configuration supports two operations.
+
+- `Add` registers a new capability. When an implementation already occupies that entry, the configuration reports the conflict and identifies `Replace` as the operation for an intentional replacement.
+- `Replace` takes the new implementation's declaration and derives the target capability from it. For example, a sphere–plane detector declaration already identifies its target pair, so the experiment author supplies the declaration once.
+
+Multiple scenes can share the declarations in a configuration. The builder mounts the selected implementations for each scene. The collision extension point supplies an adapter that declares the collision service dependency, registers the function with that scene's collision service instance and transfers the registration handle to the mounting scope for cleanup.
+
+The installed C++ API represents a registration as a capability name, an implementation name and a reference to an existing provider. The capability name matches the consumer's dependency slot. A copy of a `CapabilityConfig` owns an independent selection and shares the underlying provider references. `Replace` requires an existing entry and the same reference type, including const qualification. The first replacement selects the experiment provider. A second replacement for that entry reports a conflict. `Build` binds the requested slots in a new context. `Mount` also runs the plugin's mounting callback and returns the owning scope. Providers outlive their configurations and scopes.
 
 ### Dependency declaration and binding
 
-Plugins declare the capabilities they need, and users explicitly select the actual providers. Scene compilation establishes dependency connections for the selected composition and executes component-defined checks. Bindings and runtime composition remain fixed during execution; changes follow the reconfiguration and compilation cycle in ADR-0019. Users continue to manage plugin versions, dependency acquisition and distribution.
+Plugins declare the capabilities they need. The builder resolves providers from the defaults and explicit experiment replacements and runs component-defined checks. Bindings and runtime composition remain fixed during execution. Changes follow the reconfiguration and compilation cycle in ADR-0019. Users continue to manage plugin versions, dependency acquisition and distribution.
 
 For example, a friction plugin declares a need for linear-solving capability, and users can bind different solver providers for different experiments. The capability protocol defines their calling contract. The C++ interface identifies slots by name. `Require<T>` records the type of `std::reference_wrapper<T>`, including the const qualification of `T`. The caller supplies a binding using `std::ref` or `std::cref`. `Plugin::Mount` collects declarations, calls `PluginContext::Validate`, then invokes the protected `OnMount` callback. The first missing or incompatible binding raises `std::invalid_argument` with the slot name and reason. The caller chooses how to handle the failure.
 
@@ -96,7 +119,7 @@ Extension freedom includes protocol, data and flow definition. Shared protocols 
 
 ## Validation
 
-Validation status: Installed-package tests cover binding validation and mounting-scope cleanup. Multi-World and scheduling contracts await implementation.
+Validation status: Installed-package tests cover default registration, experiment replacements, binding validation and mounting-scope cleanup. Deriving requirements from a bridged scene, collision adapters, multi-World behavior and scheduling await implementation.
 
 - Build the official default composition entirely through public extension mechanisms.
 - Add a friction plugin with custom history state from an independent project and verify lifecycle and rollback behavior.

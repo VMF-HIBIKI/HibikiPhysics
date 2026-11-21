@@ -72,6 +72,8 @@ class PluginContext final
 
 class Plugin
 {
+	friend class CapabilityConfig;
+
   public:
 	virtual ~Plugin() = default;
 
@@ -82,5 +84,46 @@ class Plugin
 
   protected:
 	virtual void OnMount(PluginContext &ioContext) = 0;
+
+  private:
+	void MountDeclared(PluginContext &ioContext, const Dependencies &inDependencies);
+};
+
+// Providers are borrowed. Their lifetime covers the configuration and its mounted scopes.
+class CapabilityRegistration
+{
+	friend class CapabilityConfig;
+
+  public:
+	template <class Protocol>
+	CapabilityRegistration(std::string inCapability, std::string inImplementation, Protocol &ioProvider)
+		: mCapability(std::move(inCapability)), mImplementation(std::move(inImplementation)), mBinding(std::ref(ioProvider))
+	{
+	}
+
+  private:
+	std::string mCapability;
+	std::string mImplementation;
+	std::any	mBinding;
+};
+
+// Copy a default configuration before registering replacements for an experiment.
+class CapabilityConfig
+{
+  public:
+	void										 Add(CapabilityRegistration inDefault);
+	void										 Replace(CapabilityRegistration inReplacement);
+	[[nodiscard]] PluginContext					 Build(const Dependencies &inDependencies) const;
+	[[nodiscard]] std::unique_ptr<PluginContext> Mount(Plugin &ioPlugin) const;
+
+  private:
+	struct Entry
+	{
+		std::string mImplementation;
+		std::any	mBinding;
+		bool		mReplaced;
+	};
+	[[nodiscard]] PluginContext::Bindings	  Select(const Dependencies &inDependencies) const;
+	std::map<std::string, Entry, std::less<>> mEntries;
 };
 } // namespace HibikiPhysics
