@@ -37,4 +37,6 @@ class FilteredSpatialProvider
 [[nodiscard]] const CapabilitySlot<FilteredSpatialProvider> &FilteredSpatialSlot();
 [[nodiscard]] std::unique_ptr<FilteredSpatialProvider>		 MakeFilteredMortonProvider();
 [[nodiscard]] CapabilityRegistration						 FilteredMortonPlugin();
+[[nodiscard]] std::unique_ptr<FilteredSpatialProvider>		 MakeCachedFilteredMortonProvider();
+[[nodiscard]] CapabilityRegistration						 CachedFilteredMortonPlugin();
 } // namespace HibikiPhysics

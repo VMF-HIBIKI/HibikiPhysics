@@ -80,6 +80,9 @@ add_executable(hibiki_filtered_spatial FilteredSpatialIndex.cpp)
 target_link_libraries(hibiki_filtered_spatial PRIVATE hibiki::physics)
 add_test(NAME spatial.filtered COMMAND hibiki_filtered_spatial)
 
+add_executable(hibiki_query_metadata ../../experiments/spatial/query-metadata/QueryMetadata.cpp)
+target_link_libraries(hibiki_query_metadata PRIVATE hibiki::physics)
+
 add_executable(hibiki_sdf_baker SdfBaker.cpp)
 target_link_libraries(hibiki_sdf_baker PRIVATE hibiki::physics)
 add_test(NAME sdf.baker COMMAND hibiki_sdf_baker)
