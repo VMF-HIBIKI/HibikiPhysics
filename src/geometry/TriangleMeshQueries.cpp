@@ -1,5 +1,6 @@
 #include <HibikiPhysics/TriangleMeshQueries.h>
 #include "Orientation.h"
+#include "SpatialTree.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -46,7 +47,8 @@ struct FaceFrame
 {
 	Vec3   a, ab, ac, normal;
 	double scale, area;
-	FaceFrame(const TriangleMesh &mesh, std::size_t id)
+	AABB   bounds;
+	FaceFrame(const TriangleMesh &mesh, std::size_t id, const AABB &faceBounds) : bounds(faceBounds)
 	{
 		const auto &[i, j, k] = mesh.GetFaces().at(id);
 		const auto &v = mesh.GetVertices();
@@ -71,12 +73,6 @@ struct FaceFrame
 		return {q.Cross(ac).Dot(normal) / area, ab.Cross(q).Dot(normal) / area};
 	}
 };
-
-Vec3 OnSegment(Vec3 p, Vec3 a, Vec3 edge)
-{
-	const double along = (p - a).Dot(edge) / edge.Dot(edge);
-	return a + std::clamp(along, 0.0, 1.0) * edge;
-}
 
 // Scaled cofactors preserve small distances to slanted faces and edges when subtracting a
 // vertex or projecting onto a unit normal would round away the displacement.
@@ -169,32 +165,49 @@ MeshClosestPoint RefineNearSurface(const TriangleMesh &mesh, const FaceFrame &f,
 
 MeshClosestPoint ClosestOnFace(const TriangleMesh &mesh, const FaceFrame &f, std::size_t id, Vec3 point)
 {
-	const Vec3 p = f.Relative(point);
+	const Vec3	 p = f.Relative(point);
+	const double roundoff = EdgeRoundoff / f.area;
+	// Subtraction in the scaled face frame can lose a small gap to a distant
+	// vertex or edge. Refine any distance that could incorrectly prune a peer.
+	const auto needsRefinement = [&](double distance)
+	{ return distance <= roundoff * f.scale || distance < Detail::DistanceLowerBound(XYZ(point), f.bounds); };
 	const auto [b, c] = f.Coordinates(p);
 	if (b >= 0 && c >= 0 && b + c <= 1)
 	{
-		const double distance = std::abs(p.Dot(f.normal));
-		const double roundoff = EdgeRoundoff / f.area;
-		if (distance <= roundoff)
+		const double distance = std::abs(p.Dot(f.normal)) * f.scale;
+		if (needsRefinement(distance))
 			return RefineNearSurface(mesh, f, id, point, std::min({b, c, 1 - b - c}) > roundoff);
 		const Vec3 projected = b * f.ab + c * f.ac;
-		return {f.a + f.scale * projected, distance * f.scale, id};
+		return {f.a + f.scale * projected, distance, id};
 	}
-	const std::array candidates{OnSegment(p, {}, f.ab), OnSegment(p, {}, f.ac), OnSegment(p, f.ab, f.ac - f.ab)};
-	Vec3			 best = candidates[0];
-	double			 distance = (p - best).Length();
-	for (std::size_t i = 1; i < candidates.size(); ++i)
+	const std::array local{Vec3{}, f.ab, f.ac};
+	const auto		&face = mesh.GetFaces()[id];
+	MeshClosestPoint best{{}, std::numeric_limits<double>::infinity(), id};
+	for (const auto [i, j] : {std::pair{0, 1}, std::pair{0, 2}, std::pair{1, 2}})
 	{
-		const double other = (p - candidates[i]).Length();
-		if (other < distance)
+		const Vec3	 edge = local[j] - local[i];
+		const double along = (p - local[i]).Dot(edge) / edge.Dot(edge);
+		Vec3		 witness;
+		double		 distance;
+		if (along <= 0 || along >= 1)
 		{
-			best = candidates[i];
-			distance = other;
+			// Shared vertices have one world-space position even when the
+			// incident triangles use different origins and normalization scales.
+			witness = mesh.GetVertices()[face[along <= 0 ? i : j]];
+			distance = (point - witness).Length();
 		}
+		else
+		{
+			const Vec3 projection = local[i] + along * edge;
+			witness = f.a + f.scale * projection;
+			distance = (p - projection).Length() * f.scale;
+		}
+		if (distance < best.mDistance)
+			best = {witness, distance, id};
 	}
-	if (distance <= EdgeRoundoff / f.area)
+	if (needsRefinement(best.mDistance))
 		return RefineNearSurface(mesh, f, id, point, false);
-	return {f.a + f.scale * best, distance * f.scale, id};
+	return best;
 }
 
 std::optional<std::pair<double, TriangleRayFeature>> IntersectFace(const FaceFrame &f, Vec3 origin, Vec3 direction)
@@ -278,8 +291,8 @@ TriangleMeshQueries::Data::Data(TriangleMesh inMesh, const SpatialQueryProvider 
 			low[n] = std::min({a[n], b[n], c[n]});
 			high[n] = std::max({a[n], b[n], c[n]});
 		}
-		faces.emplace_back(mesh, entries.size());
 		entries.push_back({entries.size(), AABB(low, high)});
+		faces.emplace_back(mesh, entries.back().mId, entries.back().mBounds);
 	}
 	index = inProvider.Build(entries);
 	if (!index)
