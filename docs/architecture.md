@@ -6,7 +6,7 @@ Status: Overall direction accepted. M1 implementation is in progress.
 
 ## Current implementation
 
-The first official domain plugin provides a scope-owned geometry library. Applications register it with `config.Add(HibikiPhysics::GeometryLibraryPlugin())`. [Geometry library decision](decisions/0020-geometry-library-plugin.md).
+The geometry plugin provides eight analytic shapes and their local axis-aligned bounds. Point queries cover plane signed distance, containment in a half-space or one of the five closed solids, and the closest point on a finite rectangular patch. Applications register it with `config.Add(HibikiPhysics::GeometryLibraryPlugin())`. [Geometry library decision](decisions/0020-geometry-library-plugin.md).
 
 The C++20 static target `hibiki::physics` exports the build-information API and the public `HibikiPhysics::Plugin` base class. The Windows toolchain, editor, debugger and environment reproduction have passed validation. [Windows acceptance record](environment/acceptance.md).
 

@@ -6,7 +6,7 @@
 
 ## 当前实现
 
-首个官方领域插件提供由装配作用域持有的几何库。应用通过 `config.Add(HibikiPhysics::GeometryLibraryPlugin())` 注册该插件。[几何库决策](decisions/0020-geometry-library-plugin.zh-CN.md)。
+几何插件提供八种解析形状及其局部轴对齐包围盒。点查询覆盖平面有符号距离、闭半空间与五种闭实体的包含判断，以及有限矩形面片最近点。应用通过 `config.Add(HibikiPhysics::GeometryLibraryPlugin())` 注册该插件。[几何库决策](decisions/0020-geometry-library-plugin.zh-CN.md)。
 
 C++20 静态库目标 `hibiki::physics` 已公开构建信息接口及 `HibikiPhysics::Plugin` 基类。Windows 工具链、编辑器、调试和环境复现已完成验证。[Windows 验收记录](environment/acceptance.zh-CN.md)。
 
