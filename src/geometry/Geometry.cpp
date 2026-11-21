@@ -193,6 +193,29 @@ Interval ProjectLocal(const Ellipsoid &inShape, Vec3 d)
 	return SymmetricInterval(std::hypot(a * d.mX, b * d.mY, c * d.mZ));
 }
 
+Interval ProjectLocal(const HeightField &inShape, Vec3 d)
+{
+	const auto [dx, dy] = inShape.GetSpacing();
+	const auto rows = inShape.GetRowCount(), cols = inShape.GetColumnCount();
+	Interval   result{Infinity, -Infinity};
+	const auto include = [&](Vec3 vertex)
+	{
+		const double projection = d.Dot(vertex);
+		if (!std::isfinite(projection))
+			throw std::overflow_error("Projected height field exceeds finite range");
+		result.mMin = std::min(result.mMin, projection);
+		result.mMax = std::max(result.mMax, projection);
+	};
+	for (double x : {0.0, static_cast<double>(cols - 1) * dx})
+		for (double y : {0.0, static_cast<double>(rows - 1) * dy})
+			include({x, y, inShape.GetBase()});
+	const auto &samples = inShape.GetSamples();
+	for (std::size_t row = 0; row < rows; ++row)
+		for (std::size_t col = 0; col < cols; ++col)
+			include({static_cast<double>(col) * dx, static_cast<double>(row) * dy, samples[row * cols + col]});
+	return result;
+}
+
 double TranslateEndpoint(double inEndpoint, double inOffset)
 {
 	if (std::isinf(inEndpoint))
@@ -635,6 +658,30 @@ std::array<double, 3> GeometryLibrary::ClosestPoint(const RectangularPatch &inPa
 	ValidatePoint(inPoint);
 	const auto half = inPatch.GetHalfExtents();
 	return {std::clamp(inPoint[0], -half[0], half[0]), std::clamp(inPoint[1], -half[1], half[1]), 0};
+}
+
+bool GeometryLibrary::Contains(const HeightField &inShape, const std::array<double, 3> &inPoint) const
+{
+	ValidatePoint(inPoint);
+	const auto height = inShape.SurfaceHeight(inPoint[0], inPoint[1]);
+	return height && inPoint[2] >= inShape.GetBase() && inPoint[2] <= *height;
+}
+
+bool GeometryLibrary::Contains(const HeightField &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+AABB GeometryLibrary::LocalBounds(const HeightField &inShape) const
+{
+	const auto [dx, dy] = inShape.GetSpacing();
+	const auto &samples = inShape.GetSamples();
+	return {{0, 0, inShape.GetBase()}, {static_cast<double>(inShape.GetColumnCount() - 1) * dx, static_cast<double>(inShape.GetRowCount() - 1) * dy, *std::max_element(samples.begin(), samples.end())}};
+}
+
+AABB GeometryLibrary::WorldBounds(const HeightField &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
 }
 
 const CapabilitySlot<GeometryLibrary> &GeometryLibrarySlot()

@@ -35,3 +35,7 @@ add_test(NAME plugin.geometry COMMAND hibiki_geometry_plugin)
 add_executable(hibiki_analytic_shapes AnalyticShapes.cpp)
 target_link_libraries(hibiki_analytic_shapes PRIVATE hibiki::physics)
 add_test(NAME geometry.analytic COMMAND hibiki_analytic_shapes)
+
+add_executable(hibiki_height_field HeightField.cpp)
+target_link_libraries(hibiki_height_field PRIVATE hibiki::physics)
+add_test(NAME geometry.height_field COMMAND hibiki_height_field)
