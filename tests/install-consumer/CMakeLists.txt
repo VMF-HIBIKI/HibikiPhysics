@@ -40,6 +40,10 @@ add_executable(hibiki_spatial_index SpatialIndex.cpp)
 target_link_libraries(hibiki_spatial_index PRIVATE hibiki::physics)
 add_test(NAME geometry.spatial_index COMMAND hibiki_spatial_index)
 
+add_executable(hibiki_four_way_spatial_index FourWaySpatialIndex.cpp)
+target_link_libraries(hibiki_four_way_spatial_index PRIVATE hibiki::physics)
+add_test(NAME spatial.four_way COMMAND hibiki_four_way_spatial_index)
+
 add_executable(hibiki_provider_graph ProviderGraph.cpp)
 target_link_libraries(hibiki_provider_graph PRIVATE hibiki::physics)
 add_test(NAME plugin.graph COMMAND hibiki_provider_graph)
