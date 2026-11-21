@@ -1,4 +1,5 @@
 #include <HibikiPhysics/TriangleMeshQueries.h>
+#include "Orientation.h"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -77,14 +78,107 @@ Vec3 OnSegment(Vec3 p, Vec3 a, Vec3 edge)
 	return a + std::clamp(along, 0.0, 1.0) * edge;
 }
 
-MeshClosestPoint ClosestOnFace(const FaceFrame &f, std::size_t id, Vec3 point)
+// Scaled cofactors preserve small distances to slanted faces and edges when subtracting a
+// vertex or projecting onto a unit normal would round away the displacement.
+struct ScaledCross
+{
+	Vec3 components;
+	int	 exponent;
+};
+
+ScaledCross AccurateCross(Point a, Point b, Point c)
+{
+	std::array<Detail::ScaledDeterminant, 3> cofactors{};
+	int										 exponent = std::numeric_limits<int>::min();
+	for (std::size_t i = 0; i < 3; ++i)
+	{
+		const auto j = (i + 1) % 3, k = (i + 2) % 3;
+		if (Detail::ExactOrientation<2>({{{a[j], a[k]}, {b[j], b[k]}, {c[j], c[k]}}}, &cofactors[i]) != 0)
+			exponent = std::max(exponent, cofactors[i].exponent);
+	}
+	if (exponent == std::numeric_limits<int>::min())
+		return {{}, 0};
+	Point values{};
+	for (std::size_t i = 0; i < 3; ++i)
+		values[i] = std::scalbn(cofactors[i].fraction, cofactors[i].exponent - exponent);
+	return {{values[0], values[1], values[2]}, exponent};
+}
+
+MeshClosestPoint RefineNearSurface(const TriangleMesh &mesh, const FaceFrame &f, std::size_t id, Vec3 point, bool wellInside)
+{
+	const auto &[i, j, k] = mesh.GetFaces()[id];
+	const auto		&vertices = mesh.GetVertices();
+	const std::array v{vertices[i], vertices[j], vertices[k]};
+	const std::array t{XYZ(v[0]), XYZ(v[1]), XYZ(v[2])};
+	const Point		 p = XYZ(point);
+	if (wellInside)
+		for (std::size_t axis = 0; axis < 3; ++axis)
+			if (t[0][axis] == t[1][axis] && t[0][axis] == t[2][axis])
+			{
+				Point witness = p;
+				witness[axis] = t[0][axis];
+				return {{witness[0], witness[1], witness[2]}, std::abs(p[axis] - witness[axis]), id};
+			}
+	const auto				   normal = AccurateCross(t[0], t[1], t[2]);
+	std::array<ScaledCross, 3> edges{};
+	bool					   inside = true;
+	if (!wellInside)
+		for (std::size_t e = 0; e < 3; ++e)
+		{
+			edges[e] = AccurateCross(t[e], t[(e + 1) % 3], p);
+			if (edges[e].components.Dot(normal.components) < 0)
+				inside = false;
+		}
+	if (inside)
+	{
+		Detail::ScaledDeterminant volume;
+		Detail::ExactOrientation<3>({t[0], t[1], t[2], p}, &volume);
+		const double area = normal.components.Length();
+		const double height = std::scalbn(volume.fraction / area, volume.exponent - normal.exponent);
+		return {point + height * Divide(normal.components, area), std::abs(height), id};
+	}
+	MeshClosestPoint best{{}, std::numeric_limits<double>::infinity(), id};
+	int				 scaleExponent;
+	const double	 scaleFraction = std::frexp(f.scale, &scaleExponent);
+	const std::array local{Vec3{}, f.ab, f.ac};
+	const auto		 localPoint = f.Relative(point);
+	for (std::size_t e = 0; e < 3; ++e)
+	{
+		const auto next = (e + 1) % 3;
+		const Vec3 edge = local[next] - local[e];
+		// Subtract at the endpoint first to retain a one-ULP gap. When the world
+		// subtraction overflows, the same difference fits in the scaled face frame.
+		auto		 from = Divide(point - v[e], f.scale), to = Divide(v[next] - point, f.scale);
+		const double along = (Finite(from) ? from : localPoint - local[e]).Dot(edge);
+		const double remaining = (Finite(to) ? to : local[next] - localPoint).Dot(edge);
+		Vec3		 witness = along <= 0 ? v[e] : v[next];
+		double		 distance;
+		if (along > 0 && remaining > 0)
+		{
+			const double u = along / (along + remaining);
+			witness = {std::lerp(v[e].mX, v[next].mX, u), std::lerp(v[e].mY, v[next].mY, u), std::lerp(v[e].mZ, v[next].mZ, u)};
+			distance = std::scalbn(edges[e].components.Length() / (scaleFraction * edge.Length()), edges[e].exponent - scaleExponent);
+		}
+		else
+			distance = (point - witness).Length();
+		if (distance < best.mDistance)
+			best = {witness, distance, id};
+	}
+	return best;
+}
+
+MeshClosestPoint ClosestOnFace(const TriangleMesh &mesh, const FaceFrame &f, std::size_t id, Vec3 point)
 {
 	const Vec3 p = f.Relative(point);
 	const auto [b, c] = f.Coordinates(p);
 	if (b >= 0 && c >= 0 && b + c <= 1)
 	{
+		const double distance = std::abs(p.Dot(f.normal));
+		const double roundoff = EdgeRoundoff / f.area;
+		if (distance <= roundoff)
+			return RefineNearSurface(mesh, f, id, point, std::min({b, c, 1 - b - c}) > roundoff);
 		const Vec3 projected = b * f.ab + c * f.ac;
-		return {f.a + f.scale * projected, std::abs(p.Dot(f.normal)) * f.scale, id};
+		return {f.a + f.scale * projected, distance * f.scale, id};
 	}
 	const std::array candidates{OnSegment(p, {}, f.ab), OnSegment(p, {}, f.ac), OnSegment(p, f.ab, f.ac - f.ab)};
 	Vec3			 best = candidates[0];
@@ -98,6 +192,8 @@ MeshClosestPoint ClosestOnFace(const FaceFrame &f, std::size_t id, Vec3 point)
 			distance = other;
 		}
 	}
+	if (distance <= EdgeRoundoff / f.area)
+		return RefineNearSurface(mesh, f, id, point, false);
 	return {f.a + f.scale * best, distance * f.scale, id};
 }
 
@@ -195,10 +291,10 @@ MeshClosestPoint TriangleMeshQueries::Closest(Vec3 inPoint) const
 	if (!Finite(inPoint))
 		throw std::invalid_argument("Expected a finite query point");
 	const auto nearest = GetIndex().Nearest(XYZ(inPoint), [&](std::size_t face)
-											{ return ClosestOnFace(mData->faces.at(face), face, inPoint).mDistance; });
+											{ return ClosestOnFace(GetMesh(), mData->faces.at(face), face, inPoint).mDistance; });
 	if (!nearest)
 		throw std::overflow_error("Mesh distance exceeds finite range or provider returned no leaf");
-	return ClosestOnFace(mData->faces.at(nearest->mId), nearest->mId, inPoint);
+	return ClosestOnFace(GetMesh(), mData->faces.at(nearest->mId), nearest->mId, inPoint);
 }
 
 std::vector<MeshRayHit> TriangleMeshQueries::RayHits(Vec3 inOrigin, Vec3 inDirection) const
