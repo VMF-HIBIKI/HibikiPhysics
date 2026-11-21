@@ -6,7 +6,7 @@ CPU Morton 提供器为有限的闭合 AABB 构建只读层次结构，通过已
 
 ## 选择提供器
 
-调用者可在指定的能力作用域内替换默认的中位数 BVH。下面的示例请求完整查询能力，检查两个包围盒在顶点相接的情况。
+CPU 完整查询槽位默认使用 Morton LBVH。下面的示例按实现名注册该提供者，检查两个包围盒在顶点相接的情况。
 
 ```cpp
 #include <HibikiPhysics/MortonSpatialIndex.h>
@@ -16,8 +16,7 @@ int main()
 {
     using namespace HibikiPhysics;
     CapabilityConfig config;
-    config.Add(CpuSpatialQueryPlugin());
-    config.Replace(MortonSpatialQueryPlugin());
+    config.Add(MortonSpatialQueryPlugin());
     Dependencies requirements;
     SpatialQuerySlot().Declare(requirements);
     const auto scope = config.Build(requirements);

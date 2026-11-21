@@ -2,7 +2,7 @@
 
 [English](stackless-lbvh.md) | **简体中文**
 
-包含 `<HibikiPhysics/StacklessSpatialIndex.h>`，在 `SpatialOverlapSlot()` 注册 `StacklessSpatialOverlapPlugin()`。已有提供者时，可调用 `config.Replace(StacklessSpatialOverlapPlugin())` 进行替换。实现名为 `hibiki.stackless_lbvh`。独立调用方可通过 `MakeStacklessSpatialOverlapProvider()` 构造提供者。两个入口都支持闭包围盒查询和不同图元 ID 的无序对查询。[重叠查询契约](../geometry/spatial-index.zh-CN.md)
+`CpuSpatialOverlapPlugin()` 为 CPU 粗筛选择无栈 Morton 树，实现名为 `hibiki.stackless_lbvh`。显式选择时，可包含 `<HibikiPhysics/StacklessSpatialIndex.h>` 并注册 `StacklessSpatialOverlapPlugin()`，也可直接调用 `MakeStacklessSpatialOverlapProvider()`。盒查询命中项与候选对均按遍历顺序输出，每对包含两个不同的调用方 ID，较小 ID 在前。[重叠查询契约](../geometry/spatial-index.zh-CN.md)
 
 ## 跳过子树
 

@@ -90,6 +90,7 @@ void CheckParallelBakes(const TriangleMesh &mesh)
 	SdfBakeSettings settings{.005, {.005, .005, .005}, {.25, .5, 0}};
 	Check(settings.mWorkerCount == 1, "single worker by default");
 	const auto reference = BakeDenseSdf(mesh, settings);
+	CheckIdentical(reference, BakeDenseSdf(mesh, settings, *MakeMedianSpatialQueryProvider()));
 	Check(reference.GetNodeCounts()[2] == 5, "uneven slice count for two and three workers");
 	CountingProvider				 provider;
 	const std::array<std::size_t, 5> counts{0, 1, 2, 3, std::numeric_limits<std::size_t>::max()};

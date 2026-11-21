@@ -21,7 +21,7 @@ void Near(Vec3 a, Vec3 b)
 void CheckSharedFeature(const TriangleMesh &mesh, Vec3 point, Vec3 witness, std::size_t firstFace)
 {
 	const auto distance = (point - witness).Length();
-	const auto median = TriangleMeshQueries(mesh).Closest(point);
+	const auto median = TriangleMeshQueries(mesh, *MakeMedianSpatialQueryProvider()).Closest(point);
 	const auto morton = TriangleMeshQueries(mesh, *MakeMortonSpatialQueryProvider()).Closest(point);
 	for (const auto &hit : {median, morton})
 		Check(hit.mFace == firstFace && hit.mDistance == distance && (hit.mPoint - witness).Length() == 0, "shared feature distance and lowest face ID");

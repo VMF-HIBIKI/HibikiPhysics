@@ -2,7 +2,7 @@
 
 [English](serial-baking.md) | **简体中文**
 
-`BakeDenseSdf(mesh, settings)` 交付完整的局部只读 `DenseSdfGrid`。可通过带 `SpatialQueryProvider` 的重载传入查询实现。每份网格仅对被引用的面建立一份索引，供边界验证、最近距离和奇偶分类共享。距离以米表示，材料外为正、材料内为负、边界为零。
+`BakeDenseSdf(mesh, settings)` 使用完整 Morton LBVH 烘焙网格局部坐标系下的 `DenseSdfGrid`。被引用的三角面共享一份索引，用于边界验证、最近距离查询和射线奇偶分类。做中位数 BVH 对照时，第三个参数传入 `*MakeMedianSpatialQueryProvider()`。同一重载也支持调用方提供的 `SpatialQueryProvider`。烘焙完成的网格为只读，距离以米计，材料外为正、材料内为负、边界为零。
 
 采样起点取被引用网格的最小坐标减去各轴外扩距离。可选相位以 [0,1) 范围内的单元比例，将起点向负轴额外移动。每轴覆盖到达到外扩最大坐标的首个节点，含两端，至少两个节点。间距和外扩单位为米，X 轴存储最快。40 × 40 × 10 mm 方板在 5 mm 外扩、1 mm 间距下共有 51 × 51 × 21 个节点。
 

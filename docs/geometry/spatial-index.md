@@ -6,7 +6,7 @@ A `SpatialEntry` combines a caller-assigned `std::size_t` ID with a closed `AABB
 
 ## Choosing a capability
 
-An overlap client declares `SpatialOverlapSlot()` and receives a `SpatialOverlapProvider`. Register `CpuSpatialOverlapPlugin()` for the default builder. A provider implementing `SpatialOverlapIndex` only needs to supply the two overlap operations. A mesh or SDF client declares `SpatialQuerySlot()` and registers `CpuSpatialQueryPlugin()` to request ray and nearest queries as well. One call to the selected provider's `Build` returns a `SpatialQueryIndex` usable by all four operations. An overlap consumer can take this same index by `const SpatialOverlapIndex&`.
+`CpuSpatialOverlapPlugin()` registers the stackless Morton LBVH (`hibiki.stackless_lbvh`) in `SpatialOverlapSlot()` for CPU broad-phase box queries and candidate pairs. `CpuSpatialQueryPlugin()` registers the full Morton LBVH (`hibiki.morton_lbvh`) in `SpatialQuerySlot()`. Its index also supports ray candidates and nearest primitives. The default SDF baker uses this full provider.
 
 ```cpp
 #include <HibikiPhysics/SpatialIndex.h>
@@ -33,7 +33,7 @@ int main()
 }
 ```
 
-`CapabilityConfig::Replace` accepts a `Borrow` or `Factory` registration for either slot. Replacing one slot affects the clients that request that slot. A standalone application can construct the full CPU provider with `MakeCpuSpatialQueryProvider()`. [Installed-package tests and replacement implementations](../../tests/install-consumer/SpatialIndex.cpp)
+`MakeCpuSpatialQueryProvider()` constructs the full Morton provider directly. To run the median-split BVH as a reference, call `config.Replace(MedianSpatialOverlapPlugin())` for broad phase or `config.Replace(MedianSpatialQueryPlugin())` for full queries. Both median registrations report `hibiki.cpu_bvh`. A standalone caller or SDF bake can use `MakeMedianSpatialQueryProvider()`. [Installed-package registration tests](../../tests/install-consumer/MortonSpatialIndex.cpp)
 
 ## Query semantics
 
@@ -44,7 +44,7 @@ int main()
 | `RayCandidates(origin, direction)` | Candidates along the closed half-line for parameter t ≥ 0. Finite directions can have any length. Each zero component means the ray stays in the corresponding slab coordinate. An all-zero direction tests the origin. The CPU slab calculation rounds outward near grazing intersections. |
 | `Nearest(point, exactDistance)` | A `SpatialNearest` with ID and linear Euclidean distance. For each visited leaf, the callback receives its ID and computes distance from the query point to its enclosed primitive. A callback may return positive infinity to exclude that leaf. Equal finite distances select the smallest ID. An empty index or all-excluded set yields `std::nullopt`. |
 
-The CPU builder splits the longest axis of each node's bounds at the median of the primitive box centers. Equal axis lengths prefer X, then Y, then Z. Equal centers on the split axis use the ID as a tie-breaker. The CPU implementation returns candidate IDs and pairs in ascending order. Other providers may use their own traversal and output order.
+The stackless broad phase emits hits in traversal order. Each pair places the smaller ID first. Callers that require a globally sorted list can sort the returned IDs or pairs. The full Morton and median providers return sorted IDs and pairs. The median builder splits the longest axis at the median of the box centers, breaks axis ties in X, Y, Z order and breaks center ties by ID.
 
 Nearest traversal visits the closer child first and uses the Euclidean point-to-box distance as a lower bound. Only an exact finite leaf result tightens the best distance. A node is pruned when its lower bound exceeds that distance. The callback's geometry must lie inside its entry bounds for pruning to be valid. Each simultaneous query needs a callback safe for its use on that thread.
 

@@ -2,7 +2,7 @@
 
 **English** | [简体中文](stackless-lbvh.zh-CN.md)
 
-Include `<HibikiPhysics/StacklessSpatialIndex.h>` and register `StacklessSpatialOverlapPlugin()` with `SpatialOverlapSlot()`. Use `config.Replace(StacklessSpatialOverlapPlugin())` to replace an existing selection. The implementation name is `hibiki.stackless_lbvh`. A standalone client can call `MakeStacklessSpatialOverlapProvider()`. Both entry points support closed-box overlaps and unordered pairs of distinct caller IDs. [Overlap contract](../geometry/spatial-index.md)
+`CpuSpatialOverlapPlugin()` selects the stackless Morton tree for CPU broad phase. Its implementation name is `hibiki.stackless_lbvh`. To select this provider explicitly, include `<HibikiPhysics/StacklessSpatialIndex.h>` and register `StacklessSpatialOverlapPlugin()`, or call `MakeStacklessSpatialOverlapProvider()` directly. Box hits and candidate pairs follow traversal order. Each pair contains two distinct caller IDs with the smaller ID first. [Overlap contract](../geometry/spatial-index.md)
 
 ## Following escape links
 

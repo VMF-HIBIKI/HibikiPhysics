@@ -6,7 +6,7 @@
 
 ## 选择查询能力
 
-重叠查询客户端声明 `SpatialOverlapSlot()`，获取 `SpatialOverlapProvider`。注册 `CpuSpatialOverlapPlugin()` 可选用默认构建器。实现 `SpatialOverlapIndex` 的提供者只需支持两项重叠操作。网格或 SDF 客户端声明 `SpatialQuerySlot()` 并注册 `CpuSpatialQueryPlugin()`，同时请求射线和最近查询。调用所选提供者的 `Build` 一次即可获得支持全部四项操作的 `SpatialQueryIndex`。只需重叠查询的代码可通过 `const SpatialOverlapIndex&` 复用同一索引。
+`CpuSpatialOverlapPlugin()` 向 `SpatialOverlapSlot()` 注册无栈 Morton LBVH（`hibiki.stackless_lbvh`），用于 CPU 粗筛的盒查询和候选对枚举。`CpuSpatialQueryPlugin()` 向 `SpatialQuerySlot()` 注册完整 Morton LBVH（`hibiki.morton_lbvh`），其索引还支持射线候选和最近图元查询。SDF 烘焙默认使用这份完整查询实现。
 
 ```cpp
 #include <HibikiPhysics/SpatialIndex.h>
@@ -33,7 +33,7 @@ int main()
 }
 ```
 
-两种槽位均支持通过 `Borrow` 或 `Factory` 创建注册项后调用 `CapabilityConfig::Replace`。替换某个槽位会影响请求该槽位的客户端。独立应用也可通过 `MakeCpuSpatialQueryProvider()` 直接构造支持全部查询的 CPU 提供者。[安装包测试与替换实现](../../tests/install-consumer/SpatialIndex.cpp)
+`MakeCpuSpatialQueryProvider()` 直接构造完整 Morton 提供者。做中位数 BVH 对照时，粗筛使用 `config.Replace(MedianSpatialOverlapPlugin())`，完整查询使用 `config.Replace(MedianSpatialQueryPlugin())`。两项中位数注册的实现名均为 `hibiki.cpu_bvh`。独立查询和 SDF 烘焙也可通过 `MakeMedianSpatialQueryProvider()` 获取对照实现。[安装包注册测试](../../tests/install-consumer/MortonSpatialIndex.cpp)
 
 ## 查询语义
 
@@ -44,7 +44,7 @@ int main()
 | `RayCandidates(origin, direction)` | 返回参数 t ≥ 0 的闭射线经过的候选图元。有限方向向量可以取任意长度。某个分量为零时，射线对应坐标保持不变。方向全零时查询原点位置。CPU 实现对接近相切的射线区间向外舍入。 |
 | `Nearest(point, exactDistance)` | 返回包含 ID 和欧氏距离的 `SpatialNearest`。回调接收已访问叶子的 ID，计算查询点到该叶子所包围图元的实际距离。回调可返回正无穷以排除该图元。距离相同时选择较小的 ID。空索引及所有图元均被排除的情况返回 `std::nullopt`。 |
 
-CPU 构建器沿节点包围盒的最长轴，根据图元包围盒中心的中位数划分。多个轴等长时依次优先选 X、Y、Z。中心在划分轴上的坐标相同时按 ID 打破平局。CPU 实现按升序返回候选 ID 和候选对。其他提供者可以选择自己的遍历和输出顺序。
+无栈粗筛按遍历顺序输出命中项，每对内部的较小 ID 在前。需要全局升序的调用方可对返回的 ID 或候选对排序。完整 Morton 和中位数提供者均返回已排序的 ID 和候选对。中位数构建器沿最长轴按包围盒中心的中位数划分，轴等长时依次优先选 X、Y、Z，中心坐标相同时按 ID 划分。
 
 最近遍历先访问较近的子节点，以查询点到节点包围盒的欧氏距离为下界。叶子回调返回有限的精确距离后才会收紧当前最优距离。节点下界大于当前最优距离时可剪枝。调用方须保证图元处于输入包围盒内，以保证剪枝正确。并发查询使用的回调需要能在各自的线程中安全执行。
 

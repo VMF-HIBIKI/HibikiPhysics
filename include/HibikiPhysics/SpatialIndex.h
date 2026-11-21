@@ -63,7 +63,13 @@ class SpatialQueryProvider
 
 [[nodiscard]] const CapabilitySlot<SpatialOverlapProvider> &SpatialOverlapSlot();
 [[nodiscard]] const CapabilitySlot<SpatialQueryProvider>   &SpatialQuerySlot();
-[[nodiscard]] CapabilityRegistration						CpuSpatialOverlapPlugin();
-[[nodiscard]] CapabilityRegistration						CpuSpatialQueryPlugin();
-[[nodiscard]] std::unique_ptr<SpatialQueryProvider>			MakeCpuSpatialQueryProvider();
+// CPU defaults use stackless Morton for overlaps and full Morton for ray/nearest queries.
+[[nodiscard]] CapabilityRegistration				CpuSpatialOverlapPlugin();
+[[nodiscard]] CapabilityRegistration				CpuSpatialQueryPlugin();
+[[nodiscard]] std::unique_ptr<SpatialQueryProvider> MakeCpuSpatialQueryProvider();
+
+// Explicit median-split BVH reference providers for either capability.
+[[nodiscard]] CapabilityRegistration				MedianSpatialOverlapPlugin();
+[[nodiscard]] CapabilityRegistration				MedianSpatialQueryPlugin();
+[[nodiscard]] std::unique_ptr<SpatialQueryProvider> MakeMedianSpatialQueryProvider();
 } // namespace HibikiPhysics
