@@ -67,6 +67,7 @@ target_sources(hibiki_physics PRIVATE src/geometry/SdfBaker.cpp)
 find_package(Threads REQUIRED)
 target_sources(hibiki_physics PRIVATE src/geometry/BatchedOverlap.cpp)
 target_link_libraries(hibiki_physics PRIVATE Threads::Threads)
+target_sources(hibiki_physics PRIVATE src/geometry/FilteredSpatialIndex.cpp)
 
 if(BUILD_TESTING)
 	add_executable(hibiki_stackless_traversal tests/spatial/StacklessTraversal.cpp)

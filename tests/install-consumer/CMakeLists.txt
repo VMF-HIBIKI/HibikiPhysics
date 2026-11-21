@@ -76,6 +76,10 @@ add_executable(hibiki_height_field HeightField.cpp)
 target_link_libraries(hibiki_height_field PRIVATE hibiki::physics)
 add_test(NAME geometry.height_field COMMAND hibiki_height_field)
 
+add_executable(hibiki_filtered_spatial FilteredSpatialIndex.cpp)
+target_link_libraries(hibiki_filtered_spatial PRIVATE hibiki::physics)
+add_test(NAME spatial.filtered COMMAND hibiki_filtered_spatial)
+
 add_executable(hibiki_sdf_baker SdfBaker.cpp)
 target_link_libraries(hibiki_sdf_baker PRIVATE hibiki::physics)
 add_test(NAME sdf.baker COMMAND hibiki_sdf_baker)
