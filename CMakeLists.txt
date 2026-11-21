@@ -60,6 +60,8 @@ endif()
 target_sources(hibiki_physics PRIVATE src/geometry/TriangleMeshQueries.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/ClosedMeshSdf.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/SdfBaker.cpp)
+find_package(Threads REQUIRED)
+target_link_libraries(hibiki_physics PRIVATE Threads::Threads)
 
 install(TARGETS hibiki_physics EXPORT HibikiPhysicsTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")

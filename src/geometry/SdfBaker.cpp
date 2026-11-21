@@ -3,10 +3,13 @@
 #include <HibikiPhysics/Geometry.h>
 #include <HibikiPhysics/SpatialIndex.h>
 #include <algorithm>
+#include <atomic>
 #include <cmath>
+#include <exception>
 #include <new>
 #include <stdexcept>
 #include <string>
+#include <thread>
 
 namespace HibikiPhysics
 {
@@ -79,6 +82,58 @@ void FillSlice(const ClosedMeshSdf &surface, const GridLayout &grid, double h, s
 		}
 	}
 }
+
+void FillGrid(const ClosedMeshSdf &surface, const GridLayout &grid, const SdfBakeSettings &settings, std::vector<double> &values)
+{
+	const std::size_t nz = grid.counts[2];
+	const std::size_t requested = settings.mWorkerCount == 0 ? std::max(1u, std::thread::hardware_concurrency()) : settings.mWorkerCount;
+	const std::size_t workers = std::min(nz, requested);
+	if (workers == 1)
+	{
+		for (std::size_t z = 0; z < nz; ++z)
+			FillSlice(surface, grid, settings.mSpacing, z, values);
+		return;
+	}
+
+	std::atomic<bool>  cancelled{false};
+	std::exception_ptr failure;
+	auto			   recordFailure = [&]
+	{
+		// Only the first failing thread writes the exception. The caller reads it after joining.
+		if (!cancelled.exchange(true, std::memory_order_relaxed))
+			failure = std::current_exception();
+	};
+	auto fill = [&](std::size_t firstSlice)
+	{
+		try
+		{
+			for (std::size_t z = firstSlice; z < nz && !cancelled.load(std::memory_order_relaxed); z += workers)
+				FillSlice(surface, grid, settings.mSpacing, z, values);
+		}
+		catch (...)
+		{
+			recordFailure();
+		}
+	};
+
+	std::vector<std::thread> threads;
+	threads.reserve(workers - 1);
+	try
+	{
+		for (std::size_t i = 1; i < workers && !cancelled.load(std::memory_order_relaxed); ++i)
+			threads.emplace_back(fill, i);
+		fill(0);
+	}
+	catch (...)
+	{
+		// Thread creation may fail after some workers have started.
+		recordFailure();
+	}
+	for (auto &thread : threads)
+		thread.join();
+	if (failure)
+		std::rethrow_exception(failure);
+}
 } // namespace
 
 DenseSdfGrid BakeDenseSdf(const TriangleMesh &inMesh, const SdfBakeSettings &inSettings)
@@ -99,8 +154,7 @@ DenseSdfGrid BakeDenseSdf(const TriangleMesh &inMesh, const SdfBakeSettings &inS
 	{
 		throw std::length_error("Could not allocate dense SDF sample buffer of " + std::to_string(grid.total) + " doubles");
 	}
-	for (std::size_t z = 0; z < grid.counts[2]; ++z)
-		FillSlice(surface, grid, inSettings.mSpacing, z, values);
+	FillGrid(surface, grid, inSettings, values);
 	const auto [x, y, z] = grid.origin;
 	return {{x, y, z}, inSettings.mSpacing, grid.counts, std::move(values)};
 }
