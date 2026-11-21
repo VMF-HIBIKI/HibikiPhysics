@@ -4,6 +4,11 @@
 
 namespace HibikiPhysics
 {
+namespace Detail
+{
+struct FourWayTree;
+}
+
 // Immutable BVH4 over unique stable IDs and finite, closed 3D bounds.
 class FourWaySpatialIndex final : public SpatialOverlapIndex
 {
@@ -20,8 +25,7 @@ class FourWaySpatialIndex final : public SpatialOverlapIndex
 	[[nodiscard]] std::vector<std::pair<std::size_t, std::size_t>> OverlapPairs(std::size_t &outNodeVisits) const;
 
   private:
-	struct Impl;
-	std::unique_ptr<const Impl> mImpl;
+	std::unique_ptr<const Detail::FourWayTree> mImpl;
 };
 
 [[nodiscard]] std::unique_ptr<SpatialOverlapProvider> MakeFourWaySpatialOverlapProvider();

@@ -55,6 +55,7 @@ target_compile_definitions(hibiki_physics PRIVATE
 target_sources(hibiki_physics PRIVATE src/geometry/SolidMeshValidation.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/HeightField.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/SweepAndPrune.cpp)
+target_sources(hibiki_physics PRIVATE src/geometry/IncrementalSpatialIndex.cpp)
 if(MSVC)
 	target_compile_options(hibiki_physics PRIVATE /W4 /WX)
 else()

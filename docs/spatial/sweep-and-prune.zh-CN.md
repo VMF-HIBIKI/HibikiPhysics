@@ -2,6 +2,8 @@
 
 [English](sweep-and-prune.md) | **简体中文**
 
+要在相邻帧间复用端点顺序，可选择[增量更新提供者](incremental-updates.zh-CN.md)。
+
 包含 `<HibikiPhysics/SweepAndPrune.h>`，调用 `MakeSweepAndPruneProvider()` 即可构建 CPU 重叠索引。通过插件系统选择该实现时，将 `SweepAndPrunePlugin()` 添加到 `CapabilityConfig`。如果 `SpatialOverlapSlot()` 已注册其他提供者，则使用 `Replace`。实现 ID 为 `hibiki.sweep_and_prune`。[空间索引接口约定](../geometry/spatial-index.zh-CN.md)
 
 每个条目拥有调用方提供的唯一 ID，包围盒各轴为有限闭区间。索引拥有自身数据，两类查询均可并发执行。共面、共棱或共顶点均计为重叠，任意轴的宽度可为零。条目或查询的端点非有限、条目 ID 重复时抛出 `std::invalid_argument`。

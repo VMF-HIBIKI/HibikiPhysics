@@ -1,9 +1,12 @@
 #include <HibikiPhysics/FourWaySpatialIndex.h>
+#include "SpatialUpdate.h"
 
 #include <algorithm>
 #include <cmath>
 #include <numeric>
+#include <set>
 #include <stdexcept>
+#include <unordered_map>
 
 namespace HibikiPhysics
 {
@@ -68,7 +71,9 @@ class FourWayProvider final : public SpatialOverlapProvider
 };
 } // namespace
 
-struct FourWaySpatialIndex::Impl
+namespace Detail
+{
+struct FourWayTree
 {
 	// Siblings occupy consecutive slots. All descendants follow their parent.
 	// A leaf stores the caller's full ID in the same field used for a branch offset.
@@ -81,7 +86,7 @@ struct FourWaySpatialIndex::Impl
 	};
 	std::vector<Node> mNodes;
 
-	explicit Impl(std::span<const SpatialEntry> input)
+	explicit FourWayTree(std::span<const SpatialEntry> input)
 	{
 		if (input.empty())
 			return;
@@ -194,9 +199,137 @@ struct FourWaySpatialIndex::Impl
 				Cross(earlier, children[i], pairs, visits);
 		}
 	}
+
+	std::vector<std::size_t> Overlaps(const AABB &bounds, std::size_t &visits) const
+	{
+		RequireFinite(bounds);
+		visits = 0;
+		std::vector<std::size_t> ids;
+		if (!mNodes.empty())
+			VisitBox(mNodes.front(), bounds, ids, visits);
+		std::ranges::sort(ids);
+		return ids;
+	}
+
+	Pairs OverlapPairs(std::size_t &visits) const
+	{
+		visits = 0;
+		Pairs pairs;
+		if (!mNodes.empty() && !mNodes.front().IsLeaf())
+			Within(mNodes.front(), pairs, visits);
+		std::ranges::sort(pairs);
+		return pairs;
+	}
+};
+} // namespace Detail
+
+namespace
+{
+using Detail::FourWayTree;
+
+struct FourWayTopology
+{
+	explicit FourWayTopology(const FourWayTree &tree) : mParent(tree.mNodes.size())
+	{
+		for (std::size_t i = 0; i < tree.mNodes.size(); ++i)
+		{
+			const auto &node = tree.mNodes[i];
+			if (node.IsLeaf())
+				mLeafById.emplace(node.mFirstChildOrId, i);
+			else
+				for (std::size_t child = 0; child < node.mChildCount; ++child)
+					mParent[node.mFirstChildOrId + child] = i;
+		}
+	}
+
+	std::unordered_map<std::size_t, std::size_t> mLeafById;
+	std::vector<std::size_t>					 mParent;
 };
 
-FourWaySpatialIndex::FourWaySpatialIndex(std::span<const SpatialEntry> entries) : mImpl(std::make_unique<Impl>(entries))
+class FourWayUpdateIndex final : public IncrementalSpatialIndex
+{
+  public:
+	explicit FourWayUpdateIndex(std::span<const SpatialEntry> entries) : mTree(std::make_shared<FourWayTree>(entries)), mTopology(std::make_shared<FourWayTopology>(*mTree)) {}
+
+	std::vector<std::size_t> Overlaps(const AABB &bounds) const override
+	{
+		std::size_t visits;
+		return mTree->Overlaps(bounds, visits);
+	}
+
+	Pairs OverlapPairs() const override
+	{
+		std::size_t visits;
+		return mTree->OverlapPairs(visits);
+	}
+
+	std::unique_ptr<const IncrementalSpatialIndex> Updated(const SpatialUpdateBatch &batch, SpatialUpdateStats &outStats) const override
+	{
+		Detail::ValidateUpdate(batch, mTopology->mLeafById.size(), std::vector<SpatialEntry>().max_size(),
+							   [&](std::size_t id)
+							   { return mTopology->mLeafById.contains(id); });
+		SpatialUpdateStats					stats;
+		std::unique_ptr<FourWayUpdateIndex> next;
+		if (!batch.mInserted.empty() || !batch.mRemoved.empty())
+		{
+			const auto entries = ChangedMembership(batch);
+			next = std::make_unique<FourWayUpdateIndex>(entries);
+			stats.mTopologyRebuilds = 1;
+		}
+		else
+		{
+			next = std::make_unique<FourWayUpdateIndex>(*this);
+			if (!batch.mMoved.empty())
+				next->mTree = Refit(batch.mMoved, stats);
+		}
+		outStats = stats;
+		return next;
+	}
+
+  private:
+	std::shared_ptr<const FourWayTree> Refit(std::span<const SpatialEntry> moved, SpatialUpdateStats &stats) const
+	{
+		auto								  tree = std::make_shared<FourWayTree>(*mTree);
+		std::set<std::size_t, std::greater<>> affected;
+		for (const auto &entry : moved)
+		{
+			auto index = mTopology->mLeafById.at(entry.mId);
+			tree->mNodes[index].mBounds = entry.mBounds;
+			while (index != 0)
+			{
+				index = mTopology->mParent[index];
+				if (!affected.insert(index).second)
+					break;
+			}
+		}
+		// Descendants always have greater indices. Shared ancestors see every child's new bounds.
+		for (auto index : affected)
+			tree->EncloseChildren(tree->mNodes[index]);
+		stats.mRefitNodes = affected.size();
+		return tree;
+	}
+
+	std::vector<SpatialEntry> ChangedMembership(const SpatialUpdateBatch &batch) const
+	{
+		std::unordered_set<std::size_t> replaced(batch.mRemoved.begin(), batch.mRemoved.end());
+		for (const auto &entry : batch.mMoved)
+			replaced.insert(entry.mId);
+		std::vector<SpatialEntry> entries;
+		entries.reserve(mTopology->mLeafById.size() - batch.mRemoved.size() + batch.mInserted.size());
+		for (const auto &[id, leaf] : mTopology->mLeafById)
+			if (!replaced.contains(id))
+				entries.push_back({id, mTree->mNodes[leaf].mBounds});
+		entries.insert(entries.end(), batch.mMoved.begin(), batch.mMoved.end());
+		entries.insert(entries.end(), batch.mInserted.begin(), batch.mInserted.end());
+		return entries;
+	}
+
+	std::shared_ptr<const FourWayTree>	   mTree;
+	std::shared_ptr<const FourWayTopology> mTopology;
+};
+} // namespace
+
+FourWaySpatialIndex::FourWaySpatialIndex(std::span<const SpatialEntry> entries) : mImpl(std::make_unique<Detail::FourWayTree>(entries))
 {
 }
 FourWaySpatialIndex::~FourWaySpatialIndex() = default;
@@ -209,13 +342,7 @@ std::vector<std::size_t> FourWaySpatialIndex::Overlaps(const AABB &bounds) const
 
 std::vector<std::size_t> FourWaySpatialIndex::Overlaps(const AABB &bounds, std::size_t &outNodeVisits) const
 {
-	RequireFinite(bounds);
-	outNodeVisits = 0;
-	std::vector<std::size_t> ids;
-	if (!mImpl->mNodes.empty())
-		mImpl->VisitBox(mImpl->mNodes.front(), bounds, ids, outNodeVisits);
-	std::ranges::sort(ids);
-	return ids;
+	return mImpl->Overlaps(bounds, outNodeVisits);
 }
 
 Pairs FourWaySpatialIndex::OverlapPairs() const
@@ -226,12 +353,7 @@ Pairs FourWaySpatialIndex::OverlapPairs() const
 
 Pairs FourWaySpatialIndex::OverlapPairs(std::size_t &outNodeVisits) const
 {
-	outNodeVisits = 0;
-	Pairs pairs;
-	if (!mImpl->mNodes.empty() && !mImpl->mNodes.front().IsLeaf())
-		mImpl->Within(mImpl->mNodes.front(), pairs, outNodeVisits);
-	std::ranges::sort(pairs);
-	return pairs;
+	return mImpl->OverlapPairs(outNodeVisits);
 }
 
 std::unique_ptr<SpatialOverlapProvider> MakeFourWaySpatialOverlapProvider()
@@ -242,5 +364,10 @@ std::unique_ptr<SpatialOverlapProvider> MakeFourWaySpatialOverlapProvider()
 CapabilityRegistration FourWaySpatialOverlapPlugin()
 {
 	return SpatialOverlapSlot().Factory("hibiki.four_way_bvh", MakeFourWaySpatialOverlapProvider);
+}
+
+std::unique_ptr<IncrementalSpatialProvider> MakeFourWayUpdateProvider()
+{
+	return std::make_unique<Detail::SpatialUpdateProvider<FourWayUpdateIndex>>();
 }
 } // namespace HibikiPhysics
