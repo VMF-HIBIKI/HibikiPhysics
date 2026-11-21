@@ -49,3 +49,5 @@ The CPU builder splits the longest axis of each node's bounds at the median of t
 Nearest traversal visits the closer child first and uses the Euclidean point-to-box distance as a lower bound. Only an exact finite leaf result tightens the best distance. A node is pruned when its lower bound exceeds that distance. The callback's geometry must lie inside its entry bounds for pruning to be valid. Each simultaneous query needs a callback safe for its use on that thread.
 
 Nonfinite entry or query coordinates, duplicate IDs, an empty distance callback, or a visited callback returning a negative value or NaN raise `std::invalid_argument`.
+
+Compare build, query, update and SDF baking costs across the CPU providers, with raw measurements and reproduction commands in the [CPU spatial benchmark](../spatial/cpu-benchmark.md).
