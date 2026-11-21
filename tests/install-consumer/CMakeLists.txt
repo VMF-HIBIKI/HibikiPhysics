@@ -7,3 +7,7 @@ add_subdirectory(../../examples/install-consumer examples)
 add_executable(hibiki_plugin_lifecycle PluginLifecycle.cpp)
 target_link_libraries(hibiki_plugin_lifecycle PRIVATE hibiki::physics)
 add_test(NAME plugin.lifecycle COMMAND hibiki_plugin_lifecycle)
+
+add_executable(hibiki_capability_registration CapabilityRegistration.cpp)
+target_link_libraries(hibiki_capability_registration PRIVATE hibiki::physics)
+add_test(NAME plugin.registration COMMAND hibiki_capability_registration)

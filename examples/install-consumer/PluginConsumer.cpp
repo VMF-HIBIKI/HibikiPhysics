@@ -1,15 +1,21 @@
 #include <HibikiPhysics/Plugin.h>
-#include <functional>
 
 int main()
 {
-	HibikiPhysics::Dependencies dependencies;
-	dependencies.Require<int>("input");
+	int defaultValue = 10;
+	int experimentValue = 20;
 
-	int									   value = 10;
-	HibikiPhysics::PluginContext::Bindings bindings{{"input", std::ref(value)}};
-	HibikiPhysics::PluginContext		   context(bindings);
-	context.Validate(dependencies);
-	context.Get<int>("input") = 12;
-	return value == 12 ? 0 : 1;
+	HibikiPhysics::CapabilityConfig defaults;
+	defaults.Add({"input", "baseline", defaultValue});
+	auto experiment = defaults;
+	experiment.Replace({"input", "trial", experimentValue});
+
+	HibikiPhysics::Dependencies required;
+	required.Require<int>("input");
+	auto baseline = defaults.Build(required);
+	auto trial = experiment.Build(required);
+
+	baseline.Get<int>("input") += 1;
+	trial.Get<int>("input") += 2;
+	return defaultValue == 11 && experimentValue == 22 ? 0 : 1;
 }

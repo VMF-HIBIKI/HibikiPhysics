@@ -8,7 +8,9 @@
 
 C++20 静态库目标 `hibiki::physics` 已公开构建信息接口及 `HibikiPhysics::Plugin` 基类。Windows 工具链、编辑器、调试和环境复现已完成验证。[Windows 验收记录](environment/acceptance.zh-CN.md)。
 
-插件作者包含 `<HibikiPhysics/Plugin.h>` 并实现 `OnMount(PluginContext&)`。有依赖的插件还实现 `Declare(Dependencies&) const`，通过 `Require<协议类型>(入口名)` 声明所需服务。调用者按引用绑定选定对象，再调用 `Plugin::Mount`。该入口调用 `Declare`、校验各项声明，然后调用 `OnMount`。已有插件将挂载回调从 `Mount` 更名为 `OnMount`。安装包示例声明一个 `int` 依赖，将它绑定到一个变量，再通过 `Get<int>` 修改该变量。[消费程序源码](../examples/install-consumer/PluginConsumer.cpp)。
+插件作者包含 `<HibikiPhysics/Plugin.h>` 并实现 `OnMount(PluginContext&)`。有依赖的插件还实现 `Declare(Dependencies&) const`，通过 `Require<协议类型>(入口名)` 声明所需服务。`CapabilityConfig::Mount` 收集需求，选择已注册的引用，完成校验后调用挂载回调。调用方持有返回的作用域以维持登记的生命周期。自行提供绑定的调用方也可以直接使用 `Plugin::Mount`。
+
+安装包示例通过 `Add` 注册一个整数，复制配置后通过 `Replace` 为实验选用第二个整数。`Build` 根据同一份依赖声明构建两个上下文，对它们的写入分别更新对应的整数。[消费程序源码](../examples/install-consumer/PluginConsumer.cpp)。
 
 挂载期间，`Keep` 接管析构时会撤销登记的 RAII 对象。调用者保证插件和服务提供者存活到进行中的调用结束、作用域按登记的逆序完成清理。安装包集成测试通过具体插件验证提供者选择和作用域清理。[生命周期测试](../tests/install-consumer/PluginLifecycle.cpp)。
 
