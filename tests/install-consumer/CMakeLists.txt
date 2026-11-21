@@ -7,6 +7,10 @@ add_executable(hibiki_dense_sdf_grid DenseSdfGrid.cpp)
 target_link_libraries(hibiki_dense_sdf_grid PRIVATE hibiki::physics)
 add_test(NAME geometry.dense_sdf_grid COMMAND hibiki_dense_sdf_grid)
 
+add_executable(hibiki_morton_spatial_index MortonSpatialIndex.cpp)
+target_link_libraries(hibiki_morton_spatial_index PRIVATE hibiki::physics)
+add_test(NAME geometry.morton_spatial_index COMMAND hibiki_morton_spatial_index)
+
 add_executable(hibiki_extended_shapes ExtendedShapes.cpp)
 target_link_libraries(hibiki_extended_shapes PRIVATE hibiki::physics)
 add_test(NAME geometry.extended COMMAND hibiki_extended_shapes)
