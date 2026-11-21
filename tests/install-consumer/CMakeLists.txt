@@ -76,6 +76,10 @@ add_executable(hibiki_sdf_baker SdfBaker.cpp)
 target_link_libraries(hibiki_sdf_baker PRIVATE hibiki::physics)
 add_test(NAME sdf.baker COMMAND hibiki_sdf_baker)
 
+add_executable(hibiki_batch_overlap BatchedOverlap.cpp)
+target_link_libraries(hibiki_batch_overlap PRIVATE hibiki::physics)
+add_test(NAME spatial.batch COMMAND hibiki_batch_overlap)
+
 add_executable(hibiki_sdf_accuracy SdfAccuracy.cpp)
 target_link_libraries(hibiki_sdf_accuracy PRIVATE hibiki::physics)
 target_compile_definitions(hibiki_sdf_accuracy PRIVATE
