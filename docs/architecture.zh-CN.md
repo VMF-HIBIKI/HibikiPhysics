@@ -6,9 +6,11 @@
 
 ## 当前实现
 
+CPU SDF 预处理库将封闭三角网格烘焙成局部坐标系下的均匀稠密场。边界验证、最近点和奇偶查询共用一份空间索引，应用可通过空间查询能力替换 CPU BVH。[CPU 稠密距离场烘焙](sdf/serial-baking.zh-CN.md)。
+
 公共数学类型 `Vec3`、`Quat` 和 `Transform` 用于向量运算、单位旋转和刚体位姿组合。位姿将点和方向从局部坐标系映射到父坐标系。[四元数与刚体位姿](decisions/0021-quaternion-and-rigid-transform.zh-CN.md)。
 
-几何插件为八种解析形状提供局部和世界坐标系下的轴对齐包围盒。点查询覆盖平面有符号距离、闭半空间与五种闭实体的包含判断，以及有限矩形面片最近点。六种支持包含判断的形状均可用刚体位姿查询世界点。应用通过 `config.Add(HibikiPhysics::GeometryLibraryPlugin())` 注册该插件。[几何库决策](decisions/0020-geometry-library-plugin.zh-CN.md)。
+几何插件为 15 种形状提供局部与世界 AABB，为 13 种形状提供点包含判断，另有平面局部有符号距离和矩形面片最近点查询。索引三角网格的包含判断覆盖表面、边和顶点，SDF 烘焙器则单独验证该表面是否围成实体。[几何库决策](decisions/0020-geometry-library-plugin.zh-CN.md)。
 
 C++20 静态库目标 `hibiki::physics` 已公开构建信息接口及 `HibikiPhysics::Plugin` 基类。Windows 工具链、编辑器、调试和环境复现已完成验证。[Windows 验收记录](environment/acceptance.zh-CN.md)。
 

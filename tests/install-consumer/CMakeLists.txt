@@ -59,3 +59,7 @@ add_test(NAME geometry.analytic COMMAND hibiki_analytic_shapes)
 add_executable(hibiki_height_field HeightField.cpp)
 target_link_libraries(hibiki_height_field PRIVATE hibiki::physics)
 add_test(NAME geometry.height_field COMMAND hibiki_height_field)
+
+add_executable(hibiki_sdf_baker SdfBaker.cpp)
+target_link_libraries(hibiki_sdf_baker PRIVATE hibiki::physics)
+add_test(NAME sdf.baker COMMAND hibiki_sdf_baker)

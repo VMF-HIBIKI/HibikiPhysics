@@ -28,7 +28,7 @@ The following families form the agreed candidate list. The [geometry documentati
 
 ## Local analytic geometry
 
-The eight basic shapes use metres and shape-local coordinates. Instances will carry placement. The SDF representation and generation method remain research decisions. [Issue #19](https://github.com/VMF-HIBIKI/HibikiPhysics/issues/19).
+The eight basic shapes use metres and shape-local coordinates. Instances will carry placement. The first SDF asset is a dense CPU field baked from a closed triangle mesh in local coordinates. Sparse storage and device backends remain research topics. [Basic geometry](https://github.com/VMF-HIBIKI/HibikiPhysics/issues/19) · [CPU SDF preprocessing](../sdf/serial-baking.md).
 
 | Shape | Definition and constructor dimensions |
 | --- | --- |

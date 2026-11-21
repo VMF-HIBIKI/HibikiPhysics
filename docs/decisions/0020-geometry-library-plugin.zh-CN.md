@@ -28,7 +28,7 @@ HibikiPhysics 需要让研究插件共用几何定义。Jolt 提供复合形状�
 
 ## 局部解析几何
 
-八种基础形状统一使用米和形状局部坐标，位姿由后续实例承载。SDF 的表示与生成方式留待专项研究。[Issue #19](https://github.com/VMF-HIBIKI/HibikiPhysics/issues/19)。
+八种基础形状统一使用米和形状局部坐标，位姿由后续实例承载。首版 SDF 资产使用 CPU 从封闭三角网格烘焙局部稠密距离场。稀疏存储和设备后端留待研究。[基础几何](https://github.com/VMF-HIBIKI/HibikiPhysics/issues/19) · [CPU SDF 预处理](../sdf/serial-baking.zh-CN.md)。
 
 | 形状 | 定义与构造尺寸 |
 | --- | --- |

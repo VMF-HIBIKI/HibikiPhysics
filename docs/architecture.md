@@ -6,9 +6,11 @@ Status: Overall direction accepted. M1 implementation is in progress.
 
 ## Current implementation
 
+The CPU SDF preprocessing library bakes a closed triangle mesh into a uniform, dense field in mesh-local coordinates. The baker reuses one spatial index for validation, nearest-point and parity queries. Applications can replace the CPU BVH through the spatial-query capability. [Baking a dense SDF](sdf/serial-baking.md).
+
 The public math types `Vec3`, `Quat` and `Transform` support vector arithmetic, unit rotations and rigid pose composition. A pose maps points and directions from a local frame into its parent frame. [Quaternions and rigid transforms](decisions/0021-quaternion-and-rigid-transform.md).
 
-The geometry plugin provides local and world-space axis-aligned bounds for all eight analytic shapes. Point queries cover plane signed distance, containment in a half-space or one of the five closed solids, and the closest point on a finite rectangular patch. All six containment queries accept a world point and a rigid pose. Applications register it with `config.Add(HibikiPhysics::GeometryLibraryPlugin())`. [Geometry library decision](decisions/0020-geometry-library-plugin.md).
+The geometry plugin exposes local and world AABBs for 15 shapes, point containment for 13, local signed distance for the plane, and the closest point on the rectangular patch. Indexed triangle mesh containment checks the surface, including edges and vertices. The SDF baker separately validates that the surface bounds a solid. [Geometry library decision](decisions/0020-geometry-library-plugin.md).
 
 The C++20 static target `hibiki::physics` exports the build-information API and the public `HibikiPhysics::Plugin` base class. The Windows toolchain, editor, debugger and environment reproduction have passed validation. [Windows acceptance record](environment/acceptance.md).
 
