@@ -16,7 +16,7 @@ HibikiPhysics needs geometry definitions that research plugins can share. Jolt e
 
 One official geometry library plugin can supply multiple geometry types. The plugin owns their definitions, local coordinate systems and size conventions. Format adapters own source conversion. Collision plugins own shape-pair selection and contact algorithms. The plugin core continues to assemble capabilities using ADR-0010.
 
-The following families form the agreed candidate list. Implementation and validation will be recorded per type.
+The following families form the agreed candidate list. The [geometry documentation](../geometry/) records shape parameters, query semantics and validation as each family is implemented.
 
 | Family | Candidates |
 | --- | --- |
