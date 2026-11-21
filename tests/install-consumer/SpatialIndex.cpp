@@ -1,4 +1,5 @@
 #include <HibikiPhysics/SpatialIndex.h>
+#include "../fixtures/SpatialConformance.h"
 
 #include <algorithm>
 #include <cmath>
@@ -10,135 +11,7 @@
 namespace
 {
 using namespace HibikiPhysics;
-using Point = std::array<double, 3>;
-using Ids = std::vector<std::size_t>;
-using Pairs = std::vector<std::pair<std::size_t, std::size_t>>;
-
-void Check(bool condition, const char *message)
-{
-	if (!condition)
-		throw std::logic_error(message);
-}
-
-template <class Operation>
-void ExpectInvalid(Operation operation)
-{
-	try
-	{
-		operation();
-	}
-	catch (const std::invalid_argument &)
-	{
-		return;
-	}
-	throw std::logic_error("Expected invalid spatial input to be rejected");
-}
-
-bool Overlap(const AABB &a, const AABB &b)
-{
-	for (int axis = 0; axis < 3; ++axis)
-		if (std::min(a.GetMax()[axis], b.GetMax()[axis]) < std::max(a.GetMin()[axis], b.GetMin()[axis]))
-			return false;
-	return true;
-}
-
-template <class Predicate>
-Ids Matching(std::span<const SpatialEntry> entries, Predicate matches)
-{
-	Ids ids;
-	for (const auto &entry : entries)
-		if (matches(entry.mBounds))
-			ids.push_back(entry.mId);
-	std::ranges::sort(ids);
-	return ids;
-}
-
-Pairs AllPairs(std::span<const SpatialEntry> entries)
-{
-	Pairs pairs;
-	for (std::size_t a = 0; a < entries.size(); ++a)
-		for (std::size_t b = 0; b < a; ++b)
-			if (Overlap(entries[a].mBounds, entries[b].mBounds))
-				pairs.emplace_back(std::minmax(entries[a].mId, entries[b].mId));
-	std::ranges::sort(pairs);
-	return pairs;
-}
-
-// Exhaustive face intersection for small integral boxes and rays. A forward ray
-// meeting a closed box starts inside or crosses one of its six boundary faces.
-bool RayHits(const Point &origin, const Point &direction, const AABB &bounds)
-{
-	if (bounds.Contains(origin))
-		return true;
-	for (int axis = 0; axis < 3; ++axis)
-	{
-		if (direction[axis] == 0)
-			continue;
-		for (auto face : {bounds.GetMin(), bounds.GetMax()})
-		{
-			const double t = (face[axis] - origin[axis]) / direction[axis];
-			if (t < 0)
-				continue;
-			Point hit = origin;
-			for (int j = 0; j < 3; ++j)
-				hit[j] += t * direction[j];
-			if (bounds.Contains(hit))
-				return true;
-		}
-	}
-	return false;
-}
-
-void CheckReference(const SpatialQueryProvider &provider)
-{
-	std::mt19937 random(8729);
-	auto		 coord = [&]
-	{ return static_cast<double>(random() % 21) - 10; };
-	std::vector<SpatialEntry> entries;
-	std::vector<Point>		  sites;
-	for (std::size_t i = 0; i < 96; ++i)
-	{
-		const Point lo{coord(), coord(), coord()};
-		Point		hi = lo;
-		for (auto &value : hi)
-			value += static_cast<double>(random() % 5);
-		entries.push_back({i * 3 + 7, {lo, hi}});
-		sites.push_back(i % 2 == 0 ? lo : hi);
-	}
-	const auto index = provider.Build(entries);
-	const auto expectedPairs = AllPairs(entries);
-	Check(index->OverlapPairs() == expectedPairs, "Exhaustive self-pairs");
-	for (const auto &query : entries)
-		Check(index->Overlaps(query.mBounds) == Matching(entries, [&](const AABB &bounds)
-														 { return Overlap(query.mBounds, bounds); }),
-			  "Exhaustive overlap");
-	for (int i = 0; i < 40; ++i)
-	{
-		const Point point{coord(), coord(), coord()};
-		const Point direction{(i % 2 == 0) ? 1.0 : -1.0, (i % 3 == 0) ? 0.0 : -2.0, (i % 5 == 0) ? 0.0 : 0.5};
-		Check(index->RayCandidates(point, direction) == Matching(entries, [&](const AABB &bounds)
-																 { return RayHits(point, direction, bounds); }),
-			  "Exhaustive ray candidates");
-		auto distance = [&](std::size_t id)
-		{
-			const auto site = sites.at((id - 7) / 3);
-			return std::hypot(site[0] - point[0], site[1] - point[1], site[2] - point[2]);
-		};
-		std::pair<double, std::size_t> expected{std::numeric_limits<double>::infinity(), 0};
-		for (const auto &entry : entries)
-			expected = std::min(expected, std::pair(distance(entry.mId), entry.mId));
-		const auto nearest = index->Nearest(point, distance);
-		Check(nearest && nearest->mId == expected.second && nearest->mDistance == expected.first, "Exhaustive exact leaf distances");
-	}
-
-	// Query one owned index simultaneously while another build uses the reversed input.
-	auto async = std::async(std::launch::async, [&]
-							{ return index->OverlapPairs(); });
-	std::ranges::reverse(entries);
-	const auto rebuilt = provider.Build(entries);
-	entries.clear();
-	Check(index->OverlapPairs() == expectedPairs && async.get() == expectedPairs && rebuilt->OverlapPairs() == expectedPairs, "Independent concurrent queries and builds");
-}
+using namespace HibikiPhysics::Test::SpatialReference;
 
 void CheckBoundaries(const SpatialQueryProvider &provider)
 {
@@ -292,7 +165,8 @@ void CheckRegistration()
 	defaults.Add(CpuSpatialOverlapPlugin());
 	Dependencies overlapOnly;
 	SpatialOverlapSlot().Declare(overlapOnly);
-	const auto						  defaultScope = defaults.Build(overlapOnly);
+	const auto defaultScope = defaults.Build(overlapOnly);
+	HibikiPhysics::Test::CheckOverlapProvider(SpatialOverlapSlot().Get(defaultScope));
 	const AABB						  point({}, {});
 	const std::array<SpatialEntry, 2> entries{{{12, point}, {5, point}}};
 	const Pairs						  expected{{5, 12}};
@@ -332,7 +206,7 @@ void CheckRegistration()
 int main()
 {
 	const auto provider = HibikiPhysics::MakeCpuSpatialQueryProvider();
-	CheckReference(*provider);
+	HibikiPhysics::Test::CheckQueryProvider(*provider);
 	CheckBoundaries(*provider);
 	CheckNearest(*provider);
 	CheckExtremes(*provider);
