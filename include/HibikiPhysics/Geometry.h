@@ -1,5 +1,6 @@
 #pragma once
 
+#include <HibikiPhysics/ExtendedShapes.h>
 #include <HibikiPhysics/AnalyticShapes.h>
 #include <HibikiPhysics/Math.h>
 #include <HibikiPhysics/Plugin.h>
@@ -9,6 +10,19 @@ namespace HibikiPhysics
 class GeometryLibrary
 {
   public:
+	[[nodiscard]] bool Contains(const Cone &inShape, const std::array<double, 3> &inPoint) const;
+	[[nodiscard]] bool Contains(const Cone &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+	[[nodiscard]] AABB LocalBounds(const Cone &inShape) const;
+	[[nodiscard]] AABB WorldBounds(const Cone &inShape, const Transform &inWorldFromLocal) const;
+	[[nodiscard]] bool Contains(const Frustum &inShape, const std::array<double, 3> &inPoint) const;
+	[[nodiscard]] bool Contains(const Frustum &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+	[[nodiscard]] AABB LocalBounds(const Frustum &inShape) const;
+	[[nodiscard]] AABB WorldBounds(const Frustum &inShape, const Transform &inWorldFromLocal) const;
+	[[nodiscard]] bool Contains(const TaperedCapsule &inShape, const std::array<double, 3> &inPoint) const;
+	[[nodiscard]] bool Contains(const TaperedCapsule &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+	[[nodiscard]] AABB LocalBounds(const TaperedCapsule &inShape) const;
+	[[nodiscard]] AABB WorldBounds(const TaperedCapsule &inShape, const Transform &inWorldFromLocal) const;
+
 	[[nodiscard]] double				SignedDistance(Plane inPlane, const std::array<double, 3> &inPoint) const;
 	[[nodiscard]] bool					Contains(HalfSpace inHalfSpace, const std::array<double, 3> &inPoint) const;
 	[[nodiscard]] bool					Contains(const Sphere &inShape, const std::array<double, 3> &inPoint) const;

@@ -68,6 +68,43 @@ double CapsuleExtent(double inRadius, double inHalfSpine)
 	return extent;
 }
 
+double RadiusBetweenEnds(double bottom, double top, double h, double z)
+{
+	const double fraction = ((h - std::abs(z)) / h) * 0.5;
+	return z < 0 ? std::lerp(bottom, top, fraction) : std::lerp(top, bottom, fraction);
+}
+
+// Enclose the two endpoint disks (or balls) along the projected axis.
+Interval EndBounds(double inOffset, double inBottomExtent, double inTopExtent)
+{
+	auto upper = [](double center, double extent)
+	{
+		if (center >= 0)
+			return CapsuleExtent(extent, center);
+		const double sum = center + extent;
+		const double residual = extent >= -center ? center - (sum - extent) : extent - (sum - center);
+		return residual > 0 ? std::nextafter(sum, Infinity) : sum;
+	};
+	return {-std::max(upper(inOffset, inBottomExtent), upper(-inOffset, inTopExtent)),
+			std::max(upper(-inOffset, inBottomExtent), upper(inOffset, inTopExtent))};
+}
+
+Interval ProjectLocal(const Cone &inShape, Vec3 d)
+{
+	return EndBounds(inShape.GetHalfHeight() * d.mZ, inShape.GetRadius() * std::hypot(d.mX, d.mY), 0);
+}
+
+Interval ProjectLocal(const Frustum &inShape, Vec3 d)
+{
+	const double radial = std::hypot(d.mX, d.mY);
+	return EndBounds(inShape.GetHalfHeight() * d.mZ, inShape.GetBottomRadius() * radial, inShape.GetTopRadius() * radial);
+}
+
+Interval ProjectLocal(const TaperedCapsule &inShape, Vec3 d)
+{
+	return EndBounds(inShape.GetHalfSpineLength() * d.mZ, inShape.GetBottomRadius(), inShape.GetTopRadius());
+}
+
 // Each direction is a world unit axis expressed in the shape's local frame.
 Interval ProjectLocal(Plane, Vec3 d)
 {
@@ -227,6 +264,114 @@ Ellipsoid::Ellipsoid(std::array<double, 3> inSemiAxes) : mSemiAxes(inSemiAxes)
 {
 	for (double axis : mSemiAxes)
 		RequirePositive(axis, "Expected positive finite ellipsoid semi-axes");
+}
+
+Cone::Cone(double inRadius, double inHalfHeight) : mRadius(inRadius), mHalfHeight(inHalfHeight)
+{
+	RequirePositive(mRadius, "Expected a positive finite cone radius");
+	RequirePositive(mHalfHeight, "Expected a positive finite cone half-height");
+}
+
+Frustum::Frustum(double inBottomRadius, double inTopRadius, double inHalfHeight)
+	: mBottomRadius(inBottomRadius), mTopRadius(inTopRadius), mHalfHeight(inHalfHeight)
+{
+	if (!std::isfinite(mBottomRadius) || !std::isfinite(mTopRadius) || mBottomRadius < 0 || mTopRadius < 0 || std::max(mBottomRadius, mTopRadius) == 0)
+		throw std::invalid_argument("Expected nonnegative finite frustum radii with at least one positive radius");
+	RequirePositive(mHalfHeight, "Expected a positive finite frustum half-height");
+}
+
+TaperedCapsule::TaperedCapsule(double inBottomRadius, double inTopRadius, double inHalfSpineLength)
+	: mBottomRadius(inBottomRadius), mTopRadius(inTopRadius), mHalfSpineLength(inHalfSpineLength)
+{
+	RequirePositive(mBottomRadius, "Expected a positive finite bottom ball radius");
+	RequirePositive(mTopRadius, "Expected a positive finite top ball radius");
+	if (!std::isfinite(mHalfSpineLength) || mHalfSpineLength < 0)
+		throw std::invalid_argument("Expected a nonnegative finite half spine length");
+}
+
+bool GeometryLibrary::Contains(const Cone &inShape, const std::array<double, 3> &inPoint) const
+{
+	return Contains(Frustum(inShape.GetRadius(), 0, inShape.GetHalfHeight()), inPoint);
+}
+
+bool GeometryLibrary::Contains(const Frustum &inShape, const std::array<double, 3> &inPoint) const
+{
+	ValidatePoint(inPoint);
+	const auto [x, y, z] = inPoint;
+	const double h = inShape.GetHalfHeight();
+	if (std::abs(z) > h)
+		return false;
+	const double bottom = inShape.GetBottomRadius(), top = inShape.GetTopRadius();
+	const double radius = RadiusBetweenEnds(bottom, top, h, z);
+	return radius == 0 ? x == 0 && y == 0 : InClosedEllipsoid<2>({x, y}, {radius, radius});
+}
+
+bool GeometryLibrary::Contains(const TaperedCapsule &inShape, const std::array<double, 3> &inPoint) const
+{
+	ValidatePoint(inPoint);
+	const auto [x, y, z] = inPoint;
+	const double h = inShape.GetHalfSpineLength(), bottom = inShape.GetBottomRadius(), top = inShape.GetTopRadius();
+	if (bottom == top)
+		return Contains(Capsule(bottom, h), inPoint);
+	const double bottomZ = z + h, topZ = z - h;
+	if (InClosedEllipsoid<3>({x, y, bottomZ}, {bottom, bottom, bottom}) || InClosedEllipsoid<3>({x, y, topZ}, {top, top, top}))
+		return true;
+	if (h == 0)
+		return false;
+	// The common tangent normal in a meridian section is (cosine, -sine).
+	const double delta = top - bottom;
+	const double sine = h <= std::numeric_limits<double>::max() / 2 ? delta / (2 * h) : (delta / h) * 0.5;
+	if (std::abs(sine) >= 1 || bottomZ < -sine * bottom || topZ > -sine * top)
+		return false;
+	const double cosine = std::sqrt((1 - sine) * (1 + sine));
+	// Interpolation retains the radius change even when the slope underflows.
+	const double distance = std::abs(z) <= h ? RadiusBetweenEnds(bottom, top, h, z) : (z < 0 ? std::fma(sine, bottomZ, bottom) : std::fma(sine, topZ, top));
+	return std::hypot(x * cosine, y * cosine) <= distance;
+}
+
+bool GeometryLibrary::Contains(const Cone &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+AABB GeometryLibrary::LocalBounds(const Cone &inShape) const
+{
+	return ProjectedBounds(inShape, {});
+}
+
+AABB GeometryLibrary::WorldBounds(const Cone &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+bool GeometryLibrary::Contains(const Frustum &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+AABB GeometryLibrary::LocalBounds(const Frustum &inShape) const
+{
+	return ProjectedBounds(inShape, {});
+}
+
+AABB GeometryLibrary::WorldBounds(const Frustum &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+bool GeometryLibrary::Contains(const TaperedCapsule &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+AABB GeometryLibrary::LocalBounds(const TaperedCapsule &inShape) const
+{
+	return ProjectedBounds(inShape, {});
+}
+
+AABB GeometryLibrary::WorldBounds(const TaperedCapsule &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
 }
 
 double GeometryLibrary::SignedDistance(Plane, const std::array<double, 3> &inPoint) const
