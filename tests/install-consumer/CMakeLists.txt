@@ -19,7 +19,3 @@ add_test(NAME plugin.factories COMMAND hibiki_provider_factories)
 add_executable(hibiki_provider_graph ProviderGraph.cpp)
 target_link_libraries(hibiki_provider_graph PRIVATE hibiki::physics)
 add_test(NAME plugin.graph COMMAND hibiki_provider_graph)
-
-add_executable(hibiki_scene_assembly SceneAssembly.cpp)
-target_link_libraries(hibiki_scene_assembly PRIVATE hibiki::physics)
-add_test(NAME scene.assembly COMMAND hibiki_scene_assembly "${CMAKE_CURRENT_SOURCE_DIR}/../../examples/install-consumer/sphere-plane.hscene")

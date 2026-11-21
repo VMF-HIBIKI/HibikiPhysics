@@ -36,7 +36,7 @@ else()
 	endif()
 endif()
 
-add_library(hibiki_physics STATIC src/BuildInfo.cpp src/Plugin.cpp src/Scene.cpp)
+add_library(hibiki_physics STATIC src/BuildInfo.cpp src/Plugin.cpp)
 add_library(hibiki::physics ALIAS hibiki_physics)
 set_target_properties(hibiki_physics PROPERTIES EXPORT_NAME physics)
 target_compile_features(hibiki_physics PUBLIC cxx_std_20)
