@@ -22,7 +22,7 @@ std::vector<BvhNode> BuildTaggedTree(std::span<const TaggedSpatialEntry> entries
 class FilteredIndex final : public FilteredSpatialIndex
 {
   public:
-	explicit FilteredIndex(std::span<const TaggedSpatialEntry> entries) : mTree(BuildTaggedTree(entries)), mUniform(mTree.Nodes().size())
+	FilteredIndex(std::span<const TaggedSpatialEntry> entries, bool cacheSource) : mTree(BuildTaggedTree(entries)), mUniform(mTree.Nodes().size()), mCacheSource(cacheSource)
 	{
 		mMetadata.reserve(entries.size());
 		for (const auto &tagged : entries)
@@ -45,10 +45,11 @@ class FilteredIndex final : public FilteredSpatialIndex
 	std::vector<std::size_t> FilteredOverlaps(std::size_t id, const AABB &bounds, const SpatialPairPredicate &accept, SpatialFilterStats &stats) const override
 	{
 		CheckPolicy(accept);
-		if (!mMetadata.contains(id))
+		const auto source = mMetadata.find(id);
+		if (source == mMetadata.end())
 			throw std::invalid_argument("Unknown spatial filter source ID");
 		SpatialFilterStats result{};
-		auto			   ids = QueryBox(id, bounds, &accept, &result);
+		auto			   ids = QueryBox(id, bounds, &accept, &result, &source->second);
 		stats = result;
 		return ids;
 	}
@@ -67,33 +68,62 @@ class FilteredIndex final : public FilteredSpatialIndex
 		if (!accept)
 			throw std::invalid_argument("Expected spatial metadata predicate");
 	}
-	template <class Emit>
-	void Visit(std::size_t id, const AABB &bounds, const SpatialPairPredicate *accept, SpatialFilterStats *stats, Emit emit) const
+	template <class Allowed, class Emit>
+	void Walk(const AABB &bounds, SpatialFilterStats *stats, Allowed allowed, Emit emit) const
 	{
+		const auto acceptNode = [&](std::size_t i, const BvhNode &node)
+		{
+			if (!Intersects(bounds, node.mBounds))
+				return false;
+			if (stats && !node.IsLeaf() && mUniform[i] && !allowed(*mUniform[i]))
+			{
+				++stats->mPrunedSubtrees;
+				return false;
+			}
+			return true;
+		};
+		const auto emitLeaf = [&](std::size_t i, const BvhNode &node)
+		{
+			if (stats)
+			{
+				++stats->mLeafTests;
+				if (!allowed(*mUniform[i]))
+					return;
+			}
+			emit(node.mId);
+		};
+		const auto visits = mTree.Walk(0, acceptNode, emitLeaf);
+		if (stats)
+			stats->mNodeVisits += visits;
+	}
+
+	template <class Emit>
+	void Visit(std::size_t id, const AABB &bounds, const SpatialPairPredicate *accept, SpatialFilterStats *stats, const SpatialMetadata *knownSource, Emit emit) const
+	{
+		if (mCacheSource && accept)
+		{
+			const SpatialMetadata source = knownSource ? *knownSource : mMetadata.at(id);
+			++stats->mQueryReads;
+			const auto allowed = [&](const SpatialMetadata &other)
+			{ return (*accept)(source, other); };
+			Walk(bounds, stats, allowed, emit);
+			return;
+		}
 		const auto allowed = [&](const SpatialMetadata &other)
 		{
 			++stats->mQueryReads;
 			return (*accept)(mMetadata.at(id), other);
 		};
-		const auto visits = mTree.Walk(0, [&](std::size_t i, const BvhNode &node)
-									   {
-			if(!Intersects(bounds,node.mBounds))return false;
-			if(accept && !node.IsLeaf() && mUniform[i] && !allowed(*mUniform[i])){
-				++stats->mPrunedSubtrees;return false;
-			}
-			return true; }, [&](std::size_t i, const BvhNode &node)
-									   {
-			if(accept){++stats->mLeafTests;if(!allowed(*mUniform[i]))return;}
-			emit(node.mId); });
-		if (stats)
-			stats->mNodeVisits += visits;
+		Walk(bounds, stats, allowed, emit);
 	}
-	std::vector<std::size_t> QueryBox(std::size_t id, const AABB &bounds, const SpatialPairPredicate *accept, SpatialFilterStats *stats) const
+
+	std::vector<std::size_t> QueryBox(std::size_t id, const AABB &bounds, const SpatialPairPredicate *accept, SpatialFilterStats *stats, const SpatialMetadata *knownSource = nullptr) const
 	{
 		RequireFinite(bounds);
 		std::vector<std::size_t> ids;
-		Visit(id, bounds, accept, stats, [&](std::size_t hit)
-			  { ids.push_back(hit); });
+		const auto				 emitId = [&](std::size_t hit)
+		{ ids.push_back(hit); };
+		Visit(id, bounds, accept, stats, knownSource, emitId);
 		std::ranges::sort(ids);
 		return ids;
 	}
@@ -104,8 +134,12 @@ class FilteredIndex final : public FilteredSpatialIndex
 		{
 			if (!node.IsLeaf())
 				continue;
-			Visit(node.mId, node.mBounds, accept, stats, [&](std::size_t hit)
-				  {if(node.mId<hit)pairs.emplace_back(node.mId,hit); });
+			const auto emitPair = [&](std::size_t hit)
+			{
+				if (node.mId < hit)
+					pairs.emplace_back(node.mId, hit);
+			};
+			Visit(node.mId, node.mBounds, accept, stats, nullptr, emitPair);
 		}
 		std::ranges::sort(pairs);
 		return pairs;
@@ -113,11 +147,16 @@ class FilteredIndex final : public FilteredSpatialIndex
 	EscapeTree										 mTree;
 	std::vector<std::optional<SpatialMetadata>>		 mUniform;
 	std::unordered_map<std::size_t, SpatialMetadata> mMetadata;
+	bool											 mCacheSource;
 };
 class FilteredProvider final : public FilteredSpatialProvider
 {
   public:
-	std::unique_ptr<const FilteredSpatialIndex> Build(std::span<const TaggedSpatialEntry> entries) const override { return std::make_unique<FilteredIndex>(entries); }
+	explicit FilteredProvider(bool cacheSource) : mCacheSource(cacheSource) {}
+	std::unique_ptr<const FilteredSpatialIndex> Build(std::span<const TaggedSpatialEntry> entries) const override { return std::make_unique<FilteredIndex>(entries, mCacheSource); }
+
+  private:
+	bool mCacheSource;
 };
 } // namespace
 const CapabilitySlot<FilteredSpatialProvider> &FilteredSpatialSlot()
@@ -127,10 +166,18 @@ const CapabilitySlot<FilteredSpatialProvider> &FilteredSpatialSlot()
 }
 std::unique_ptr<FilteredSpatialProvider> MakeFilteredMortonProvider()
 {
-	return std::make_unique<FilteredProvider>();
+	return std::make_unique<FilteredProvider>(false);
 }
 CapabilityRegistration FilteredMortonPlugin()
 {
 	return FilteredSpatialSlot().Factory("hibiki.filtered_morton", MakeFilteredMortonProvider);
+}
+std::unique_ptr<FilteredSpatialProvider> MakeCachedFilteredMortonProvider()
+{
+	return std::make_unique<FilteredProvider>(true);
+}
+CapabilityRegistration CachedFilteredMortonPlugin()
+{
+	return FilteredSpatialSlot().Factory("hibiki.cached_filtered_morton", MakeCachedFilteredMortonProvider);
 }
 } // namespace HibikiPhysics
