@@ -12,6 +12,10 @@ target_link_libraries(hibiki_extended_shapes PRIVATE hibiki::physics)
 add_test(NAME geometry.extended COMMAND hibiki_extended_shapes)
 
 add_subdirectory(../../examples/install-consumer examples)
+add_executable(hibiki_triangle_queries TriangleMeshQueries.cpp)
+target_link_libraries(hibiki_triangle_queries PRIVATE hibiki::physics)
+add_test(NAME geometry.triangle_queries COMMAND hibiki_triangle_queries)
+
 add_executable(hibiki_plugin_lifecycle PluginLifecycle.cpp)
 target_link_libraries(hibiki_plugin_lifecycle PRIVATE hibiki::physics)
 add_test(NAME plugin.lifecycle COMMAND hibiki_plugin_lifecycle)

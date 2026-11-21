@@ -56,6 +56,8 @@ else()
 	target_compile_options(hibiki_physics PRIVATE -Wall -Wextra -Werror)
 endif()
 
+target_sources(hibiki_physics PRIVATE src/geometry/TriangleMeshQueries.cpp)
+
 install(TARGETS hibiki_physics EXPORT HibikiPhysicsTargets ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} FILES_MATCHING PATTERN "*.h")
 install(EXPORT HibikiPhysicsTargets NAMESPACE hibiki:: DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/HibikiPhysics)
