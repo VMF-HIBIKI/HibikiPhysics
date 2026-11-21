@@ -123,7 +123,7 @@ Extension freedom includes protocol, data and flow definition. Shared protocols 
 
 ## Validation
 
-Installed-package tests cover default and replacement registrations, transitive factory validation and cleanup. The native sphere–plane example derives the required detector from both shapes and filters, mounts it on the selected collision service, and keeps the binding across repeated queries. Multi-World behavior and scheduling remain pending. [Scene assembly](../scene-assembly.md)
+Validation status: Installed-package tests cover default registration, experiment replacements, binding validation and mounting-scope cleanup. Deriving requirements from a bridged scene, collision adapters, multi-World behavior and scheduling await implementation.
 
 - Build the official default composition entirely through public extension mechanisms.
 - Add a friction plugin with custom history state from an independent project and verify lifecycle and rollback behavior.

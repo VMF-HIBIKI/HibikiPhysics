@@ -16,8 +16,6 @@ Factories can take other providers as arguments. The slots following the factory
 
 The caller holds the returned scope while its registrations are in use. The scope releases mounting effects before its factory-owned providers, including on failure. `Borrow` binds an existing provider whose lifetime the caller manages. [Factory and injection tests](../tests/install-consumer/ProviderFactories.cpp).
 
-The scene compiler reads native v1 sphere and plane records or accepts the same geometry in C++. Mutual collision masks determine whether a registration factory mounts the selected detector on the scoped collision service. Compiled queries use that service for the lifetime of the scene. MJCF, URDF and USD adapters remain future work. [Scene assembly](scene-assembly.md).
-
 ## Accepted directions
 
 | Direction | Responsibilities and boundaries |
@@ -36,7 +34,7 @@ These directions are documented in the [ADR index](decisions/README.md). The def
 
 ## Subsequent interface design
 
-Handle representation, data layout, mathematical protocols, Python bindings and scheduling follow M1 and later module research. Sensors retain the plugin direction with concrete coverage pending investigation. The SDF approach and implementation require separate research.
+The scene compiler and plugin host will resolve user-selected providers and run component-defined checks before mounting plugins. Handle representation, data layout, mathematical protocols, Python bindings and scheduling follow M1 and later module research. Sensors retain the plugin direction with concrete coverage pending investigation. The SDF approach and implementation require separate research.
 
 ## Implementation path
 
