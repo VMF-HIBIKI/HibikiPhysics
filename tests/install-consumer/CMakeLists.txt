@@ -12,6 +12,10 @@ add_executable(hibiki_capability_registration CapabilityRegistration.cpp)
 target_link_libraries(hibiki_capability_registration PRIVATE hibiki::physics)
 add_test(NAME plugin.registration COMMAND hibiki_capability_registration)
 
+add_executable(hibiki_discrete_shapes DiscreteShapes.cpp)
+target_link_libraries(hibiki_discrete_shapes PRIVATE hibiki::physics)
+add_test(NAME geometry.discrete COMMAND hibiki_discrete_shapes)
+
 add_executable(hibiki_provider_factories ProviderFactories.cpp)
 target_link_libraries(hibiki_provider_factories PRIVATE hibiki::physics)
 add_test(NAME plugin.factories COMMAND hibiki_provider_factories)
