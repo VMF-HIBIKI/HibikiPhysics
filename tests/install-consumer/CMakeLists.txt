@@ -23,3 +23,7 @@ add_test(NAME plugin.graph COMMAND hibiki_provider_graph)
 add_executable(hibiki_geometry_plugin GeometryPlugin.cpp)
 target_link_libraries(hibiki_geometry_plugin PRIVATE hibiki::physics)
 add_test(NAME plugin.geometry COMMAND hibiki_geometry_plugin)
+
+add_executable(hibiki_analytic_shapes AnalyticShapes.cpp)
+target_link_libraries(hibiki_analytic_shapes PRIVATE hibiki::physics)
+add_test(NAME geometry.analytic COMMAND hibiki_analytic_shapes)
