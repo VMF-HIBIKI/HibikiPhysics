@@ -1,6 +1,8 @@
 #include <HibikiPhysics/SdfBaker.h>
 #include "../fixtures/ThroughHolePlate.h"
 #include <algorithm>
+#include <bit>
+#include <charconv>
 #include <chrono>
 #include <cmath>
 #include <cstdint>
@@ -175,11 +177,20 @@ std::uint64_t PeakResidentBytes()
 #endif
 }
 
-void Run(double spacingMm, double phase)
+// A word-wise fingerprint covers every binary64 node, including padding.
+std::uint64_t GridFingerprint(const DenseSdfGrid &grid)
+{
+	std::uint64_t hash = 14695981039346656037ULL;
+	for (double value : grid.GetValues())
+		hash = (hash ^ std::bit_cast<std::uint64_t>(value)) * 1099511628211ULL;
+	return hash;
+}
+
+void Run(double spacingMm, double phase, std::size_t workers)
 {
 	CheckReference();
 	const auto			  mesh = Test::MakeThroughHolePlate();
-	const SdfBakeSettings settings{spacingMm * mm, {5 * mm, 5 * mm, 5 * mm}, {phase, phase, 0}};
+	const SdfBakeSettings settings{spacingMm * mm, {5 * mm, 5 * mm, 5 * mm}, {phase, phase, 0}, workers};
 	const auto			  start = std::chrono::steady_clock::now();
 	const auto			  grid = BakeDenseSdf(mesh, settings);
 	const double		  seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
@@ -202,6 +213,7 @@ void Run(double spacingMm, double phase)
 	std::cout << std::setprecision(17)
 			  << "{\"build\":\"" HIBIKI_EXPERIMENT_BUILD "\",\"compiler\":\"" HIBIKI_EXPERIMENT_COMPILER "\""
 			  << ",\"spacing_mm\":" << spacingMm << ",\"phase_xy_cells\":" << phase
+			  << ",\"requested_workers\":" << workers << ",\"grid_fingerprint\":\"" << std::hex << GridFingerprint(grid) << std::dec << "\""
 			  << ",\"grid_shape\":[" << nx << ',' << ny << ',' << nz << "],\"nodes\":" << grid.GetValues().size()
 			  << ",\"grid_bytes\":" << grid.GetValues().size() * sizeof(double) << ",\"peak_resident_bytes\":" << peak
 			  << ",\"bake_s\":" << seconds << ",\"node_probes\":" << nodes.count
@@ -216,11 +228,18 @@ int main(int argc, char **argv)
 {
 	try
 	{
-		Require(argc == 3, "usage: hibiki_sdf_accuracy <spacing-mm: 0.25|0.5|1|2.5> <xy-phase: 0|0.5>");
+		Require(argc == 3 || argc == 4, "usage: hibiki_sdf_accuracy <spacing-mm: 0.25|0.5|1|2.5> <xy-phase: 0|0.5> [workers]");
 		const std::string_view spacing = argv[1], phase = argv[2];
 		Require(spacing == "0.25" || spacing == "0.5" || spacing == "1" || spacing == "2.5", "unsupported spacing");
 		Require(phase == "0" || phase == "0.5", "unsupported phase");
-		Run(std::stod(argv[1]), std::stod(argv[2]));
+		std::size_t workers = 1;
+		if (argc == 4)
+		{
+			const std::string_view count = argv[3];
+			const auto [end, error] = std::from_chars(count.data(), count.data() + count.size(), workers);
+			Require(error == std::errc{} && end == count.data() + count.size(), "invalid worker count");
+		}
+		Run(std::stod(argv[1]), std::stod(argv[2]), workers);
 		return 0;
 	}
 	catch (const std::exception &e)
