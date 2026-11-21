@@ -6,6 +6,11 @@ PluginContext::PluginContext(Bindings inBindings) : mBindings(std::move(inBindin
 {
 }
 
+PluginContext::PluginContext(const CapabilityConfig &inConfig, const Dependencies &inDependencies) : PluginContext()
+{
+	inConfig.Bind(*this, inDependencies);
+}
+
 PluginContext::~PluginContext()
 {
 	// A later registration may depend on an earlier one.
@@ -48,7 +53,7 @@ void Plugin::MountDeclared(PluginContext &ioContext, const Dependencies &inDepen
 
 void CapabilityConfig::Add(CapabilityRegistration inDefault)
 {
-	const auto [entry, inserted] = mEntries.try_emplace(inDefault.mCapability, std::move(inDefault.mImplementation), std::move(inDefault.mBinding), false);
+	const auto [entry, inserted] = mEntries.try_emplace(inDefault.mCapability, std::move(inDefault.mImplementation), inDefault.mBindingType, std::move(inDefault.mBind), false);
 	if (!inserted)
 		throw std::invalid_argument("Capability already registered: " + inDefault.mCapability + " (" + entry->second.mImplementation + ", " + inDefault.mImplementation + "). Use Replace.");
 }
@@ -61,35 +66,47 @@ void CapabilityConfig::Replace(CapabilityRegistration inReplacement)
 	auto &selected = entry->second;
 	if (selected.mReplaced)
 		throw std::invalid_argument("Conflicting replacements: " + inReplacement.mCapability + " (" + selected.mImplementation + ", " + inReplacement.mImplementation + ")");
-	if (selected.mBinding.type() != inReplacement.mBinding.type())
+	if (selected.mBindingType != inReplacement.mBindingType)
 		throw std::invalid_argument("Incompatible replacement type: " + inReplacement.mCapability + " (" + inReplacement.mImplementation + ")");
-	selected = {std::move(inReplacement.mImplementation), std::move(inReplacement.mBinding), true};
+	selected = {std::move(inReplacement.mImplementation), inReplacement.mBindingType, std::move(inReplacement.mBind), true};
 }
 
-PluginContext::Bindings CapabilityConfig::Select(const Dependencies &inDependencies) const
+void CapabilityConfig::Bind(PluginContext &ioContext, const Dependencies &inDependencies) const
 {
-	PluginContext::Bindings bindings;
+	// Capture the selection before user factories can change the configuration.
+	std::vector<std::pair<std::string, Entry>> selected;
+	selected.reserve(inDependencies.GetRequired().size());
 	for (const auto &required : inDependencies.GetRequired())
 	{
 		const auto entry = mEntries.find(required.mSlot);
-		if (entry != mEntries.end())
-			bindings.try_emplace(required.mSlot, entry->second.mBinding);
+		if (entry == mEntries.end())
+			throw std::invalid_argument("Missing plugin binding: " + required.mSlot);
+		if (entry->second.mBindingType != required.mBindingType)
+			throw std::invalid_argument("Incompatible plugin binding type: " + required.mSlot);
+		selected.emplace_back(entry->first, entry->second);
 	}
-	return bindings;
+	for (const auto &[slot, entry] : selected)
+	{
+		if (ioContext.mBindings.contains(slot))
+			continue;
+		auto binding = entry.mBind(ioContext);
+		if (!binding.has_value())
+			throw std::runtime_error("Provider factory returned null: " + slot + " (" + entry.mImplementation + ")");
+		ioContext.mBindings.emplace(slot, std::move(binding));
+	}
 }
 
 PluginContext CapabilityConfig::Build(const Dependencies &inDependencies) const
 {
-	auto bindings = Select(inDependencies);
-	ValidateBindings(bindings, inDependencies);
-	return PluginContext(std::move(bindings));
+	return PluginContext(*this, inDependencies);
 }
 
 std::unique_ptr<PluginContext> CapabilityConfig::Mount(Plugin &ioPlugin) const
 {
 	Dependencies dependencies;
 	ioPlugin.Declare(dependencies);
-	auto scope = std::make_unique<PluginContext>(Select(dependencies));
+	auto scope = std::make_unique<PluginContext>();
+	Bind(*scope, dependencies);
 	ioPlugin.MountDeclared(*scope, dependencies);
 	return scope;
 }

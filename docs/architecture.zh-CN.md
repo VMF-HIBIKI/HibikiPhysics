@@ -8,11 +8,11 @@
 
 C++20 静态库目标 `hibiki::physics` 已公开构建信息接口及 `HibikiPhysics::Plugin` 基类。Windows 工具链、编辑器、调试和环境复现已完成验证。[Windows 验收记录](environment/acceptance.zh-CN.md)。
 
-插件作者包含 `<HibikiPhysics/Plugin.h>` 并实现 `OnMount(PluginContext&)`。有依赖的插件还实现 `Declare(Dependencies&) const`，通过 `Require<协议类型>(入口名)` 声明所需服务。`CapabilityConfig::Mount` 收集需求，选择已注册的引用，完成校验后调用挂载回调。调用方持有返回的作用域以维持登记的生命周期。自行提供绑定的调用方也可以直接使用 `Plugin::Mount`。
+插件作者包含 `<HibikiPhysics/Plugin.h>`。`CapabilitySlot<T>` 将入口名与协议类型关联，并保留只读限定。`MakePlugin(callback, slots...)` 使用同一组描述符声明依赖，并按顺序将对应引用传给回调。需要持有登记凭据的回调可以将挂载上下文作为第一个参数。插件也可以继续显式实现 `Plugin::Declare` 和 `OnMount`。
 
-安装包示例通过 `Add` 注册一个整数，复制配置后通过 `Replace` 为实验选用第二个整数。`Build` 根据同一份依赖声明构建两个上下文，对它们的写入分别更新对应的整数。[消费程序源码](../examples/install-consumer/PluginConsumer.cpp)。
+安装包示例集中定义整数默认组合。实验复制该配置，通过同一个入口描述符替换一项工厂。工厂为请求该入口的每个作用域返回一个新的 `std::unique_ptr`。`Mount` 在构造提供者前校验需求，再将选中的整数注入回调。显式声明需求的调用者可以通过 `Build` 使用相同的所有权模型。[消费程序源码](../examples/install-consumer/PluginConsumer.cpp)。
 
-挂载期间，`Keep` 接管析构时会撤销登记的 RAII 对象。调用者保证插件和服务提供者存活到进行中的调用结束、作用域按登记的逆序完成清理。安装包集成测试通过具体插件验证提供者选择和作用域清理。[生命周期测试](../tests/install-consumer/PluginLifecycle.cpp)。
+调用者在登记生效期间持有返回的作用域。作用域先撤销挂载期间的登记，再释放工厂创建的提供者，失败时采用相同的清理顺序。`Borrow` 绑定已有提供者，由调用者管理该对象的生命周期。[工厂与注入测试](../tests/install-consumer/ProviderFactories.cpp)。
 
 ## 已确定的方向
 

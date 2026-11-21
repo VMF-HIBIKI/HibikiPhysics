@@ -9,11 +9,15 @@
 #include <string>
 #include <string_view>
 #include <typeindex>
+#include <tuple>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 namespace HibikiPhysics
 {
+class CapabilityConfig;
+
 class Dependencies
 {
   public:
@@ -40,6 +44,8 @@ class Dependencies
 // selected protocol object. Providers outlive the scope and its registrations.
 class PluginContext final
 {
+	friend class CapabilityConfig;
+
   public:
 	using Bindings = std::map<std::string, std::any, std::less<>>;
 
@@ -66,6 +72,7 @@ class PluginContext final
 	}
 
   private:
+	PluginContext(const CapabilityConfig &inConfig, const Dependencies &inDependencies);
 	Bindings						   mBindings;
 	std::vector<std::shared_ptr<void>> mRegistrations;
 };
@@ -89,27 +96,114 @@ class Plugin
 	void MountDeclared(PluginContext &ioContext, const Dependencies &inDependencies);
 };
 
-// Providers are borrowed. Their lifetime covers the configuration and its mounted scopes.
 class CapabilityRegistration
 {
 	friend class CapabilityConfig;
+	template <class>
+	friend class CapabilitySlot;
+	using Binder = std::function<std::any(PluginContext &)>;
 
   public:
 	template <class Protocol>
 	CapabilityRegistration(std::string inCapability, std::string inImplementation, Protocol &ioProvider)
-		: mCapability(std::move(inCapability)), mImplementation(std::move(inImplementation)), mBinding(std::ref(ioProvider))
+		: CapabilityRegistration(std::move(inCapability), std::move(inImplementation), typeid(decltype(std::ref(ioProvider))),
+								 [reference = std::ref(ioProvider)](PluginContext &) -> std::any
+								 { return reference; })
 	{
 	}
 
   private:
-	std::string mCapability;
-	std::string mImplementation;
-	std::any	mBinding;
+	CapabilityRegistration(std::string inCapability, std::string inImplementation, std::type_index inBindingType, Binder inBind)
+		: mCapability(std::move(inCapability)), mImplementation(std::move(inImplementation)), mBindingType(inBindingType), mBind(std::move(inBind)) {}
+	std::string		mCapability;
+	std::string		mImplementation;
+	std::type_index mBindingType;
+	Binder			mBind;
 };
+
+// A protocol type and its stable name together distinguish slots sharing the same C++ type.
+template <class Protocol>
+class CapabilitySlot
+{
+  public:
+	explicit CapabilitySlot(std::string inName) : mName(std::move(inName)) {}
+	void					Declare(Dependencies &outDependencies) const { outDependencies.Require<Protocol>(mName); }
+	[[nodiscard]] Protocol &Get(const PluginContext &inContext) const { return inContext.Get<Protocol>(mName); }
+
+	template <class Provider>
+		requires std::is_convertible_v<Provider *, Protocol *>
+	[[nodiscard]] CapabilityRegistration Borrow(std::string inImplementation, Provider &ioProvider) const
+	{
+		Protocol &reference = ioProvider;
+		return {mName, std::move(inImplementation), reference};
+	}
+
+	// A copyable factory returns a unique_ptr to a fresh provider on each call.
+	template <class Create>
+	[[nodiscard]] CapabilityRegistration Factory(std::string inImplementation, Create inCreate) const
+	{
+		return {mName, std::move(inImplementation), typeid(std::reference_wrapper<Protocol>),
+				[create = std::move(inCreate)](PluginContext &ioContext)
+				{ return BindOwned(ioContext, std::invoke(create)); }};
+	}
+
+  private:
+	template <class Provider, class Deleter>
+	static std::any BindOwned(PluginContext &ioContext, std::unique_ptr<Provider, Deleter> inProvider)
+	{
+		if (!inProvider)
+			return {};
+		std::reference_wrapper<Protocol> reference(*inProvider);
+		ioContext.Keep(std::move(inProvider));
+		return reference;
+	}
+
+	std::string mName;
+};
+
+namespace detail
+{
+template <class Callback, class... Protocols>
+class InjectedPlugin final : public Plugin
+{
+  public:
+	InjectedPlugin(Callback inCallback, CapabilitySlot<Protocols>... inSlots)
+		: mCallback(std::move(inCallback)), mSlots(std::move(inSlots)...) {}
+	void Declare(Dependencies &outDependencies) const override
+	{
+		std::apply([&](const auto &...slots)
+				   { (slots.Declare(outDependencies), ...); }, mSlots);
+	}
+
+  private:
+	void OnMount(PluginContext &ioContext) override
+	{
+		auto inject = [&](const auto &...slots)
+		{
+			if constexpr (std::is_invocable_v<Callback &, Protocols &...>)
+				std::invoke(mCallback, slots.Get(ioContext)...);
+			else
+				std::invoke(mCallback, ioContext, slots.Get(ioContext)...);
+		};
+		std::apply(inject, mSlots);
+	}
+	Callback								 mCallback;
+	std::tuple<CapabilitySlot<Protocols>...> mSlots;
+};
+} // namespace detail
+
+// The callback takes the declared references, optionally preceded by the mounting context.
+template <class Callback, class... Protocols>
+[[nodiscard]] auto MakePlugin(Callback inCallback, CapabilitySlot<Protocols>... inSlots)
+{
+	return detail::InjectedPlugin<Callback, Protocols...>(std::move(inCallback), std::move(inSlots)...);
+}
 
 // Copy a default configuration before registering replacements for an experiment.
 class CapabilityConfig
 {
+	friend class PluginContext;
+
   public:
 	void										 Add(CapabilityRegistration inDefault);
 	void										 Replace(CapabilityRegistration inReplacement);
@@ -119,11 +213,12 @@ class CapabilityConfig
   private:
 	struct Entry
 	{
-		std::string mImplementation;
-		std::any	mBinding;
-		bool		mReplaced;
+		std::string					   mImplementation;
+		std::type_index				   mBindingType;
+		CapabilityRegistration::Binder mBind;
+		bool						   mReplaced;
 	};
-	[[nodiscard]] PluginContext::Bindings	  Select(const Dependencies &inDependencies) const;
+	void									  Bind(PluginContext &ioContext, const Dependencies &inDependencies) const;
 	std::map<std::string, Entry, std::less<>> mEntries;
 };
 } // namespace HibikiPhysics

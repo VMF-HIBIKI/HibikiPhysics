@@ -8,11 +8,11 @@ Status: Overall direction accepted. M1 implementation is in progress.
 
 The C++20 static target `hibiki::physics` exports the build-information API and the public `HibikiPhysics::Plugin` base class. The Windows toolchain, editor, debugger and environment reproduction have passed validation. [Windows acceptance record](environment/acceptance.md).
 
-Plugin authors include `<HibikiPhysics/Plugin.h>` and override `OnMount(PluginContext&)`. A plugin with dependencies also overrides `Declare(Dependencies&) const` and calls `Require<Protocol>(slot)`. `CapabilityConfig::Mount` collects these requirements, selects the registered references, validates them and invokes the callback. The caller retains the returned scope for the lifetime of its registrations. Callers with their own bindings can also use `Plugin::Mount` directly.
+Plugin authors include `<HibikiPhysics/Plugin.h>`. A `CapabilitySlot<T>` names a protocol and preserves its const qualification. `MakePlugin(callback, slots...)` uses the same descriptors to declare dependencies and pass the corresponding references to the callback in order. A callback can take a mounting context as its first parameter to retain registrations. The explicit `Plugin::Declare` and `OnMount` interface remains available.
 
-The installed-package example registers an integer with `Add`, copies the configuration and uses `Replace` to select a second integer for the experiment. `Build` creates each context from the same declared requirements. Writing through the two contexts updates their respective integers. [Consumer source](../examples/install-consumer/PluginConsumer.cpp).
+The installed example defines an integer composition once. The experiment copies it and replaces one factory using the same slot. A factory returns a fresh `std::unique_ptr` for each scope requesting that slot. `Mount` validates the requirements before constructing providers and injects the selected integer into the callback. `Build` offers the same ownership model for explicit requirements. [Consumer source](../examples/install-consumer/PluginConsumer.cpp).
 
-During mounting, `Keep` takes ownership of an RAII registration. The caller keeps the plugin and its providers alive until outstanding calls finish and the scope releases its registrations in reverse order. An installed-package integration test exercises a concrete plugin, provider selection and scope cleanup. [Lifecycle test](../tests/install-consumer/PluginLifecycle.cpp).
+The caller holds the returned scope while its registrations are in use. The scope releases mounting effects before its factory-owned providers, including on failure. `Borrow` binds an existing provider whose lifetime the caller manages. [Factory and injection tests](../tests/install-consumer/ProviderFactories.cpp).
 
 ## Accepted directions
 
