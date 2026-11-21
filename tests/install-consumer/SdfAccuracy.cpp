@@ -1,11 +1,10 @@
 #include <HibikiPhysics/SdfBaker.h>
+#include "../fixtures/ExperimentMetrics.h"
 #include "../fixtures/ThroughHolePlate.h"
 #include <algorithm>
-#include <bit>
 #include <charconv>
 #include <chrono>
 #include <cmath>
-#include <cstdint>
 #include <iomanip>
 #include <iostream>
 #include <limits>
@@ -13,14 +12,6 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
-
-#ifdef _WIN32
-#define NOMINMAX
-#include <windows.h>
-#include <psapi.h>
-#else
-#include <sys/resource.h>
-#endif
 
 using namespace HibikiPhysics;
 namespace
@@ -160,32 +151,6 @@ Errors WallDisplacements(const DenseSdfGrid &grid)
 	return displacements;
 }
 
-std::uint64_t PeakResidentBytes()
-{
-#ifdef _WIN32
-	PROCESS_MEMORY_COUNTERS counters{};
-	Require(GetProcessMemoryInfo(GetCurrentProcess(), &counters, sizeof(counters)) != 0, "peak working set unavailable");
-	return counters.PeakWorkingSetSize;
-#else
-	rusage usage{};
-	Require(getrusage(RUSAGE_SELF, &usage) == 0, "peak resident memory unavailable");
-#ifdef __APPLE__
-	return static_cast<std::uint64_t>(usage.ru_maxrss);
-#else
-	return static_cast<std::uint64_t>(usage.ru_maxrss) * 1024;
-#endif
-#endif
-}
-
-// A word-wise fingerprint covers every binary64 node, including padding.
-std::uint64_t GridFingerprint(const DenseSdfGrid &grid)
-{
-	std::uint64_t hash = 14695981039346656037ULL;
-	for (double value : grid.GetValues())
-		hash = (hash ^ std::bit_cast<std::uint64_t>(value)) * 1099511628211ULL;
-	return hash;
-}
-
 void Run(double spacingMm, double phase, std::size_t workers)
 {
 	CheckReference();
@@ -194,7 +159,7 @@ void Run(double spacingMm, double phase, std::size_t workers)
 	const auto			  start = std::chrono::steady_clock::now();
 	const auto			  grid = BakeDenseSdf(mesh, settings);
 	const double		  seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - start).count();
-	const auto			  peak = PeakResidentBytes();
+	const auto			  peak = Test::PeakResidentBytes();
 
 	const Errors nodes = NodeErrors(grid), probes = ProbeErrors(grid), walls = WallDisplacements(grid);
 	const double centre = grid.Sample({}).value();
@@ -213,7 +178,7 @@ void Run(double spacingMm, double phase, std::size_t workers)
 	std::cout << std::setprecision(17)
 			  << "{\"build\":\"" HIBIKI_EXPERIMENT_BUILD "\",\"compiler\":\"" HIBIKI_EXPERIMENT_COMPILER "\""
 			  << ",\"spacing_mm\":" << spacingMm << ",\"phase_xy_cells\":" << phase
-			  << ",\"requested_workers\":" << workers << ",\"grid_fingerprint\":\"" << std::hex << GridFingerprint(grid) << std::dec << "\""
+			  << ",\"requested_workers\":" << workers << ",\"grid_fingerprint\":\"" << std::hex << Test::GridFingerprint(grid) << std::dec << "\""
 			  << ",\"grid_shape\":[" << nx << ',' << ny << ',' << nz << "],\"nodes\":" << grid.GetValues().size()
 			  << ",\"grid_bytes\":" << grid.GetValues().size() * sizeof(double) << ",\"peak_resident_bytes\":" << peak
 			  << ",\"bake_s\":" << seconds << ",\"node_probes\":" << nodes.count

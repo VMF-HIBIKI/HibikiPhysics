@@ -3,6 +3,16 @@ project(HibikiPhysicsInstalledTests LANGUAGES CXX)
 find_package(HibikiPhysics CONFIG REQUIRED)
 enable_testing()
 
+add_executable(hibiki_spatial_benchmark SpatialBenchmark.cpp)
+target_link_libraries(hibiki_spatial_benchmark PRIVATE hibiki::physics)
+target_compile_definitions(hibiki_spatial_benchmark PRIVATE
+    HIBIKI_EXPERIMENT_BUILD="$<CONFIG>"
+    HIBIKI_EXPERIMENT_COMPILER="${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+if(WIN32)
+    target_link_libraries(hibiki_spatial_benchmark PRIVATE psapi)
+endif()
+add_test(NAME spatial.benchmark_smoke COMMAND hibiki_spatial_benchmark --smoke)
+
 add_executable(hibiki_dense_sdf_grid DenseSdfGrid.cpp)
 target_link_libraries(hibiki_dense_sdf_grid PRIVATE hibiki::physics)
 add_test(NAME geometry.dense_sdf_grid COMMAND hibiki_dense_sdf_grid)
