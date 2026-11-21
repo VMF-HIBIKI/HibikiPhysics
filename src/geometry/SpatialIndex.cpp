@@ -1,4 +1,4 @@
-#include <HibikiPhysics/SpatialIndex.h>
+#include "SpatialTree.h"
 
 #include <algorithm>
 #include <cmath>
@@ -9,10 +9,8 @@
 
 namespace HibikiPhysics
 {
-namespace
+namespace Detail
 {
-using Point = std::array<double, 3>;
-using Pairs = std::vector<std::pair<std::size_t, std::size_t>>;
 
 void RequireFinite(const Point &point)
 {
@@ -133,165 +131,162 @@ double DistanceLowerBound(const Point &point, const AABB &bounds)
 	return std::nextafter(distance * (1 - 8 * std::numeric_limits<double>::epsilon()), 0.0);
 }
 
-class CpuBvh final : public SpatialQueryIndex
+std::vector<SpatialEntry> CopySpatialEntries(std::span<const SpatialEntry> input)
 {
-  public:
-	explicit CpuBvh(std::span<const SpatialEntry> input)
+	if (!input.empty() && input.size() - 1 > (std::vector<BvhNode>{}.max_size() - 1) / 2)
+		throw std::length_error("Too many spatial entries");
+	std::vector<SpatialEntry> entries(input.begin(), input.end());
+	for (const auto &entry : entries)
+		RequireFinite(entry.mBounds);
+	std::ranges::sort(entries, {}, &SpatialEntry::mId);
+	if (std::ranges::adjacent_find(entries, {}, &SpatialEntry::mId) != entries.end())
+		throw std::invalid_argument("Duplicate spatial entry ID");
+	return entries;
+}
+
+std::vector<std::size_t> SpatialTreeIndex::Overlaps(const AABB &bounds) const
+{
+	RequireFinite(bounds);
+	return Candidates([&](const AABB &node)
+					  { return Intersects(bounds, node); });
+}
+
+Pairs SpatialTreeIndex::OverlapPairs() const
+{
+	Pairs result;
+	// Each pair of leaves has exactly one lowest common ancestor.
+	for (std::size_t i = 0; i < mNodes.size(); ++i)
+		if (!mNodes[i].IsLeaf())
+			CrossPairs(i + 1, mNodes[i].mRight, result);
+	std::ranges::sort(result);
+	return result;
+}
+
+std::vector<std::size_t> SpatialTreeIndex::RayCandidates(Point origin, Point direction) const
+{
+	RequireFinite(origin);
+	RequireFinite(direction);
+	return Candidates([&](const AABB &bounds)
+					  { return RayIntersects(origin, direction, bounds); });
+}
+
+std::optional<SpatialNearest> SpatialTreeIndex::Nearest(Point point, const std::function<double(std::size_t)> &exactDistance) const
+{
+	RequireFinite(point);
+	if (!exactDistance)
+		throw std::invalid_argument("Missing exact primitive distance callback");
+	std::optional<SpatialNearest> best;
+	if (!mNodes.empty())
+		VisitNearest(0, 0, point, exactDistance, best);
+	return best;
+}
+
+template <class Predicate>
+std::vector<std::size_t> SpatialTreeIndex::Candidates(Predicate intersects) const
+{
+	std::vector<std::size_t> ids;
+	auto					 visit = [&](auto &self, std::size_t index) -> void
 	{
-		if (input.empty())
+		const auto &node = mNodes[index];
+		if (!intersects(node.mBounds))
 			return;
-		std::vector<SpatialEntry> entries(input.begin(), input.end());
-		for (const auto &entry : entries)
-			RequireFinite(entry.mBounds);
-		std::ranges::sort(entries, {}, &SpatialEntry::mId);
-		if (std::ranges::adjacent_find(entries, {}, &SpatialEntry::mId) != entries.end())
-			throw std::invalid_argument("Duplicate spatial entry ID");
-		if (entries.size() - 1 > (mNodes.max_size() - 1) / 2)
-			throw std::length_error("Too many spatial entries");
-		mNodes.reserve(entries.size() + (entries.size() - 1));
-		Build(entries);
-	}
-
-	std::vector<std::size_t> Overlaps(const AABB &bounds) const override
-	{
-		RequireFinite(bounds);
-		return Candidates([&](const AABB &node)
-						  { return Intersects(bounds, node); });
-	}
-
-	Pairs OverlapPairs() const override
-	{
-		Pairs result;
-		// Each pair of leaves has exactly one lowest common ancestor.
-		for (std::size_t i = 0; i < mNodes.size(); ++i)
-			if (!mNodes[i].IsLeaf())
-				CrossPairs(i + 1, mNodes[i].mRight, result);
-		std::ranges::sort(result);
-		return result;
-	}
-
-	std::vector<std::size_t> RayCandidates(Point origin, Point direction) const override
-	{
-		RequireFinite(origin);
-		RequireFinite(direction);
-		return Candidates([&](const AABB &bounds)
-						  { return RayIntersects(origin, direction, bounds); });
-	}
-
-	std::optional<SpatialNearest> Nearest(Point point, const std::function<double(std::size_t)> &exactDistance) const override
-	{
-		RequireFinite(point);
-		if (!exactDistance)
-			throw std::invalid_argument("Missing exact primitive distance callback");
-		std::optional<SpatialNearest> best;
-		if (!mNodes.empty())
-			VisitNearest(0, 0, point, exactDistance, best);
-		return best;
-	}
-
-  private:
-	// Preorder layout places the left child immediately after its parent.
-	struct Node
-	{
-		AABB		mBounds;
-		std::size_t mRight = 0;
-		std::size_t mId = 0;
-		bool		IsLeaf() const { return mRight == 0; }
-	};
-	std::vector<Node> mNodes;
-
-	std::size_t Build(std::span<SpatialEntry> entries)
-	{
-		const auto index = mNodes.size();
-		mNodes.push_back({Enclose(entries)});
-		if (entries.size() == 1)
+		if (node.IsLeaf())
+			ids.push_back(node.mId);
+		else
 		{
-			mNodes[index].mId = entries.front().mId;
-			return index;
+			self(self, index + 1);
+			self(self, node.mRight);
 		}
-		const auto axis = LongestAxis(mNodes[index].mBounds);
-		const auto middle = entries.size() / 2;
-		auto	   key = [axis](const SpatialEntry &entry)
+	};
+	if (!mNodes.empty())
+		visit(visit, 0);
+	std::ranges::sort(ids);
+	return ids;
+}
+
+void SpatialTreeIndex::CrossPairs(std::size_t a, std::size_t b, Pairs &out) const
+{
+	if (!Intersects(mNodes[a].mBounds, mNodes[b].mBounds))
+		return;
+	if (mNodes[a].IsLeaf())
+	{
+		if (mNodes[b].IsLeaf())
 		{
-			return std::pair(std::midpoint(entry.mBounds.GetMin()[axis], entry.mBounds.GetMax()[axis]), entry.mId);
-		};
-		std::ranges::nth_element(entries, entries.begin() + static_cast<std::ptrdiff_t>(middle), {}, key);
-		Build(entries.first(middle));
-		mNodes[index].mRight = Build(entries.subspan(middle));
+			out.emplace_back(std::minmax(mNodes[a].mId, mNodes[b].mId));
+			return;
+		}
+		std::swap(a, b);
+	}
+	CrossPairs(b, a + 1, out);
+	CrossPairs(b, mNodes[a].mRight, out);
+}
+
+void SpatialTreeIndex::VisitNearest(std::size_t index, double lower, const Point &point, const std::function<double(std::size_t)> &exactDistance, std::optional<SpatialNearest> &best) const
+{
+	if (best && lower > best->mDistance)
+		return;
+	const auto &node = mNodes[index];
+	if (node.IsLeaf())
+	{
+		const double distance = exactDistance(node.mId);
+		if (!(distance >= 0))
+			throw std::invalid_argument("Exact primitive distance must be nonnegative");
+		if (std::isfinite(distance) && (!best || distance < best->mDistance || (distance == best->mDistance && node.mId < best->mId)))
+			best = SpatialNearest{node.mId, distance};
+		return;
+	}
+	auto   near = index + 1, far = node.mRight;
+	double nearDistance = DistanceLowerBound(point, mNodes[near].mBounds), farDistance = DistanceLowerBound(point, mNodes[far].mBounds);
+	if (farDistance < nearDistance)
+	{
+		std::swap(near, far);
+		std::swap(nearDistance, farDistance);
+	}
+	VisitNearest(near, nearDistance, point, exactDistance, best);
+	VisitNearest(far, farDistance, point, exactDistance, best);
+}
+} // namespace Detail
+
+namespace
+{
+using namespace Detail;
+
+std::size_t BuildMedian(std::vector<BvhNode> &nodes, std::span<SpatialEntry> entries)
+{
+	const auto index = nodes.size();
+	nodes.push_back({Enclose(entries)});
+	if (entries.size() == 1)
+	{
+		nodes[index].mId = entries.front().mId;
 		return index;
 	}
-
-	template <class Predicate>
-	std::vector<std::size_t> Candidates(Predicate intersects) const
+	const auto axis = LongestAxis(nodes[index].mBounds);
+	const auto middle = entries.size() / 2;
+	auto	   key = [axis](const SpatialEntry &entry)
 	{
-		std::vector<std::size_t> ids;
-		auto					 visit = [&](auto &self, std::size_t index) -> void
-		{
-			const auto &node = mNodes[index];
-			if (!intersects(node.mBounds))
-				return;
-			if (node.IsLeaf())
-				ids.push_back(node.mId);
-			else
-			{
-				self(self, index + 1);
-				self(self, node.mRight);
-			}
-		};
-		if (!mNodes.empty())
-			visit(visit, 0);
-		std::ranges::sort(ids);
-		return ids;
-	}
-
-	void CrossPairs(std::size_t a, std::size_t b, Pairs &out) const
-	{
-		if (!Intersects(mNodes[a].mBounds, mNodes[b].mBounds))
-			return;
-		if (mNodes[a].IsLeaf())
-		{
-			if (mNodes[b].IsLeaf())
-			{
-				out.emplace_back(std::minmax(mNodes[a].mId, mNodes[b].mId));
-				return;
-			}
-			std::swap(a, b);
-		}
-		CrossPairs(b, a + 1, out);
-		CrossPairs(b, mNodes[a].mRight, out);
-	}
-
-	void VisitNearest(std::size_t index, double lower, const Point &point, const std::function<double(std::size_t)> &exactDistance, std::optional<SpatialNearest> &best) const
-	{
-		if (best && lower > best->mDistance)
-			return;
-		const auto &node = mNodes[index];
-		if (node.IsLeaf())
-		{
-			const double distance = exactDistance(node.mId);
-			if (!(distance >= 0))
-				throw std::invalid_argument("Exact primitive distance must be nonnegative");
-			if (std::isfinite(distance) && (!best || distance < best->mDistance || (distance == best->mDistance && node.mId < best->mId)))
-				best = SpatialNearest{node.mId, distance};
-			return;
-		}
-		auto   near = index + 1, far = node.mRight;
-		double nearDistance = DistanceLowerBound(point, mNodes[near].mBounds), farDistance = DistanceLowerBound(point, mNodes[far].mBounds);
-		if (farDistance < nearDistance)
-		{
-			std::swap(near, far);
-			std::swap(nearDistance, farDistance);
-		}
-		VisitNearest(near, nearDistance, point, exactDistance, best);
-		VisitNearest(far, farDistance, point, exactDistance, best);
-	}
-};
+		return std::pair(std::midpoint(entry.mBounds.GetMin()[axis], entry.mBounds.GetMax()[axis]), entry.mId);
+	};
+	std::ranges::nth_element(entries, entries.begin() + static_cast<std::ptrdiff_t>(middle), {}, key);
+	BuildMedian(nodes, entries.first(middle));
+	nodes[index].mRight = BuildMedian(nodes, entries.subspan(middle));
+	return index;
+}
 
 template <class Provider, class Index>
 class CpuProvider final : public Provider
 {
   public:
-	std::unique_ptr<const Index> Build(std::span<const SpatialEntry> entries) const override { return std::make_unique<CpuBvh>(entries); }
+	std::unique_ptr<const Index> Build(std::span<const SpatialEntry> entries) const override
+	{
+		auto				 owned = CopySpatialEntries(entries);
+		std::vector<BvhNode> nodes;
+		if (!owned.empty())
+		{
+			nodes.reserve(owned.size() + (owned.size() - 1));
+			BuildMedian(nodes, owned);
+		}
+		return std::make_unique<SpatialTreeIndex>(std::move(nodes));
+	}
 };
 } // namespace
 
