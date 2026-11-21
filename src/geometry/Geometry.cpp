@@ -24,9 +24,126 @@ void ValidatePoint(const std::array<double, 3> &inPoint)
 
 constexpr double Infinity = std::numeric_limits<double>::infinity();
 
+bool IsFinite(Vec3 inVector)
+{
+	return std::isfinite(inVector.mX) && std::isfinite(inVector.mY) && std::isfinite(inVector.mZ);
+}
+
+std::array<double, 3> LocalPoint(const Transform &inWorldFromLocal, Vec3 inWorldPoint)
+{
+	if (!IsFinite(inWorldPoint))
+		throw std::invalid_argument("Expected a finite world point");
+	const Vec3 local = inWorldFromLocal.GetRotation().Inverse().Rotate(inWorldPoint - inWorldFromLocal.GetPosition());
+	if (!IsFinite(local))
+		throw std::overflow_error("World-to-local point conversion exceeds finite range");
+	return {local.mX, local.mY, local.mZ};
+}
+
 AABB CenteredBounds(const std::array<double, 3> &inHalf)
 {
 	return {{-inHalf[0], -inHalf[1], -inHalf[2]}, inHalf};
+}
+
+struct Interval
+{
+	double mMin, mMax;
+};
+
+Interval SymmetricInterval(double inExtent)
+{
+	if (!std::isfinite(inExtent))
+		throw std::overflow_error("Projected half extent exceeds finite range");
+	return {-inExtent, inExtent};
+}
+
+// The projection of a capsule adds the radius to the projected half spine.
+// Round outward when the representable sum falls short of the tip.
+double CapsuleExtent(double inRadius, double inHalfSpine)
+{
+	double extent = inRadius + inHalfSpine;
+	if (extent - std::max(inRadius, inHalfSpine) < std::min(inRadius, inHalfSpine))
+		extent = std::nextafter(extent, Infinity);
+	if (!std::isfinite(extent))
+		throw std::overflow_error("Capsule AABB exceeds finite range");
+	return extent;
+}
+
+// Each direction is a world unit axis expressed in the shape's local frame.
+Interval ProjectLocal(Plane, Vec3 d)
+{
+	if (d.mX == 0 && d.mY == 0)
+		return {0, 0};
+	return {-Infinity, Infinity};
+}
+
+Interval ProjectLocal(HalfSpace inShape, Vec3 d)
+{
+	Interval interval = ProjectLocal(inShape.GetBoundary(), d);
+	if (d.mZ > 0)
+		interval.mMin = -Infinity;
+	else
+		interval.mMax = Infinity;
+	return interval;
+}
+
+Interval ProjectLocal(const RectangularPatch &inShape, Vec3 d)
+{
+	const auto [hx, hy] = inShape.GetHalfExtents();
+	return SymmetricInterval(hx * std::abs(d.mX) + hy * std::abs(d.mY));
+}
+
+Interval ProjectLocal(const Sphere &inShape, Vec3)
+{
+	return SymmetricInterval(inShape.GetRadius());
+}
+
+Interval ProjectLocal(const Box &inShape, Vec3 d)
+{
+	const auto [hx, hy, hz] = inShape.GetHalfExtents();
+	return SymmetricInterval(hx * std::abs(d.mX) + hy * std::abs(d.mY) + hz * std::abs(d.mZ));
+}
+
+Interval ProjectLocal(const Capsule &inShape, Vec3 d)
+{
+	return SymmetricInterval(CapsuleExtent(inShape.GetRadius(), inShape.GetHalfCylinderLength() * std::abs(d.mZ)));
+}
+
+Interval ProjectLocal(const Cylinder &inShape, Vec3 d)
+{
+	const double disk = inShape.GetRadius() * std::hypot(d.mX, d.mY);
+	return SymmetricInterval(disk + inShape.GetHalfHeight() * std::abs(d.mZ));
+}
+
+Interval ProjectLocal(const Ellipsoid &inShape, Vec3 d)
+{
+	const auto [a, b, c] = inShape.GetSemiAxes();
+	return SymmetricInterval(std::hypot(a * d.mX, b * d.mY, c * d.mZ));
+}
+
+double TranslateEndpoint(double inEndpoint, double inOffset)
+{
+	if (std::isinf(inEndpoint))
+		return inEndpoint;
+	const double result = inEndpoint + inOffset;
+	if (!std::isfinite(result))
+		throw std::overflow_error("World AABB exceeds finite range");
+	return result;
+}
+
+AABB ProjectedBounds(const auto &inShape, const Transform &inWorldFromLocal)
+{
+	constexpr std::array<Vec3, 3> worldAxes = {Vec3{1, 0, 0}, Vec3{0, 1, 0}, Vec3{0, 0, 1}};
+	const Quat					  worldToLocal = inWorldFromLocal.GetRotation().Inverse();
+	const auto [x, y, z] = inWorldFromLocal.GetPosition();
+	const std::array	  offset{x, y, z};
+	std::array<double, 3> low{}, high{};
+	for (std::size_t i = 0; i < worldAxes.size(); ++i)
+	{
+		const Interval interval = ProjectLocal(inShape, worldToLocal.Rotate(worldAxes[i]));
+		low[i] = TranslateEndpoint(interval.mMin, offset[i]);
+		high[i] = TranslateEndpoint(interval.mMax, offset[i]);
+	}
+	return {low, high};
 }
 
 // Normalize only after checking the axis ranges. This keeps squares bounded
@@ -185,17 +302,8 @@ AABB GeometryLibrary::LocalBounds(const Box &inShape) const
 
 AABB GeometryLibrary::LocalBounds(const Capsule &inShape) const
 {
-	auto		 half = inShape.GetHalfExtents();
 	const double r = inShape.GetRadius(), h = inShape.GetHalfCylinderLength();
-	// The subtraction from the larger addend is exact. Round the bound outward
-	// when the representable sum fell short of the mathematical tip.
-	if (half[2] - std::max(r, h) < std::min(r, h))
-	{
-		half[2] = std::nextafter(half[2], Infinity);
-		if (!std::isfinite(half[2]))
-			throw std::overflow_error("Capsule AABB exceeds finite range");
-	}
-	return CenteredBounds(half);
+	return CenteredBounds({r, r, CapsuleExtent(r, h)});
 }
 
 AABB GeometryLibrary::LocalBounds(const Cylinder &inShape) const
@@ -206,6 +314,76 @@ AABB GeometryLibrary::LocalBounds(const Cylinder &inShape) const
 AABB GeometryLibrary::LocalBounds(const Ellipsoid &inShape) const
 {
 	return CenteredBounds(inShape.GetSemiAxes());
+}
+
+bool GeometryLibrary::Contains(HalfSpace inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+bool GeometryLibrary::Contains(const Sphere &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+bool GeometryLibrary::Contains(const Box &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+bool GeometryLibrary::Contains(const Capsule &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+bool GeometryLibrary::Contains(const Cylinder &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+bool GeometryLibrary::Contains(const Ellipsoid &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	return Contains(inShape, LocalPoint(inWorldFromLocal, inWorldPoint));
+}
+
+AABB GeometryLibrary::WorldBounds(Plane inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+AABB GeometryLibrary::WorldBounds(HalfSpace inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+AABB GeometryLibrary::WorldBounds(const RectangularPatch &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+AABB GeometryLibrary::WorldBounds(const Sphere &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+AABB GeometryLibrary::WorldBounds(const Box &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+AABB GeometryLibrary::WorldBounds(const Capsule &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+AABB GeometryLibrary::WorldBounds(const Cylinder &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+AABB GeometryLibrary::WorldBounds(const Ellipsoid &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
 }
 
 std::array<double, 3> GeometryLibrary::ClosestPoint(const RectangularPatch &inPatch, const std::array<double, 3> &inPoint) const

@@ -1,7 +1,9 @@
 #include <HibikiPhysics/Geometry.h>
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <limits>
+#include <numbers>
 
 namespace
 {
@@ -150,6 +152,147 @@ void CheckSolids(const GeometryLibrary &g)
 	}
 }
 
+void CheckWorldContainment(const GeometryLibrary &g)
+{
+	// This exact rotation takes local X to world Y, Y to Z and Z to X.
+	const Transform pose({3, 2, -4}, Quat::FromXYZW({0.5, 0.5, 0.5, 0.5}));
+	const auto		check = [&](const auto &shape, Vec3 inside, Vec3 boundary, Vec3 outside)
+	{
+		for (Vec3 point : {inside, boundary, outside})
+			Check(g.Contains(shape, pose, pose.TransformPoint(point)) == g.Contains(shape, {point.mX, point.mY, point.mZ}), "World and local containment agree");
+		Check(g.Contains(shape, pose, pose.TransformPoint(inside)), "Interior of placed shape");
+		Check(g.Contains(shape, pose, pose.TransformPoint(boundary)), "Closed boundary of placed shape");
+		Check(!g.Contains(shape, pose, pose.TransformPoint(outside)), "Exterior of placed shape");
+	};
+	check(HalfSpace{}, {3, -2, -1}, {3, -2, 0}, {3, -2, 0.25});
+	check(Sphere(1), {0.25, 0.5, 0}, {0, -1, 0}, {0.75, 0.75, 0});
+	check(Box({1, 0.5, 0.25}), {0.75, 0.25, 0}, {-1, 0.5, 0.25}, {0, 0.75, 0});
+	check(Capsule(0.5, 1), {0, 0, 1.25}, {0, 0, -1.5}, {0.5, 0, 1.25});
+	check(Cylinder(0.5, 1), {0.25, 0, 0.75}, {0.5, 0, 1}, {0, 0, 1.25});
+	check(Ellipsoid({2, 1, 0.5}), {1, 0.5, 0.25}, {-2, 0, 0}, {1.5, 0.75, 0});
+	const double nan = std::numeric_limits<double>::quiet_NaN();
+	ExpectError<std::invalid_argument>([&]
+									   { (void)g.Contains(HalfSpace{}, pose, {nan, 0, 0}); });
+}
+
+void CheckCornerBounds(const GeometryLibrary &g, const Box &box, const Transform &pose)
+{
+	const AABB bounds = g.WorldBounds(box, pose);
+	const auto [hx, hy, hz] = box.GetHalfExtents();
+	const double		  inf = std::numeric_limits<double>::infinity();
+	std::array<double, 3> low{inf, inf, inf}, high{-inf, -inf, -inf};
+	for (double x : {-hx, hx})
+		for (double y : {-hy, hy})
+			for (double z : {-hz, hz})
+			{
+				const Vec3		 world = pose.TransformPoint({x, y, z});
+				const std::array corner{world.mX, world.mY, world.mZ};
+				Check(bounds.Contains(corner), "World AABB encloses each transformed corner");
+				for (std::size_t i = 0; i < 3; ++i)
+				{
+					low[i] = std::min(low[i], corner[i]);
+					high[i] = std::max(high[i], corner[i]);
+				}
+			}
+	for (std::size_t i = 0; i < 3; ++i)
+	{
+		Check(std::abs(bounds.GetMin()[i] - low[i]) <= 1e-12, "World AABB minimum matches corner extrema");
+		Check(std::abs(bounds.GetMax()[i] - high[i]) <= 1e-12, "World AABB maximum matches corner extrema");
+	}
+}
+
+void CheckWorldBox(const GeometryLibrary &g)
+{
+	const Box		box({1, 0.5, 0.2});
+	const Vec3		centre{3, 2, 0};
+	const Transform quarterTurn(centre, Quat::FromAxisAngle({0, 0, 1}, std::numbers::pi / 2));
+	const Transform eighthTurn(centre, Quat::FromAxisAngle({0, 0, 1}, std::numbers::pi / 4));
+	for (const auto &pose : {Transform{}, Transform(centre, {}), quarterTurn, eighthTurn, Transform({-2, 0.75, 3}, Quat::FromAxisAngle({1, -2, 3}, 1.13))})
+		CheckCornerBounds(g, box, pose);
+
+	const auto local = g.LocalBounds(box);
+	const auto identity = g.WorldBounds(box, {});
+	Check(identity.GetMin() == local.GetMin() && identity.GetMax() == local.GetMax(), "Identity preserves local bounds");
+	Check(g.Contains(box, quarterTurn, {3.25, 2.75, 0.1}), "Inside the quarter-turned box");
+	Check(g.Contains(box, quarterTurn, {3, 3, 0}), "Centre of the rotated +X face");
+	Check(g.WorldBounds(box, eighthTurn).Contains({4, 1, 0}), "45-degree AABB includes the sample point");
+	Check(!g.Contains(box, eighthTurn, {4, 1, 0}), "45-degree box excludes the same point");
+
+	const double	max = std::numeric_limits<double>::max();
+	const Transform far({max, 0, 0}, {});
+	ExpectError<std::overflow_error>([&]
+									 { (void)g.WorldBounds(Box({max, 1, 1}), far); });
+	ExpectError<std::overflow_error>([&]
+									 { (void)g.Contains(box, far, {-max, 0, 0}); });
+}
+
+void CheckWorldFiniteBounds(const GeometryLibrary &g)
+{
+	const Vec3		centre{3, -2, 1};
+	const Transform turn(centre, Quat::FromAxisAngle({0, 1, 0}, std::numbers::pi / 4));
+	const auto		checkExtent = [&](const auto &shape, std::array<double, 3> half)
+	{
+		const auto		 bounds = g.WorldBounds(shape, turn);
+		const std::array offset{centre.mX, centre.mY, centre.mZ};
+		for (std::size_t i = 0; i < 3; ++i)
+		{
+			Check(std::abs(bounds.GetMin()[i] - (offset[i] - half[i])) < 1e-12, "Tilted shape minimum");
+			Check(std::abs(bounds.GetMax()[i] - (offset[i] + half[i])) < 1e-12, "Tilted shape maximum");
+		}
+		const auto identity = g.WorldBounds(shape, {}), local = g.LocalBounds(shape);
+		Check(identity.GetMin() == local.GetMin() && identity.GetMax() == local.GetMax(), "Identity pose reproduces local bounds");
+	};
+	const double root2 = std::numbers::sqrt2;
+	checkExtent(RectangularPatch({2, 3}), {root2, 3, root2});
+	checkExtent(Capsule(0.5, 2), {root2 + 0.5, 0.5, root2 + 0.5});
+	checkExtent(Cylinder(1, 2), {3 / root2, 1, 3 / root2});
+	checkExtent(Ellipsoid({3, 2, 1}), {std::sqrt(5.0), 2, std::sqrt(5.0)});
+
+	const Sphere sphere(2);
+	for (const auto &rotation : {Quat{}, turn.GetRotation(), Quat::FromAxisAngle({1, -2, 3}, 1.13)})
+	{
+		const Transform pose(centre, rotation);
+		const auto		bounds = g.WorldBounds(sphere, pose);
+		Check(bounds.GetMin() == std::array{1., -4., -1.} && bounds.GetMax() == std::array{5., 0., 3.}, "Sphere bounds are rotation invariant");
+		const auto capsule = g.WorldBounds(Capsule(2, 0), pose);
+		Check(capsule.GetMin() == bounds.GetMin() && capsule.GetMax() == bounds.GetMax(), "Zero-spine capsule agrees with sphere");
+	}
+	const Capsule thin(std::numeric_limits<double>::epsilon() / 4, 1);
+	Check(g.WorldBounds(thin, {}).GetMax() == g.LocalBounds(thin).GetMax(), "Capsule projection preserves outward rounding");
+	const double max = std::numeric_limits<double>::max();
+	ExpectError<std::overflow_error>([&]
+									 { (void)g.WorldBounds(Box({max, 1, max}), turn); });
+}
+
+void CheckWorldUnboundedIntervals(const GeometryLibrary &g)
+{
+	using Point = std::array<double, 3>;
+	const double inf = std::numeric_limits<double>::infinity();
+	const Vec3	 centre{3, -2, 1};
+	const auto	 check = [](const AABB &bounds, Point low, Point high)
+	{
+		Check(bounds.GetMin() == low && bounds.GetMax() == high, "Unbounded AABB endpoints and signs");
+	};
+	const Transform translated(centre, {});
+	check(g.WorldBounds(Plane{}, translated), {-inf, -inf, 1}, {inf, inf, 1});
+	check(g.WorldBounds(HalfSpace{}, translated), {-inf, -inf, -inf}, {inf, inf, 1});
+
+	// Exact signed permutations map the local normal to +X and -X.
+	const Transform positiveX(centre, Quat::FromXYZW({0.5, 0.5, 0.5, 0.5}));
+	const Transform negativeX(centre, Quat::FromXYZW({-0.5, -0.5, 0.5, 0.5}));
+	check(g.WorldBounds(Plane{}, positiveX), {3, -inf, -inf}, {3, inf, inf});
+	check(g.WorldBounds(Plane{}, negativeX), {3, -inf, -inf}, {3, inf, inf});
+	check(g.WorldBounds(HalfSpace{}, positiveX), {-inf, -inf, -inf}, {3, inf, inf});
+	check(g.WorldBounds(HalfSpace{}, negativeX), {3, -inf, -inf}, {inf, inf, inf});
+
+	for (const auto &rotation : {Quat::FromAxisAngle({1, 2, 3}, 0.7), Quat::FromAxisAngle({0, 1, 0}, 1e-14)})
+	{
+		const Transform tilted(centre, rotation);
+		check(g.WorldBounds(Plane{}, tilted), {-inf, -inf, -inf}, {inf, inf, inf});
+		check(g.WorldBounds(HalfSpace{}, tilted), {-inf, -inf, -inf}, {inf, inf, inf});
+	}
+}
+
 void CheckInvalidDimensions()
 {
 	for (double bad : {0.0, -1.0, std::numeric_limits<double>::infinity(), std::numeric_limits<double>::quiet_NaN()})
@@ -197,6 +340,10 @@ int main()
 		const auto &geometry = HibikiPhysics::GeometryLibrarySlot().Get(*scope);
 		CheckBounds(geometry);
 		CheckSolids(geometry);
+		CheckWorldContainment(geometry);
+		CheckWorldBox(geometry);
+		CheckWorldFiniteBounds(geometry);
+		CheckWorldUnboundedIntervals(geometry);
 		return 0;
 	}
 	catch (const std::exception &error)
