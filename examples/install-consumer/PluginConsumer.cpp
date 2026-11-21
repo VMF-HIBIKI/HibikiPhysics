@@ -1,21 +1,28 @@
 #include <HibikiPhysics/Plugin.h>
+#include <memory>
+
+using HibikiPhysics::CapabilityConfig;
+using HibikiPhysics::CapabilitySlot;
+
+CapabilityConfig IntegerDefaults(const CapabilitySlot<int> &inInput)
+{
+	CapabilityConfig config;
+	config.Add(inInput.Factory("baseline", []
+							   { return std::make_unique<int>(10); }));
+	return config;
+}
 
 int main()
 {
-	int defaultValue = 10;
-	int experimentValue = 20;
+	const CapabilitySlot<int> input("input");
+	const auto				  defaults = IntegerDefaults(input);
+	auto					  experiment = defaults;
+	experiment.Replace(input.Factory("trial", []
+									 { return std::make_unique<int>(20); }));
 
-	HibikiPhysics::CapabilityConfig defaults;
-	defaults.Add({"input", "baseline", defaultValue});
-	auto experiment = defaults;
-	experiment.Replace({"input", "trial", experimentValue});
-
-	HibikiPhysics::Dependencies required;
-	required.Require<int>("input");
-	auto baseline = defaults.Build(required);
-	auto trial = experiment.Build(required);
-
-	baseline.Get<int>("input") += 1;
-	trial.Get<int>("input") += 2;
-	return defaultValue == 11 && experimentValue == 22 ? 0 : 1;
+	auto	   increment = HibikiPhysics::MakePlugin([](int &value)
+													 { ++value; }, input);
+	const auto baseline = defaults.Mount(increment);
+	const auto trial = experiment.Mount(increment);
+	return input.Get(*baseline) == 11 && input.Get(*trial) == 21 ? 0 : 1;
 }
