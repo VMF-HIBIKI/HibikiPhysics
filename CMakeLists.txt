@@ -49,6 +49,7 @@ target_include_directories(hibiki_physics PUBLIC
 target_compile_definitions(hibiki_physics PRIVATE
 	HIBIKI_VERSION="${PROJECT_VERSION}"
 	HIBIKI_INTERNAL_ASSERTS=$<NOT:$<CONFIG:Release>>)
+target_sources(hibiki_physics PRIVATE src/geometry/SolidMeshValidation.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/HeightField.cpp)
 if(MSVC)
 	target_compile_options(hibiki_physics PRIVATE /W4 /WX)

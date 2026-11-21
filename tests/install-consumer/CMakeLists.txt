@@ -36,6 +36,10 @@ add_executable(hibiki_provider_graph ProviderGraph.cpp)
 target_link_libraries(hibiki_provider_graph PRIVATE hibiki::physics)
 add_test(NAME plugin.graph COMMAND hibiki_provider_graph)
 
+add_executable(hibiki_solid_validation SolidMeshValidation.cpp)
+target_link_libraries(hibiki_solid_validation PRIVATE hibiki::physics)
+add_test(NAME geometry.solid_validation COMMAND hibiki_solid_validation)
+
 add_executable(hibiki_geometry_plugin GeometryPlugin.cpp)
 target_link_libraries(hibiki_geometry_plugin PRIVATE hibiki::physics)
 add_test(NAME plugin.geometry COMMAND hibiki_geometry_plugin)
