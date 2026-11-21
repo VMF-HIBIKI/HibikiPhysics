@@ -41,3 +41,5 @@ The builder computes each box center with a floating-point midpoint. It normaliz
 Interleaving the three bin indices gives a 63-bit Morton code. The builder orders leaves by code, then by unsigned caller ID. Each range splits at the highest bit at which its first and last codes differ. If both codes match, the split uses the highest differing ID bit. This defines the same tree under input permutation and also handles fully coincident centers. Parents enclose the original child bounds, so quantization only influences grouping. The tree stores one leaf per entry and one internal node per split in preorder.
 
 Both CPU builders share the closed-box intersection, conservative ray and nearest-distance traversal. They return sorted candidate IDs and sorted canonical pairs. For nearest queries, only a finite exact leaf distance updates the result, ties select the smallest ID, and a positive-infinite callback result excludes that primitive.
+
+Overlap clients can also select a provider that augments this preorder hierarchy with escape links. [Stackless Morton BVH traversal](stackless-lbvh.md)
