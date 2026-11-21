@@ -6,6 +6,8 @@
 
 ## 当前实现
 
+公共数学类型 `Vec3`、`Quat` 和 `Transform` 用于向量运算、单位旋转和刚体位姿组合。位姿将点和方向从局部坐标系映射到父坐标系。[四元数与刚体位姿](decisions/0021-quaternion-and-rigid-transform.zh-CN.md)。
+
 几何插件提供八种解析形状及其局部轴对齐包围盒。点查询覆盖平面有符号距离、闭半空间与五种闭实体的包含判断，以及有限矩形面片最近点。应用通过 `config.Add(HibikiPhysics::GeometryLibraryPlugin())` 注册该插件。[几何库决策](decisions/0020-geometry-library-plugin.zh-CN.md)。
 
 C++20 静态库目标 `hibiki::physics` 已公开构建信息接口及 `HibikiPhysics::Plugin` 基类。Windows 工具链、编辑器、调试和环境复现已完成验证。[Windows 验收记录](environment/acceptance.zh-CN.md)。

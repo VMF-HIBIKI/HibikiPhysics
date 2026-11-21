@@ -13,3 +13,7 @@ add_test(NAME consumer.plugin COMMAND hibiki_plugin_consumer)
 add_executable(hibiki_analytic_geometry_example AnalyticGeometry.cpp)
 target_link_libraries(hibiki_analytic_geometry_example PRIVATE hibiki::physics)
 add_test(NAME consumer.geometry COMMAND hibiki_analytic_geometry_example)
+
+add_executable(hibiki_box_pose_example BoxPose.cpp)
+target_link_libraries(hibiki_box_pose_example PRIVATE hibiki::physics)
+add_test(NAME consumer.box-pose COMMAND hibiki_box_pose_example)

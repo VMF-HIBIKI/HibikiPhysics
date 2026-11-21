@@ -34,3 +34,4 @@ Initial decision topics cover the C++/Warp boundary, ownership and handles, nume
 | [ADR-0018: CPU and Warp backend responsibilities](0018-cpu-and-warp-backends.md) | Accepted | Pending implementation and backend experiments |
 | [ADR-0019: World configuration and runtime inputs](0019-world-configuration-and-runtime-inputs.md) | Accepted | Pending implementation |
 | [ADR-0020: Geometry library plugin](0020-geometry-library-plugin.md) | Accepted | Installed-package checks cover registration, eight analytic shapes and local point queries. |
+| [ADR-0021: Quaternions and rigid transforms](0021-quaternion-and-rigid-transform.md) | Accepted | Eigen reference tests and installed box pose example. |
