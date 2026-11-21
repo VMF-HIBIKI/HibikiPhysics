@@ -73,6 +73,8 @@ For example, a friction plugin declares a need for linear-solving capability, an
 
 ### Dependencies and execution order
 
+Provider factories declare typed prerequisite slots alongside their construction callback. The builder validates the complete reachable graph before invoking any factory. It constructs the selected providers in dependency order and records the actual selection in the scope. Failure unwinds the constructed prefix in reverse order, keeping prerequisites alive for their dependents' cleanup.
+
 Construction dependencies describe the capabilities or data needed to prepare and bind plugins; per-step execution order describes when computations occur. The selected execution flow arranges order, loops and repeated calls. For example, contact-data access is bound during construction, while contact updates and friction solving execute according to the step flow, which may request repeated contact updates during iteration.
 
 Execution flows can themselves be supplied by plugins. Dependency connections and computational ordering are expressed separately; concrete task graphs and scheduling protocols belong to the corresponding plugins.

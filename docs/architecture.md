@@ -12,6 +12,8 @@ Plugin authors include `<HibikiPhysics/Plugin.h>`. A `CapabilitySlot<T>` names a
 
 The installed example defines an integer composition once. The experiment copies it and replaces one factory using the same slot. A factory returns a fresh `std::unique_ptr` for each scope requesting that slot. `Mount` validates the requirements before constructing providers and injects the selected integer into the callback. `Build` offers the same ownership model for explicit requirements. [Consumer source](../examples/install-consumer/PluginConsumer.cpp).
 
+Factories can take other providers as arguments. The slots following the factory callback declare those dependencies in argument order. Starting with the requested slots, the builder checks the reachable graph for missing bindings, incompatible reference types and cycles, then constructs each selected provider after its prerequisites. Shared prerequisites have one instance per scope. `PluginContext::GetSelections()` lists the slot, implementation and replacement flag in construction order. [Provider graph test](../tests/install-consumer/ProviderGraph.cpp).
+
 The caller holds the returned scope while its registrations are in use. The scope releases mounting effects before its factory-owned providers, including on failure. `Borrow` binds an existing provider whose lifetime the caller manages. [Factory and injection tests](../tests/install-consumer/ProviderFactories.cpp).
 
 ## Accepted directions
