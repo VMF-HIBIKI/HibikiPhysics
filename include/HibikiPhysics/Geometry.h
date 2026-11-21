@@ -3,6 +3,7 @@
 #include <HibikiPhysics/AnalyticShapes.h>
 #include <HibikiPhysics/Math.h>
 #include <HibikiPhysics/Plugin.h>
+#include <HibikiPhysics/HeightField.h>
 
 namespace HibikiPhysics
 {
@@ -34,6 +35,11 @@ class GeometryLibrary
 	[[nodiscard]] bool Contains(const Capsule &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
 	[[nodiscard]] bool Contains(const Cylinder &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
 	[[nodiscard]] bool Contains(const Ellipsoid &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+
+	[[nodiscard]] bool Contains(const HeightField &inShape, const std::array<double, 3> &inPoint) const;
+	[[nodiscard]] bool Contains(const HeightField &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+	[[nodiscard]] AABB LocalBounds(const HeightField &inShape) const;
+	[[nodiscard]] AABB WorldBounds(const HeightField &inShape, const Transform &inWorldFromLocal) const;
 
 	[[nodiscard]] AABB WorldBounds(Plane inShape, const Transform &inWorldFromLocal) const;
 	[[nodiscard]] AABB WorldBounds(HalfSpace inShape, const Transform &inWorldFromLocal) const;
