@@ -129,6 +129,42 @@ Interval ProjectLocal(const RectangularPatch &inShape, Vec3 d)
 	return SymmetricInterval(hx * std::abs(d.mX) + hy * std::abs(d.mY));
 }
 
+void ExtendProjection(Interval &range, Vec3 v, Vec3 direction)
+{
+	const double projection = v.Dot(direction);
+	if (!std::isfinite(projection))
+		throw std::overflow_error("Vertex projection exceeds finite range");
+	range.mMin = std::min(range.mMin, projection);
+	range.mMax = std::max(range.mMax, projection);
+}
+
+Interval ProjectVertices(const auto &vertices, Vec3 direction)
+{
+	Interval range{Infinity, -Infinity};
+	for (Vec3 v : vertices)
+		ExtendProjection(range, v, direction);
+	return range;
+}
+
+Interval ProjectLocal(const Triangle &inShape, Vec3 d)
+{
+	return ProjectVertices(inShape.GetVertices(), d);
+}
+
+Interval ProjectLocal(const ConvexHull &inShape, Vec3 d)
+{
+	return ProjectVertices(inShape.GetVertices(), d);
+}
+
+Interval ProjectLocal(const TriangleMesh &inShape, Vec3 d)
+{
+	Interval range{Infinity, -Infinity};
+	for (const auto &face : inShape.GetFaces())
+		for (auto index : face)
+			ExtendProjection(range, inShape.GetVertices()[index], d);
+	return range;
+}
+
 Interval ProjectLocal(const Sphere &inShape, Vec3)
 {
 	return SymmetricInterval(inShape.GetRadius());
@@ -416,6 +452,69 @@ bool GeometryLibrary::Contains(const Ellipsoid &inShape, const std::array<double
 {
 	ValidatePoint(inPoint);
 	return InClosedEllipsoid(inPoint, inShape.GetSemiAxes());
+}
+
+bool GeometryLibrary::Contains(const Triangle &inShape, const std::array<double, 3> &inPoint) const
+{
+	return LocalBounds(inShape).Contains(inPoint) && inShape.ContainsPoint({inPoint[0], inPoint[1], inPoint[2]});
+}
+
+AABB GeometryLibrary::LocalBounds(const Triangle &inShape) const
+{
+	return ProjectedBounds(inShape, {});
+}
+
+AABB GeometryLibrary::WorldBounds(const Triangle &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+bool GeometryLibrary::Contains(const Triangle &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	const auto [x, y, z] = LocalPoint(inWorldFromLocal, inWorldPoint);
+	return WorldBounds(inShape, inWorldFromLocal).Contains({inWorldPoint.mX, inWorldPoint.mY, inWorldPoint.mZ}) && inShape.ContainsPoint({x, y, z});
+}
+
+bool GeometryLibrary::Contains(const ConvexHull &inShape, const std::array<double, 3> &inPoint) const
+{
+	return LocalBounds(inShape).Contains(inPoint) && inShape.ContainsPoint({inPoint[0], inPoint[1], inPoint[2]});
+}
+
+AABB GeometryLibrary::LocalBounds(const ConvexHull &inShape) const
+{
+	return ProjectedBounds(inShape, {});
+}
+
+AABB GeometryLibrary::WorldBounds(const ConvexHull &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+bool GeometryLibrary::Contains(const ConvexHull &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	const auto [x, y, z] = LocalPoint(inWorldFromLocal, inWorldPoint);
+	return WorldBounds(inShape, inWorldFromLocal).Contains({inWorldPoint.mX, inWorldPoint.mY, inWorldPoint.mZ}) && inShape.ContainsPoint({x, y, z});
+}
+
+bool GeometryLibrary::Contains(const TriangleMesh &inShape, const std::array<double, 3> &inPoint) const
+{
+	return LocalBounds(inShape).Contains(inPoint) && inShape.ContainsPoint({inPoint[0], inPoint[1], inPoint[2]});
+}
+
+AABB GeometryLibrary::LocalBounds(const TriangleMesh &inShape) const
+{
+	return ProjectedBounds(inShape, {});
+}
+
+AABB GeometryLibrary::WorldBounds(const TriangleMesh &inShape, const Transform &inWorldFromLocal) const
+{
+	return ProjectedBounds(inShape, inWorldFromLocal);
+}
+
+bool GeometryLibrary::Contains(const TriangleMesh &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const
+{
+	const auto [x, y, z] = LocalPoint(inWorldFromLocal, inWorldPoint);
+	return WorldBounds(inShape, inWorldFromLocal).Contains({inWorldPoint.mX, inWorldPoint.mY, inWorldPoint.mZ}) && inShape.ContainsPoint({x, y, z});
 }
 
 AABB GeometryLibrary::LocalBounds(Plane) const

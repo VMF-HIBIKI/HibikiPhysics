@@ -2,6 +2,7 @@
 
 #include <HibikiPhysics/ExtendedShapes.h>
 #include <HibikiPhysics/AnalyticShapes.h>
+#include <HibikiPhysics/DiscreteShapes.h>
 #include <HibikiPhysics/Math.h>
 #include <HibikiPhysics/Plugin.h>
 
@@ -31,6 +32,19 @@ class GeometryLibrary
 	[[nodiscard]] bool					Contains(const Cylinder &inShape, const std::array<double, 3> &inPoint) const;
 	[[nodiscard]] bool					Contains(const Ellipsoid &inShape, const std::array<double, 3> &inPoint) const;
 	[[nodiscard]] std::array<double, 3> ClosestPoint(const RectangularPatch &inPatch, const std::array<double, 3> &inPoint) const;
+
+	[[nodiscard]] bool Contains(const Triangle &inShape, const std::array<double, 3> &inPoint) const;
+	[[nodiscard]] bool Contains(const Triangle &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+	[[nodiscard]] AABB LocalBounds(const Triangle &inShape) const;
+	[[nodiscard]] AABB WorldBounds(const Triangle &inShape, const Transform &inWorldFromLocal) const;
+	[[nodiscard]] bool Contains(const ConvexHull &inShape, const std::array<double, 3> &inPoint) const;
+	[[nodiscard]] bool Contains(const ConvexHull &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+	[[nodiscard]] AABB LocalBounds(const ConvexHull &inShape) const;
+	[[nodiscard]] AABB WorldBounds(const ConvexHull &inShape, const Transform &inWorldFromLocal) const;
+	[[nodiscard]] bool Contains(const TriangleMesh &inShape, const std::array<double, 3> &inPoint) const;
+	[[nodiscard]] bool Contains(const TriangleMesh &inShape, const Transform &inWorldFromLocal, Vec3 inWorldPoint) const;
+	[[nodiscard]] AABB LocalBounds(const TriangleMesh &inShape) const;
+	[[nodiscard]] AABB WorldBounds(const TriangleMesh &inShape, const Transform &inWorldFromLocal) const;
 
 	[[nodiscard]] AABB LocalBounds(Plane) const;
 	[[nodiscard]] AABB LocalBounds(HalfSpace) const;

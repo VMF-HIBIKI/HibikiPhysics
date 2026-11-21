@@ -40,6 +40,7 @@ add_library(hibiki_physics STATIC src/BuildInfo.cpp src/Plugin.cpp src/geometry/
 add_library(hibiki::physics ALIAS hibiki_physics)
 set_target_properties(hibiki_physics PROPERTIES EXPORT_NAME physics)
 target_compile_features(hibiki_physics PUBLIC cxx_std_20)
+target_sources(hibiki_physics PRIVATE src/geometry/DiscreteShapes.cpp)
 target_include_directories(hibiki_physics PUBLIC
 	$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
