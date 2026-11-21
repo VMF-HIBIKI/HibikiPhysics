@@ -38,6 +38,7 @@ endif()
 
 add_library(hibiki_physics STATIC src/BuildInfo.cpp src/Plugin.cpp src/geometry/Geometry.cpp src/math/Math.cpp)
 add_library(hibiki::physics ALIAS hibiki_physics)
+target_sources(hibiki_physics PRIVATE src/geometry/DenseSdfGrid.cpp)
 set_target_properties(hibiki_physics PROPERTIES EXPORT_NAME physics)
 target_compile_features(hibiki_physics PUBLIC cxx_std_20)
 target_sources(hibiki_physics PRIVATE src/geometry/DiscreteShapes.cpp)
