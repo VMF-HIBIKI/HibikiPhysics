@@ -48,6 +48,14 @@ class PluginContext final
 
   public:
 	using Bindings = std::map<std::string, std::any, std::less<>>;
+	struct Selection
+	{
+		std::string mSlot;
+		std::string mImplementation;
+		bool		mReplaced;
+	};
+	// Provider construction order in a scope assembled by CapabilityConfig.
+	[[nodiscard]] std::span<const Selection> GetSelections() const noexcept { return mSelections; }
 
 	explicit PluginContext(Bindings inBindings = {});
 	void Validate(const Dependencies &inDependencies) const;
@@ -73,6 +81,7 @@ class PluginContext final
 
   private:
 	PluginContext(const CapabilityConfig &inConfig, const Dependencies &inDependencies);
+	std::vector<Selection>			   mSelections;
 	Bindings						   mBindings;
 	std::vector<std::shared_ptr<void>> mRegistrations;
 };
@@ -119,6 +128,7 @@ class CapabilityRegistration
 	std::string		mImplementation;
 	std::type_index mBindingType;
 	Binder			mBind;
+	Dependencies	mDependencies;
 };
 
 // A protocol type and its stable name together distinguish slots sharing the same C++ type.
@@ -139,12 +149,18 @@ class CapabilitySlot
 	}
 
 	// A copyable factory returns a unique_ptr to a fresh provider on each call.
-	template <class Create>
-	[[nodiscard]] CapabilityRegistration Factory(std::string inImplementation, Create inCreate) const
+	template <class Create, class... Required>
+	[[nodiscard]] CapabilityRegistration Factory(std::string inImplementation, Create inCreate, CapabilitySlot<Required>... inRequired) const
 	{
-		return {mName, std::move(inImplementation), typeid(std::reference_wrapper<Protocol>),
-				[create = std::move(inCreate)](PluginContext &ioContext)
-				{ return BindOwned(ioContext, std::invoke(create)); }};
+		Dependencies dependencies;
+		(inRequired.Declare(dependencies), ...);
+		auto bind = [create = std::move(inCreate), ... slots = std::move(inRequired)](PluginContext &ioContext)
+		{
+			return BindOwned(ioContext, std::invoke(create, slots.Get(ioContext)...));
+		};
+		CapabilityRegistration registration(mName, std::move(inImplementation), typeid(std::reference_wrapper<Protocol>), std::move(bind));
+		registration.mDependencies = std::move(dependencies);
+		return registration;
 	}
 
   private:
@@ -217,6 +233,7 @@ class CapabilityConfig
 		std::type_index				   mBindingType;
 		CapabilityRegistration::Binder mBind;
 		bool						   mReplaced;
+		Dependencies				   mDependencies;
 	};
 	void									  Bind(PluginContext &ioContext, const Dependencies &inDependencies) const;
 	std::map<std::string, Entry, std::less<>> mEntries;

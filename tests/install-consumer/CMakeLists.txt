@@ -15,3 +15,7 @@ add_test(NAME plugin.registration COMMAND hibiki_capability_registration)
 add_executable(hibiki_provider_factories ProviderFactories.cpp)
 target_link_libraries(hibiki_provider_factories PRIVATE hibiki::physics)
 add_test(NAME plugin.factories COMMAND hibiki_provider_factories)
+
+add_executable(hibiki_provider_graph ProviderGraph.cpp)
+target_link_libraries(hibiki_provider_graph PRIVATE hibiki::physics)
+add_test(NAME plugin.graph COMMAND hibiki_provider_graph)

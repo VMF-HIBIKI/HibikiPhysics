@@ -53,7 +53,7 @@ void Plugin::MountDeclared(PluginContext &ioContext, const Dependencies &inDepen
 
 void CapabilityConfig::Add(CapabilityRegistration inDefault)
 {
-	const auto [entry, inserted] = mEntries.try_emplace(inDefault.mCapability, std::move(inDefault.mImplementation), inDefault.mBindingType, std::move(inDefault.mBind), false);
+	const auto [entry, inserted] = mEntries.try_emplace(inDefault.mCapability, std::move(inDefault.mImplementation), inDefault.mBindingType, std::move(inDefault.mBind), false, std::move(inDefault.mDependencies));
 	if (!inserted)
 		throw std::invalid_argument("Capability already registered: " + inDefault.mCapability + " (" + entry->second.mImplementation + ", " + inDefault.mImplementation + "). Use Replace.");
 }
@@ -68,31 +68,70 @@ void CapabilityConfig::Replace(CapabilityRegistration inReplacement)
 		throw std::invalid_argument("Conflicting replacements: " + inReplacement.mCapability + " (" + selected.mImplementation + ", " + inReplacement.mImplementation + ")");
 	if (selected.mBindingType != inReplacement.mBindingType)
 		throw std::invalid_argument("Incompatible replacement type: " + inReplacement.mCapability + " (" + inReplacement.mImplementation + ")");
-	selected = {std::move(inReplacement.mImplementation), inReplacement.mBindingType, std::move(inReplacement.mBind), true};
+	selected = {std::move(inReplacement.mImplementation), inReplacement.mBindingType, std::move(inReplacement.mBind), true, std::move(inReplacement.mDependencies)};
 }
 
 void CapabilityConfig::Bind(PluginContext &ioContext, const Dependencies &inDependencies) const
 {
-	// Capture the selection before user factories can change the configuration.
-	std::vector<std::pair<std::string, Entry>> selected;
-	selected.reserve(inDependencies.GetRequired().size());
-	for (const auto &required : inDependencies.GetRequired())
+	// Each frame walks one declaration in order. Completing it places its factory
+	// after all prerequisites. The first frame holds the caller's requested slots.
+	struct Frame
 	{
+		std::string_view						   mSlot;
+		const Entry								  *mEntry;
+		std::span<const Dependencies::Requirement> mRemaining;
+	};
+	enum class Visit
+	{
+		Visiting,
+		Complete
+	};
+	std::map<std::string_view, Visit>												 visits;
+	std::vector<Frame>																 stack{{{}, nullptr, inDependencies.GetRequired()}};
+	std::vector<std::pair<PluginContext::Selection, CapabilityRegistration::Binder>> plan;
+	while (!stack.empty())
+	{
+		auto &frame = stack.back();
+		if (frame.mRemaining.empty())
+		{
+			if (frame.mEntry)
+			{
+				const auto &entry = *frame.mEntry;
+				plan.emplace_back(PluginContext::Selection{std::string(frame.mSlot), entry.mImplementation, entry.mReplaced}, entry.mBind);
+				visits.at(frame.mSlot) = Visit::Complete;
+			}
+			stack.pop_back();
+			continue;
+		}
+		const auto &required = frame.mRemaining.front();
+		frame.mRemaining = frame.mRemaining.subspan(1);
 		const auto entry = mEntries.find(required.mSlot);
 		if (entry == mEntries.end())
-			throw std::invalid_argument("Missing plugin binding: " + required.mSlot);
+			throw std::invalid_argument("Missing plugin binding: " + required.mSlot + (frame.mEntry ? " required by " + std::string(frame.mSlot) : ""));
 		if (entry->second.mBindingType != required.mBindingType)
-			throw std::invalid_argument("Incompatible plugin binding type: " + required.mSlot);
-		selected.emplace_back(entry->first, entry->second);
+			throw std::invalid_argument("Incompatible plugin binding type: " + required.mSlot + (frame.mEntry ? " required by " + std::string(frame.mSlot) : ""));
+		const auto [visit, first] = visits.try_emplace(entry->first, Visit::Visiting);
+		if (first)
+			stack.push_back({entry->first, &entry->second, entry->second.mDependencies.GetRequired()});
+		else if (visit->second == Visit::Visiting)
+		{
+			std::string path;
+			for (const auto &ancestor : stack)
+				if (ancestor.mEntry)
+					path += std::string(ancestor.mSlot) + " -> ";
+			throw std::invalid_argument("Plugin dependency cycle: " + path + required.mSlot);
+		}
 	}
-	for (const auto &[slot, entry] : selected)
+
+	// Every selected binder is captured before user code can change the configuration.
+	ioContext.mSelections.reserve(plan.size());
+	for (auto &[selection, bind] : plan)
 	{
-		if (ioContext.mBindings.contains(slot))
-			continue;
-		auto binding = entry.mBind(ioContext);
+		auto binding = bind(ioContext);
 		if (!binding.has_value())
-			throw std::runtime_error("Provider factory returned null: " + slot + " (" + entry.mImplementation + ")");
-		ioContext.mBindings.emplace(slot, std::move(binding));
+			throw std::runtime_error("Provider factory returned null: " + selection.mSlot + " (" + selection.mImplementation + ")");
+		ioContext.mBindings.emplace(selection.mSlot, std::move(binding));
+		ioContext.mSelections.push_back(std::move(selection));
 	}
 }
 
