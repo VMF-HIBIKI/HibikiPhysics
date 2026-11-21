@@ -7,3 +7,5 @@
 `Closest` returns a mesh-local surface point, unsigned Euclidean distance in metres, and face ID. The default provider resolves equal distances by the smallest ID. Face interiors, edges and vertices participate. `RayHits` reports forward hits ordered by parameter and then face ID. The parameter multiplies the supplied direction. Face-interior, edge, vertex and coplanar hits are distinguished; shared boundaries can produce several face records at one parameter. Coplanar rays report the first forward intersection with each intersected triangle. Crossing parity belongs to solid classification.
 
 Coordinates and directions must be finite, and ray directions must be nonzero. The leaf test uses scaled double-precision arithmetic and a 32-epsilon barycentric roundoff window for edge classification. Unrepresentable computations can raise `std::overflow_error`.
+
+Near a triangle, the closest-point query refines small distances using scaled determinants of the original coordinates. This preserves representable gaps that would otherwise cancel in the plane projection or at an edge. For signed distances on closed shells, use the [closed mesh SDF](closed-mesh-sdf.md).

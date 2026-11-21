@@ -10,11 +10,17 @@
 
 namespace HibikiPhysics::Detail
 {
+struct ScaledDeterminant
+{
+	double fraction = 0;
+	int	   exponent = 0;
+};
+
 // Exact sign of the homogeneous orientation determinant for finite binary64 coordinates.
 // Each determinant term is a product of two or three integer significands and a power of two.
 // A common exponent of -1074 per factor lets us add the signed terms in fixed base-1024 bins.
 template <std::size_t Dimension>
-int ExactOrientation(const std::array<std::array<double, Dimension>, Dimension + 1> &points)
+int ExactOrientation(const std::array<std::array<double, Dimension>, Dimension + 1> &points, ScaledDeterminant *value = nullptr)
 {
 	static_assert(std::numeric_limits<double>::is_iec559 && sizeof(double) == sizeof(std::uint64_t));
 	constexpr int radixBits = 10;
@@ -52,9 +58,9 @@ int ExactOrientation(const std::array<std::array<double, Dimension>, Dimension +
 			std::uint64_t carry = 0;
 			for (std::size_t i = 0; i < length; ++i)
 			{
-				const auto value = digits[i] * significand + carry;
-				digits[i] = value & mask;
-				carry = value >> radixBits;
+				const auto product = digits[i] * significand + carry;
+				digits[i] = product & mask;
+				carry = product >> radixBits;
 			}
 			while (carry != 0)
 			{
@@ -71,8 +77,37 @@ int ExactOrientation(const std::array<std::array<double, Dimension>, Dimension +
 	{
 		nonzero |= (bins[i] & mask) != 0;
 		bins[i + 1] += bins[i] >> radixBits;
+		bins[i] &= mask;
 	}
-	return bins.back() < 0 ? -1 : (bins.back() > 0 || nonzero);
+	const int sign = bins.back() < 0 ? -1 : (bins.back() > 0 || nonzero);
+	if (value && sign != 0)
+	{
+		if (sign < 0)
+		{
+			// Convert the negative, sign-extended digit array to its magnitude.
+			std::int64_t carry = 0;
+			for (auto &digit : bins)
+			{
+				const auto next = carry - digit;
+				digit = next & mask;
+				carry = next >> radixBits;
+			}
+		}
+		std::size_t high = bins.size() - 1;
+		while (bins[high] == 0)
+			--high;
+		// Retain at least 61 leading bits. Keep the scale separate for determinants
+		// outside binary64 range whose ratio to a face area is still representable.
+		const auto low = high > 6 ? high - 6 : 0;
+		double	   leading = 0;
+		for (std::size_t j = high + 1; j > low; --j)
+			leading = leading * radix + static_cast<double>(bins[j - 1]);
+		value->fraction = sign * std::frexp(leading, &value->exponent);
+		value->exponent += static_cast<int>(low) * radixBits - 1074 * static_cast<int>(Dimension);
+	}
+	else if (value)
+		*value = {};
+	return sign;
 }
 
 using Point2 = std::array<double, 2>;
