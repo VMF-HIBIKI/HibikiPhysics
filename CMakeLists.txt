@@ -42,6 +42,7 @@ target_sources(hibiki_physics PRIVATE src/geometry/MortonSpatialIndex.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/DenseSdfGrid.cpp)
 set_target_properties(hibiki_physics PROPERTIES EXPORT_NAME physics)
 target_compile_features(hibiki_physics PUBLIC cxx_std_20)
+target_sources(hibiki_physics PRIVATE src/geometry/FourWaySpatialIndex.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/SpatialIndex.cpp)
 target_sources(hibiki_physics PRIVATE src/geometry/DiscreteShapes.cpp)
 target_include_directories(hibiki_physics PUBLIC
