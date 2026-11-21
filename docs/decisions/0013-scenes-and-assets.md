@@ -71,11 +71,11 @@ Original geometry remains available for uses such as surface sampling, visualiza
 
 A shared intermediate layer separates source-format concerns from runtime organization and supports a common validation path. Format adapters and user extensions require clear conversion semantics, provenance and handler compatibility. A source asset's supported simulation behavior is established through the selected plugins and acceptance cases.
 
-Concrete data structures, native file syntax, schema/versioning mechanisms, parser libraries, resource-resolution rules, preprocessing algorithms and C++/Python interfaces remain undecided. This record establishes the accepted architecture and responsibilities; implementation remains pending.
+The first native C++ scene description and v1 reader support a sphere and a horizontal plane. The wider schema, external formats, resource resolution, preprocessing and Python interfaces remain open. [Scene assembly](../scene-assembly.md)
 
 ## Validation
 
-Validation status: Pending implementation and import/extension acceptance.
+Installed-package tests compare a native scene with programmatic construction, validate source-linked errors, and exercise bilateral filtering and fixed detector selection across repeated queries. External import and extension acceptance remain pending.
 
 - Construct equivalent supported scenes programmatically and through native/external inputs; compare model semantics and representative simulation behavior.
 - Add a format adapter from an independent project through the public extension mechanism.
