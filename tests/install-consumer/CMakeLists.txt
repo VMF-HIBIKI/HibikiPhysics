@@ -72,6 +72,10 @@ add_executable(hibiki_sweep_and_prune SweepAndPrune.cpp)
 target_link_libraries(hibiki_sweep_and_prune PRIVATE hibiki::physics)
 add_test(NAME spatial.sweep_and_prune COMMAND hibiki_sweep_and_prune)
 
+add_executable(hibiki_incremental_spatial_index IncrementalSpatialIndex.cpp)
+target_link_libraries(hibiki_incremental_spatial_index PRIVATE hibiki::physics)
+add_test(NAME spatial.incremental COMMAND hibiki_incremental_spatial_index)
+
 add_executable(hibiki_height_field HeightField.cpp)
 target_link_libraries(hibiki_height_field PRIVATE hibiki::physics)
 add_test(NAME geometry.height_field COMMAND hibiki_height_field)

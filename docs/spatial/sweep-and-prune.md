@@ -2,6 +2,8 @@
 
 **English** | [简体中文](sweep-and-prune.zh-CN.md)
 
+To reuse endpoint ordering between frames, select the [incremental update provider](incremental-updates.md).
+
 Include `<HibikiPhysics/SweepAndPrune.h>` and call `MakeSweepAndPruneProvider()` to build a CPU overlap index. To select it through the plugin system, add `SweepAndPrunePlugin()` to a `CapabilityConfig`, or pass it to `Replace` if another provider already occupies `SpatialOverlapSlot()`. Its implementation ID is `hibiki.sweep_and_prune`. [Spatial index contract](../geometry/spatial-index.md)
 
 Each entry has a unique caller ID and finite, closed bounds. The index owns its data, and both queries can run concurrently. Face, edge and corner contact count as overlap, including for boxes with zero width on any axis. Nonfinite endpoints in entries or queries and duplicate entry IDs raise `std::invalid_argument`.

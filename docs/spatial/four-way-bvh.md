@@ -2,6 +2,8 @@
 
 **English** | [简体中文](four-way-bvh.zh-CN.md)
 
+To refit moving leaves between frames, select the [incremental update provider](incremental-updates.md).
+
 The BVH4 indexes finite, closed axis-aligned boxes in three dimensions. Jolt's broad phase groups up to four bounding boxes under a parent. This implementation uses that branching factor with double-precision bounds, balanced median partitions and immutable snapshots. Each leaf retains one caller-assigned ID. [Jolt QuadTree](https://github.com/jrouwe/JoltPhysics/blob/master/Jolt/Physics/Collision/BroadPhase/QuadTree.h)
 
 To use the BVH4 with an existing overlap client, replace the registration in its configuration. The standalone factory is `MakeFourWaySpatialOverlapProvider()`. [Spatial capability contract](../geometry/spatial-index.md)

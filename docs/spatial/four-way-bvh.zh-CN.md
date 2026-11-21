@@ -2,6 +2,8 @@
 
 [English](four-way-bvh.md) | **简体中文**
 
+要在相邻帧间重算移动叶子的祖先包围盒，可选择[增量更新提供者](incremental-updates.zh-CN.md)。
+
 BVH4 为三维空间中的有限闭区间轴对齐包围盒建立索引。Jolt 的宽相位树在每个父节点下保存至多四个子包围盒。本实现采用相同的分支数，以双精度边界和中位数划分构建只读快照。每个叶节点保留一个调用方分配的 ID。[Jolt QuadTree](https://github.com/jrouwe/JoltPhysics/blob/master/Jolt/Physics/Collision/BroadPhase/QuadTree.h)
 
 已有重叠查询客户端可以通过配置替换提供者。独立构造提供者使用 `MakeFourWaySpatialOverlapProvider()`。[空间查询能力约定](../geometry/spatial-index.zh-CN.md)
