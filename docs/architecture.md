@@ -6,6 +6,8 @@ Status: Overall direction accepted. M1 implementation is in progress.
 
 ## Current implementation
 
+The first official domain plugin provides a scope-owned geometry library. Applications register it with `config.Add(HibikiPhysics::GeometryLibraryPlugin())`. [Geometry library decision](decisions/0020-geometry-library-plugin.md).
+
 The C++20 static target `hibiki::physics` exports the build-information API and the public `HibikiPhysics::Plugin` base class. The Windows toolchain, editor, debugger and environment reproduction have passed validation. [Windows acceptance record](environment/acceptance.md).
 
 Plugin authors include `<HibikiPhysics/Plugin.h>`. A `CapabilitySlot<T>` names a protocol and preserves its const qualification. `MakePlugin(callback, slots...)` uses the same descriptors to declare dependencies and pass the corresponding references to the callback in order. A callback can take a mounting context as its first parameter to retain registrations. The explicit `Plugin::Declare` and `OnMount` interface remains available.

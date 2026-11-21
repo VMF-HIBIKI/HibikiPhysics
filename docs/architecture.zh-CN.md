@@ -6,6 +6,8 @@
 
 ## 当前实现
 
+首个官方领域插件提供由装配作用域持有的几何库。应用通过 `config.Add(HibikiPhysics::GeometryLibraryPlugin())` 注册该插件。[几何库决策](decisions/0020-geometry-library-plugin.zh-CN.md)。
+
 C++20 静态库目标 `hibiki::physics` 已公开构建信息接口及 `HibikiPhysics::Plugin` 基类。Windows 工具链、编辑器、调试和环境复现已完成验证。[Windows 验收记录](environment/acceptance.zh-CN.md)。
 
 插件作者包含 `<HibikiPhysics/Plugin.h>`。`CapabilitySlot<T>` 将入口名与协议类型关联，并保留只读限定。`MakePlugin(callback, slots...)` 使用同一组描述符声明依赖，并按顺序将对应引用传给回调。需要持有登记凭据的回调可以将挂载上下文作为第一个参数。插件也可以继续显式实现 `Plugin::Declare` 和 `OnMount`。

@@ -19,3 +19,7 @@ add_test(NAME plugin.factories COMMAND hibiki_provider_factories)
 add_executable(hibiki_provider_graph ProviderGraph.cpp)
 target_link_libraries(hibiki_provider_graph PRIVATE hibiki::physics)
 add_test(NAME plugin.graph COMMAND hibiki_provider_graph)
+
+add_executable(hibiki_geometry_plugin GeometryPlugin.cpp)
+target_link_libraries(hibiki_geometry_plugin PRIVATE hibiki::physics)
+add_test(NAME plugin.geometry COMMAND hibiki_geometry_plugin)
