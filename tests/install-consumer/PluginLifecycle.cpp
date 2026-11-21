@@ -25,8 +25,29 @@ class DetectorPlugin final : public Plugin
 {
   public:
 	void Declare(Dependencies &outDeps) const override { outDeps.Require<CollisionService>("collision"); }
-	void Mount(PluginContext &ioContext) override { ioContext.Keep(ioContext.Get<CollisionService>("collision").RegisterDetector()); }
+	int	 mMountCalls = 0;
+
+  protected:
+	void OnMount(PluginContext &ioContext) override
+	{
+		++mMountCalls;
+		ioContext.Keep(ioContext.Get<CollisionService>("collision").RegisterDetector());
+	}
 };
+
+bool RejectsBindings(Plugin &inPlugin, PluginContext::Bindings inBindings, std::string_view inExpected)
+{
+	PluginContext scope(std::move(inBindings));
+	try
+	{
+		inPlugin.Mount(scope);
+	}
+	catch (const std::invalid_argument &error)
+	{
+		return error.what() == inExpected;
+	}
+	return false;
+}
 
 static_assert(std::is_abstract_v<Plugin> && std::has_virtual_destructor_v<Plugin>);
 } // namespace
@@ -35,8 +56,14 @@ int main()
 {
 	using namespace HibikiPhysics;
 	CollisionService		first, second;
-	std::unique_ptr<Plugin> plugin = std::make_unique<DetectorPlugin>();
-	Dependencies			dependencies;
+	auto					detector = std::make_unique<DetectorPlugin>();
+	const int			   &mountCalls = detector->mMountCalls;
+	std::unique_ptr<Plugin> plugin = std::move(detector);
+	if (!RejectsBindings(*plugin, {}, "Missing plugin binding: collision") ||
+		!RejectsBindings(*plugin, {{"collision", std::cref(second)}}, "Incompatible plugin binding type: collision") ||
+		mountCalls != 0)
+		return 7;
+	Dependencies dependencies;
 	plugin->Declare(dependencies);
 
 	PluginContext::Bindings bindings{{"collision", std::ref(second)}};
@@ -46,7 +73,7 @@ int main()
 	{
 		PluginContext scope(bindings);
 		plugin->Mount(scope);
-		if (second.mDetectors.size() != 1 || !first.mDetectors.empty())
+		if (mountCalls != 1 || second.mDetectors.size() != 1 || !first.mDetectors.empty())
 			return 2;
 		const auto *surviving = *second.mDetectors.begin();
 		try

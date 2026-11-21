@@ -23,7 +23,7 @@ Initial decision topics cover the C++/Warp boundary, ownership and handles, nume
 | [ADR-0007: Platform and CI validation](0007-platform-and-ci-validation.md) | Accepted | Pending platform preparation and workflows |
 | [ADR-0008: Linux and macOS toolchain versions](0008-linux-and-macos-toolchains.md) | Accepted | Pending package identities and build verification |
 | [ADR-0009: Default rigid-body research configuration](0009-incremental-potential-rigid-contact.md) | Accepted | Pending implementation and numerical experiments |
-| [ADR-0010: Plugin architecture and lifecycle](0010-plugin-architecture-and-lifecycle.md) | Accepted | Pending architecture prototypes and extension validation |
+| [ADR-0010: Plugin architecture and lifecycle](0010-plugin-architecture-and-lifecycle.md) | Accepted | Installed-package binding and lifecycle checks pass |
 | [ADR-0011: Multi-World batch simulation](0011-multi-world-batch-simulation.md) | Accepted | Pending implementation, isolation and batch validation |
 | [ADR-0012: Usage and runtime modes](0012-usage-and-runtime-modes.md) | Accepted | Pending implementation and workflow acceptance |
 | [ADR-0013: Scenes and assets](0013-scenes-and-assets.md) | Accepted | Pending implementation and import/extension acceptance |

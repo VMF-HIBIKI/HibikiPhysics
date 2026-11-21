@@ -8,11 +8,8 @@ int main()
 
 	int									   value = 10;
 	HibikiPhysics::PluginContext::Bindings bindings{{"input", std::ref(value)}};
-	const auto							  &input = dependencies.GetRequired().front();
-	if (bindings.at(input.mSlot).type() != input.mBindingType)
-		return 1;
-
-	HibikiPhysics::PluginContext context(bindings);
+	HibikiPhysics::PluginContext		   context(bindings);
+	context.Validate(dependencies);
 	context.Get<int>("input") = 12;
-	return value == 12 ? 0 : 2;
+	return value == 12 ? 0 : 1;
 }

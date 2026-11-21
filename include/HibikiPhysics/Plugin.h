@@ -44,6 +44,7 @@ class PluginContext final
 	using Bindings = std::map<std::string, std::any, std::less<>>;
 
 	explicit PluginContext(Bindings inBindings = {});
+	void Validate(const Dependencies &inDependencies) const;
 	~PluginContext();
 	PluginContext(const PluginContext &) = delete;
 	PluginContext &operator=(const PluginContext &) = delete;
@@ -76,7 +77,10 @@ class Plugin
 
 	// Called during scene compilation. The default declares zero dependencies.
 	virtual void Declare(Dependencies &) const {}
-	// Called with this plugin's resolved bindings. The host owns the scope.
-	virtual void Mount(PluginContext &ioContext) = 0;
+	// The host supplies the scope. Validate all declared slots before invoking OnMount.
+	virtual void Mount(PluginContext &ioContext) final;
+
+  protected:
+	virtual void OnMount(PluginContext &ioContext) = 0;
 };
 } // namespace HibikiPhysics
