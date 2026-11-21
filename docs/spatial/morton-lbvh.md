@@ -6,7 +6,7 @@ The CPU Morton provider builds an immutable hierarchy over finite, closed AABBs.
 
 ## Selecting the provider
 
-A client can replace the default median BVH for a particular capability scope. This example requests the full query provider and checks a shared corner.
+The CPU full-query slot defaults to Morton LBVH. This example registers the named implementation and checks a shared corner.
 
 ```cpp
 #include <HibikiPhysics/MortonSpatialIndex.h>
@@ -16,8 +16,7 @@ int main()
 {
     using namespace HibikiPhysics;
     CapabilityConfig config;
-    config.Add(CpuSpatialQueryPlugin());
-    config.Replace(MortonSpatialQueryPlugin());
+    config.Add(MortonSpatialQueryPlugin());
     Dependencies requirements;
     SpatialQuerySlot().Declare(requirements);
     const auto scope = config.Build(requirements);

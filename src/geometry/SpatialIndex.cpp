@@ -1,4 +1,6 @@
 #include "SpatialTree.h"
+#include <HibikiPhysics/MortonSpatialIndex.h>
+#include <HibikiPhysics/StacklessSpatialIndex.h>
 
 #include <algorithm>
 #include <cmath>
@@ -273,7 +275,7 @@ std::size_t BuildMedian(std::vector<BvhNode> &nodes, std::span<SpatialEntry> ent
 }
 
 template <class Provider, class Index>
-class CpuProvider final : public Provider
+class MedianProvider final : public Provider
 {
   public:
 	std::unique_ptr<const Index> Build(std::span<const SpatialEntry> entries) const override
@@ -304,17 +306,32 @@ const CapabilitySlot<SpatialQueryProvider> &SpatialQuerySlot()
 
 CapabilityRegistration CpuSpatialOverlapPlugin()
 {
-	return SpatialOverlapSlot().Factory("hibiki.cpu_bvh", []
-										{ return std::make_unique<CpuProvider<SpatialOverlapProvider, SpatialOverlapIndex>>(); });
+	return StacklessSpatialOverlapPlugin();
 }
 
 CapabilityRegistration CpuSpatialQueryPlugin()
 {
-	return SpatialQuerySlot().Factory("hibiki.cpu_bvh", MakeCpuSpatialQueryProvider);
+	return MortonSpatialQueryPlugin();
 }
 
 std::unique_ptr<SpatialQueryProvider> MakeCpuSpatialQueryProvider()
 {
-	return std::make_unique<CpuProvider<SpatialQueryProvider, SpatialQueryIndex>>();
+	return MakeMortonSpatialQueryProvider();
+}
+
+CapabilityRegistration MedianSpatialOverlapPlugin()
+{
+	return SpatialOverlapSlot().Factory("hibiki.cpu_bvh", []
+										{ return std::make_unique<MedianProvider<SpatialOverlapProvider, SpatialOverlapIndex>>(); });
+}
+
+CapabilityRegistration MedianSpatialQueryPlugin()
+{
+	return SpatialQuerySlot().Factory("hibiki.cpu_bvh", MakeMedianSpatialQueryProvider);
+}
+
+std::unique_ptr<SpatialQueryProvider> MakeMedianSpatialQueryProvider()
+{
+	return std::make_unique<MedianProvider<SpatialQueryProvider, SpatialQueryIndex>>();
 }
 } // namespace HibikiPhysics

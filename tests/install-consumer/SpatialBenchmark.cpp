@@ -115,7 +115,7 @@ void MeasureQueries(const Frame &frame, Measurements &result, BoxQuery boxes, Pa
 Index Build(Name method, const std::vector<SpatialEntry> &entries)
 {
 	if (method == "median")
-		return MakeCpuSpatialQueryProvider()->Build(entries);
+		return MakeMedianSpatialQueryProvider()->Build(entries);
 	if (method == "morton" || method == "batch1" || method == "batch4")
 		return MakeMortonSpatialOverlapProvider()->Build(entries);
 	if (method == "bvh4")
@@ -283,7 +283,7 @@ DenseSdfGrid Bake(Name method, bool smoke, std::ostream &out)
 	Check(method == "median" || method == "morton", "SDF requires a full-query provider");
 	const auto			  mesh = Test::MakeThroughHolePlate();
 	const SdfBakeSettings settings{smoke ? 0.0025 : 0.0005, {0.005, 0.005, 0.005}, {0.5, 0.5, 0}, 1};
-	const auto			  provider = method == "median" ? MakeCpuSpatialQueryProvider() : MakeMortonSpatialQueryProvider();
+	const auto			  provider = method == "median" ? MakeMedianSpatialQueryProvider() : MakeMortonSpatialQueryProvider();
 	const auto			  start = Clock::now();
 	auto				  grid = BakeDenseSdf(mesh, settings, *provider);
 	const auto			  ms = Milliseconds(start);

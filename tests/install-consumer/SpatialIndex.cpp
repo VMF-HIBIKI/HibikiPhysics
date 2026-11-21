@@ -166,6 +166,8 @@ void CheckRegistration()
 	Dependencies overlapOnly;
 	SpatialOverlapSlot().Declare(overlapOnly);
 	const auto defaultScope = defaults.Build(overlapOnly);
+	const auto overlapSelections = defaultScope.GetSelections();
+	Check(overlapSelections.size() == 1 && !overlapSelections[0].mReplaced && overlapSelections[0].mImplementation == "hibiki.stackless_lbvh", "CPU overlap defaults to stackless Morton");
 	HibikiPhysics::Test::CheckOverlapProvider(SpatialOverlapSlot().Get(defaultScope));
 	const AABB						  point({}, {});
 	const std::array<SpatialEntry, 2> entries{{{12, point}, {5, point}}};
@@ -182,7 +184,8 @@ void CheckRegistration()
 	Dependencies rayAndNearest;
 	SpatialQuerySlot().Declare(rayAndNearest);
 	const auto cpu = defaults.Build(rayAndNearest);
-	Check(cpu.GetSelections().size() == 1 && !cpu.GetSelections()[0].mReplaced, "Ray and nearest require one explicit provider");
+	const auto querySelections = cpu.GetSelections();
+	Check(querySelections.size() == 1 && !querySelections[0].mReplaced && querySelections[0].mImplementation == "hibiki.morton_lbvh", "CPU ray and nearest default to Morton");
 	auto		experiment = defaults;
 	std::size_t builds = 0;
 	experiment.Replace(SpatialQuerySlot().Factory("test.counting", [&]
@@ -205,7 +208,7 @@ void CheckRegistration()
 
 int main()
 {
-	const auto provider = HibikiPhysics::MakeCpuSpatialQueryProvider();
+	const auto provider = HibikiPhysics::MakeMedianSpatialQueryProvider();
 	HibikiPhysics::Test::CheckQueryProvider(*provider);
 	CheckBoundaries(*provider);
 	CheckNearest(*provider);

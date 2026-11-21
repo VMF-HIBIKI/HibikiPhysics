@@ -39,7 +39,7 @@ void CheckEscapes()
 void CheckRegistration()
 {
 	CapabilityConfig config;
-	config.Add(CpuSpatialOverlapPlugin());
+	config.Add(MedianSpatialOverlapPlugin());
 	config.Replace(StacklessSpatialOverlapPlugin());
 	Dependencies requirements;
 	SpatialOverlapSlot().Declare(requirements);

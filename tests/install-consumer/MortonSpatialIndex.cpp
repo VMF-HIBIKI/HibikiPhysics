@@ -67,19 +67,26 @@ void CheckQuantization(const SpatialQueryProvider &provider)
 void CheckReplacement()
 {
 	CapabilityConfig config;
-	config.Add(CpuSpatialQueryPlugin());
-	config.Add(CpuSpatialOverlapPlugin());
-	config.Replace(MortonSpatialQueryPlugin());
-	config.Replace(MortonSpatialOverlapPlugin());
+	config.Add(MortonSpatialQueryPlugin());
+	config.Add(MortonSpatialOverlapPlugin());
 	Dependencies requirements;
 	SpatialQuerySlot().Declare(requirements);
 	SpatialOverlapSlot().Declare(requirements);
 	const auto scope = config.Build(requirements);
 	const auto selections = scope.GetSelections();
 	Check(selections.size() == 2 && std::ranges::all_of(selections, [](const auto &selection)
-														{ return selection.mReplaced && selection.mImplementation == "hibiki.morton_lbvh"; }),
+														{ return !selection.mReplaced && selection.mImplementation == "hibiki.morton_lbvh"; }),
 		  "Both Morton registrations selected");
 	Test::CheckOverlapProvider(SpatialOverlapSlot().Get(scope));
+	config.Replace(MedianSpatialQueryPlugin());
+	config.Replace(MedianSpatialOverlapPlugin());
+	const auto median = config.Build(requirements);
+	const auto baseline = median.GetSelections();
+	Check(baseline.size() == 2 && std::ranges::all_of(baseline, [](const auto &selection)
+													  { return selection.mReplaced && selection.mImplementation == "hibiki.cpu_bvh"; }),
+		  "Both median reference replacements selected");
+	Test::CheckOverlapProvider(SpatialOverlapSlot().Get(median));
+	Test::CheckQueryProvider(SpatialQuerySlot().Get(median));
 
 	const auto			  mesh = Test::MakeThroughHolePlate();
 	const SdfBakeSettings settings{.005, {.005, .005, .005}, {.25, .5, 0}, 2};
@@ -101,6 +108,7 @@ int main()
 	const auto provider = HibikiPhysics::MakeMortonSpatialQueryProvider();
 	HibikiPhysics::Test::CheckQueryProvider(*provider);
 	CheckPrefixSplit(*provider);
+	CheckPrefixSplit(*HibikiPhysics::MakeCpuSpatialQueryProvider());
 	CheckQuantization(*provider);
 	CheckReplacement();
 }
