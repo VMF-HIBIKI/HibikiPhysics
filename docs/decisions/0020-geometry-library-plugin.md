@@ -45,6 +45,10 @@ Dimensions are finite and positive, with zero also valid for the capsule's cylin
 
 ## Registration and validation
 
+`Contains(shape, worldFromLocal, worldPoint)` accepts a `Vec3` in metres for a sphere, box, capsule, cylinder, ellipsoid or half-space. It subtracts the shape origin, applies the inverse rotation and uses the local containment rule with zero contact margin.
+
+`WorldBounds(shape, worldFromLocal)` expresses each world axis in local coordinates, obtains the shape's projection interval, then adds the translation along that axis. Each of the eight shapes supplies its own projection. A sphere projects to its radius on either side of its centre for every rotation. The box projects its three half axes. A plane projects to a single coordinate when the computed direction has exactly zero local X and Y components. A half-space on the same axis gives a one-sided interval determined by the sign of the local Z component. Any nonzero tangential component makes both intervals unbounded along that world axis. Coordinate conversion and finite bound calculations report arithmetic overflow with `std::overflow_error`.
+
 `GeometryLibrary::Contains` tests local points against the five closed solids and the closed half-space. Boundaries are included and the double-precision comparisons apply zero contact margin. With radius 0.2 m and axial half-length 0.5 m, a capsule contains (0, 0, 0.6) and a cylinder ends at z = 0.5 m. A capsule with a zero-length spine uses the same membership criterion as a sphere.
 
 `LocalBounds` returns a local axis-aligned bounding box (`AABB`) for each of the eight shapes. Its min/max endpoints define closed intervals. The plane spans both horizontal axes with Z fixed at zero. The half-space spans both horizontal axes and extends down to negative infinity in Z. A patch has finite XY intervals and zero thickness. Infinite interval ends use IEEE infinities. A finite capsule's axial bound rounds outward when needed, and an unrepresentable finite bound raises `std::overflow_error`. Use `AABB::Contains` for box membership and the shape overload for membership in the actual solid.

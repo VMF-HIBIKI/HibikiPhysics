@@ -4,7 +4,7 @@
 
 namespace HibikiPhysics
 {
-// Closed intervals in local XYZ. Individual ends may extend to infinity.
+// Closed intervals along the axes of the query frame. Individual ends may extend to infinity.
 class AABB
 {
   public:

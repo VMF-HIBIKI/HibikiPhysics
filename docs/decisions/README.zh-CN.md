@@ -33,5 +33,5 @@
 | [ADR-0017：状态快照与恢复](0017-snapshots-and-restoration.zh-CN.md) | 已接受 | 待实现与恢复验证 |
 | [ADR-0018：CPU 与 Warp 后端职责](0018-cpu-and-warp-backends.zh-CN.md) | 已接受 | 待实现与后端实验 |
 | [ADR-0019：World 配置与运行输入](0019-world-configuration-and-runtime-inputs.zh-CN.md) | 已接受 | 待实现 |
-| [ADR-0020：几何库插件](0020-geometry-library-plugin.zh-CN.md) | 已接受 | 安装包检查覆盖插件注册、八种基础解析几何和局部点查询。 |
+| [ADR-0020：几何库插件](0020-geometry-library-plugin.zh-CN.md) | 已接受 | 安装包检查覆盖插件注册、局部查询、六种形状的世界点包含判断与八种形状的世界 AABB。 |
 | [ADR-0021：四元数与刚体位姿](0021-quaternion-and-rigid-transform.zh-CN.md) | 已接受 | Eigen 参考测试及安装包盒子位姿示例。 |
