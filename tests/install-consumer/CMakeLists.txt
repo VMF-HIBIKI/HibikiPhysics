@@ -63,3 +63,13 @@ add_test(NAME geometry.height_field COMMAND hibiki_height_field)
 add_executable(hibiki_sdf_baker SdfBaker.cpp)
 target_link_libraries(hibiki_sdf_baker PRIVATE hibiki::physics)
 add_test(NAME sdf.baker COMMAND hibiki_sdf_baker)
+
+add_executable(hibiki_sdf_accuracy SdfAccuracy.cpp)
+target_link_libraries(hibiki_sdf_accuracy PRIVATE hibiki::physics)
+target_compile_definitions(hibiki_sdf_accuracy PRIVATE
+    HIBIKI_EXPERIMENT_BUILD="$<CONFIG>"
+    HIBIKI_EXPERIMENT_COMPILER="${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+if(WIN32)
+    target_link_libraries(hibiki_sdf_accuracy PRIVATE psapi)
+endif()
+add_test(NAME sdf.plate_accuracy_smoke COMMAND hibiki_sdf_accuracy 2.5 0.5)
